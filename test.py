@@ -233,14 +233,53 @@ class JiraTicketTranslator:
     def _format_bilingual_block(self, original: str, translated: str, header: Optional[str] = None) -> str:
         original = (original or "").strip()
         translated = (translated or "").strip()
-        parts = []
+        lines: list[str] = []
         if header:
-            parts.append(header)
-        if original:
-            parts.append(original)
-        if translated:
-            parts.append(f"{{color:#4c9aff}}{translated}{{color}}")
-        return "\n".join(parts).strip()
+            lines.append(header)
+
+        if not original:
+            if translated:
+                lines.append(f"{{color:#4c9aff}}{translated}{{color}}")
+            return "\n".join(lines).strip()
+
+        translation_lines = [line for line in translated.splitlines() if line.strip()]
+        translation_index = 0
+
+        def next_translation_line() -> str:
+            nonlocal translation_index
+            if translation_index < len(translation_lines):
+                line = translation_lines[translation_index]
+                translation_index += 1
+                return line
+            return translated
+
+        for line in original.splitlines():
+            stripped = line.strip()
+            lines.append(line)
+            if not stripped:
+                continue
+            translated_line = next_translation_line().strip()
+            if translated_line:
+                formatted = self._match_translated_line_format(line, translated_line)
+                if formatted:
+                    lines.append(formatted)
+
+        return "\n".join(lines).strip()
+
+    def _match_translated_line_format(self, original_line: str, translated_line: str) -> str:
+        translation = translated_line.strip()
+        if not translation:
+            return ""
+
+        bullet_match = re.match(r"(\s*(?:[-*#]+|\d+\.)\s+)(.*)", original_line)
+        if bullet_match:
+            prefix = bullet_match.group(1)
+            cleaned_translation = self._strip_bullet_prefix(translation)
+            return f"{prefix}{{color:#4c9aff}}{cleaned_translation}{{color}}"
+        return f"{{color:#4c9aff}}{translation}{{color}}"
+
+    def _strip_bullet_prefix(self, text: str) -> str:
+        return re.sub(r"^\s*(?:[-*#]+|\d+\.)\s+", "", text).strip()
 
     def _extract_description_sections(self, text: str) -> list[tuple[str, str]]:
         if not text:
