@@ -3,6 +3,7 @@ import re
 from collections.abc import Sequence
 from typing import Optional
 from urllib.parse import urlparse
+from dotenv import load_dotenv
 
 import requests
 from langchain_openai import ChatOpenAI
@@ -280,6 +281,8 @@ def parse_issue_url(issue_url: str) -> tuple[str, str]:
 
 # 사용 예시
 if __name__ == "__main__":
+
+    load_dotenv()
     # 설정
     JIRA_URL = os.getenv("JIRA_URL", "https://cloud.jira.krafton.com").rstrip("/")
     JIRA_EMAIL = os.getenv("JIRA_EMAIL")
