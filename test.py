@@ -256,7 +256,7 @@ class JiraTicketTranslator:
         for line in original.splitlines():
             stripped = line.strip()
             lines.append(line)
-            if not stripped:
+            if not stripped or self._is_media_line(stripped):
                 continue
             translated_line = next_translation_line().strip()
             if translated_line:
@@ -280,6 +280,17 @@ class JiraTicketTranslator:
 
     def _strip_bullet_prefix(self, text: str) -> str:
         return re.sub(r"^\s*(?:[-*#]+|\d+\.)\s+", "", text).strip()
+
+    def _is_media_line(self, stripped_line: str) -> bool:
+        if not stripped_line:
+            return False
+        if stripped_line.startswith("!"):
+            return True
+        if stripped_line.startswith("[^"):
+            return True
+        if "__IMAGE_PLACEHOLDER" in stripped_line or "__ATTACHMENT_PLACEHOLDER" in stripped_line:
+            return True
+        return False
 
     def _extract_description_sections(self, text: str) -> list[tuple[str, str]]:
         if not text:
