@@ -12,7 +12,9 @@ from langchain_core.prompts import ChatPromptTemplate
 
 class JiraTicketTranslator:
     """Jira 티켓을 번역하면서 이미지/첨부파일 마크업을 유지하는 클래스"""
-    
+
+    DESCRIPTION_SECTIONS = ("Observed", "Expected Result", "Note")
+
     def __init__(self, jira_url: str, email: str, api_token: str, openai_api_key: str):
         """
         Args:
@@ -30,9 +32,8 @@ class JiraTicketTranslator:
         
         # LangChain LLM 초기화
         self.llm = ChatOpenAI(
-            model="gpt-4o",
-            api_key=openai_api_key,
-            temperature=0
+            model="gpt-5-mini",
+            api_key=openai_api_key
         )
         
         # 번역 프롬프트 템플릿
@@ -119,7 +120,7 @@ class JiraTicketTranslator:
         
         return result
     
-    def translate_field(self, field_value: str, target_language: str = "Korean") -> str:
+    def translate_field(self, field_value: str, target_language: Optional[str] = None) -> str:
         """
         Jira 필드 값을 번역 (이미지/첨부파일 마크업 보존)
         
@@ -133,16 +134,147 @@ class JiraTicketTranslator:
         if not field_value:
             return field_value
         
+        target = target_language or self.determine_target_language(field_value)
         # 1. 이미지/첨부파일 마크업 추출
         attachments, clean_text = self.extract_attachments_markup(field_value)
         
         # 2. 텍스트만 번역
-        translated_text = self.translate_text(clean_text, target_language)
+        translated_text = self.translate_text(clean_text, target)
         
         # 3. 마크업 복원
         final_text = self.restore_attachments_markup(translated_text, attachments)
-        
+
         return final_text
+
+    def translate_description_field(self, field_value: str, target_language: Optional[str] = None) -> str:
+        sections = self._extract_description_sections(field_value)
+        target = target_language or self.determine_target_language(field_value)
+
+        if not sections:
+            translated = self.translate_field(field_value, target)
+            return self._format_bilingual_block(field_value, translated)
+
+        formatted_sections = []
+        for header, content in sections:
+            translated_section = self.translate_field(content, target)
+            formatted_sections.append(
+                self._format_bilingual_block(content, translated_section, header=header)
+            )
+
+        return "\n\n".join(filter(None, formatted_sections)).strip()
+
+    def determine_target_language(self, text: str) -> str:
+        detected = self._detect_text_language(text)
+        if detected == "ko":
+            return "English"
+        if detected == "en":
+            return "Korean"
+        return "Korean"
+
+    def _detect_text_language(self, text: str) -> str:
+        if not text:
+            return "unknown"
+        sanitized = self._extract_detectable_text(text)
+        if not sanitized:
+            return "unknown"
+        korean_chars = len(re.findall(r"[\uac00-\ud7a3]", sanitized))
+        latin_chars = len(re.findall(r"[A-Za-z]", sanitized))
+        if korean_chars > latin_chars:
+            return "ko"
+        if latin_chars > 0:
+            return "en"
+        return "unknown"
+
+    def _extract_detectable_text(self, text: str) -> str:
+        cleaned = text
+        cleaned = re.sub(r"![^!]+!", " ", cleaned)
+        cleaned = re.sub(r"\[\^[^\]]+\]", " ", cleaned)
+        cleaned = re.sub(r"__[^_]+__", " ", cleaned)
+        cleaned = re.sub(r"\{color:[^}]+\}|\{color\}", " ", cleaned)
+        cleaned = re.sub(r"`[^`]+`", " ", cleaned)
+        cleaned = re.sub(r"[^A-Za-z\uac00-\ud7a3]", "", cleaned)
+        return cleaned
+
+    def format_summary_value(self, original: str, translated: str) -> str:
+        original = (original or "").strip()
+        translated = (translated or "").strip()
+        if not original:
+            return translated
+        if not translated:
+            return original
+        return f"{original} / {translated}"
+
+    def format_steps_value(self, original: str, translated: str) -> str:
+        original = (original or "").strip()
+        translated = (translated or "").strip()
+        if original and translated:
+            return f"{original}\n\n{translated}"
+        return original or translated
+
+    def build_field_update_payload(self, translation_results: dict[str, dict[str, str]]) -> dict[str, str]:
+        payload: dict[str, str] = {}
+        for field, content in translation_results.items():
+            original = content.get('original', '')
+            translated = content.get('translated', '')
+            if field == "summary":
+                formatted = self.format_summary_value(original, translated)
+            elif field == "description":
+                formatted = translated
+            elif field == "customfield_10399":
+                formatted = self.format_steps_value(original, translated)
+            else:
+                formatted = translated or original
+
+            if formatted:
+                payload[field] = formatted
+
+        return payload
+
+    def _format_bilingual_block(self, original: str, translated: str, header: Optional[str] = None) -> str:
+        original = (original or "").strip()
+        translated = (translated or "").strip()
+        parts = []
+        if header:
+            parts.append(header)
+        if original:
+            parts.append(original)
+        if translated:
+            parts.append(f"{{color:#4c9aff}}{translated}{{color}}")
+        return "\n".join(parts).strip()
+
+    def _extract_description_sections(self, text: str) -> list[tuple[str, str]]:
+        if not text:
+            return []
+
+        sections: list[tuple[str, str]] = []
+        current_header: Optional[str] = None
+        buffer: list[str] = []
+
+        def flush():
+            if current_header is not None:
+                sections.append((current_header, "\n".join(buffer).strip()))
+
+        for line in text.splitlines():
+            header = self._match_section_header(line)
+            if header:
+                flush()
+                current_header = header
+                buffer = []
+                continue
+            if current_header is not None:
+                buffer.append(line)
+        flush()
+
+        return [(header, content) for header, content in sections if content]
+
+    def _match_section_header(self, line: str) -> Optional[str]:
+        stripped = line.strip().rstrip(":")
+        stripped = stripped.strip("*_ ").lower()
+        for header in self.DESCRIPTION_SECTIONS:
+            normalized = header.lower()
+            if stripped == normalized or stripped.startswith(f"{normalized} "):
+                return header
+        return None
     
     def normalize_field_value(self, value) -> str:
         if value is None:
@@ -208,11 +340,21 @@ class JiraTicketTranslator:
                 fetched_fields[field] = normalized
         
         return fetched_fields
+
+    def update_issue_fields(self, issue_key: str, field_payload: dict[str, str]) -> None:
+        if not field_payload:
+            print("ℹ️ 업데이트할 필드가 없습니다.")
+            return
+
+        endpoint = f"{self.jira_url}/rest/api/2/issue/{issue_key}"
+        response = self.session.put(endpoint, json={"fields": field_payload})
+        response.raise_for_status()
+        print("✅ Jira 이슈가 업데이트되었습니다.")
     
     def translate_issue(
         self, 
         issue_key: str, 
-        target_language: str = "Korean",
+        target_language: Optional[str] = None,
         fields_to_translate: Optional[list[str]] = None
     ) -> dict:
         """
@@ -236,16 +378,26 @@ class JiraTicketTranslator:
         if not issue_fields:
             print(f"⚠️ No fields found for {issue_key}")
             return {}
+        resolved_target = target_language
+        if resolved_target is None:
+            summary_text = issue_fields.get('summary', '')
+            if summary_text:
+                resolved_target = self.determine_target_language(summary_text)
+            else:
+                resolved_target = "Korean"
         
         # 2. 각 필드 번역
         translation_results = {}
         
         for field in fields_to_translate:
             field_value = issue_fields.get(field)
-            
+
             if field_value:
                 print(f"🔄 Translating {field}...")
-                translated_value = self.translate_field(field_value, target_language)
+                if field == "description":
+                    translated_value = self.translate_description_field(field_value, resolved_target)
+                else:
+                    translated_value = self.translate_field(field_value, resolved_target)
                 translation_results[field] = {
                     'original': field_value,
                     'translated': translated_value
@@ -310,7 +462,7 @@ if __name__ == "__main__":
     
     results = translator.translate_issue(
         issue_key=issue_key,
-        target_language="Korean",
+        target_language=None,
         fields_to_translate=['summary', 'description', 'customfield_10399']
     )
     
@@ -326,3 +478,16 @@ if __name__ == "__main__":
             print(content['original'])
             print("\nTranslated:")
             print(content['translated'])
+
+        update_payload = translator.build_field_update_payload(results)
+        if not update_payload:
+            print("\nℹ️ 업데이트할 필드가 없습니다.")
+        else:
+            confirm = input("\nJira 이슈를 업데이트할까요? (y/n): ").strip().lower()
+            if confirm == "y":
+                try:
+                    translator.update_issue_fields(issue_key, update_payload)
+                except requests.HTTPError as exc:
+                    print(f"❌ Jira 업데이트 실패: {exc}")
+            else:
+                print("ℹ️ 업데이트를 취소했습니다.")
