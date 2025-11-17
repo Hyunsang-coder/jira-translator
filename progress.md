@@ -1,4 +1,4 @@
 # Progress Log
 
 - 2025-11-11: Updated `test.py` to prompt for a Jira issue URL, fetch summary/description/customfield_10399 via Jira REST API v2, and translate fields with LangChain v1-compatible updates.
-
+- 2025-11-17: Added `jira_trans_v2.py` implementing a LangChain v1 + LangGraph StateGraph-based Jira translation workflow with clearly separated nodes (fetch, detect language, translate, build payload, update).

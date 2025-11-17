@@ -1,6 +1,7 @@
 import os
 import re
 from collections.abc import Sequence
+from pathlib import Path
 from typing import Optional
 from urllib.parse import urlparse
 from dotenv import load_dotenv
@@ -105,11 +106,41 @@ class JiraTicketTranslator:
         if not text or not text.strip():
             return text
 
+        # pbb_glossary.json을 읽어 용어 매핑(dict)으로 로드
+        terms = self._load_pbb_glossary_terms()
+
+        # target_language에 따라 글로서리 방향(소스 → 타겟)을 다르게 구성하고,
+        # 실제 텍스트에 등장하는 용어만 선별해서 토큰 사용량을 줄인다.
+        glossary_lines: list[str] = []
+        if terms:
+            tl = (target_language or "").lower()
+            if tl.startswith("korean"):
+                # English → Korean (JSON 정의 방향 그대로)
+                source_to_target = terms  # {"reputation": "우호도"}
+            else:
+                # Korean → English (역방향)
+                source_to_target = {tgt: src for src, tgt in terms.items()}
+
+            lowered_text = text.lower()
+            for src, tgt in source_to_target.items():
+                if src.lower() in lowered_text:
+                    glossary_lines.append(f"- {src} -> {tgt}")
+
+        pbb_glossary_text = "\n".join(glossary_lines) if glossary_lines else ""
+
+        glossary_instruction = ""
+        if pbb_glossary_text:
+            glossary_instruction = (
+                "Use this PBB(Project Black Budget) glossary for PBB-specific terms "
+                "(left = source, right = target):\n"
+                f"{pbb_glossary_text}"
+            )
+
         system_msg = (
-            "You are a professional translator. "
-            f"Translate the following text to {target_language}. "
-            "Preserve any Jira markup syntax like *bold*, _italic_, {{code}}, etc. "
-            "Only translate the actual text content, not the markup symbols."
+            f"Translate to {target_language}. "
+            "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.) "
+            "and translate only natural language text. "
+            f"{glossary_instruction}"
         )
 
         response = self.openai.chat.completions.create(
@@ -226,6 +257,35 @@ class JiraTicketTranslator:
 
         return payload
 
+    def _load_pbb_glossary_terms(self) -> dict[str, str]:
+        """pbb_glossary.json에서 terms 딕셔너리를 로드.
+
+        pbb_glossary.json 구조:
+        {
+            "description": "...",
+            "terms": {
+                "reputation": "우호도",
+                ...
+            }
+        }
+        """
+        try:
+            base_dir = Path(__file__).resolve().parent
+            glossary_path = base_dir / "pbb_glossary.json"
+            if not glossary_path.exists():
+                return {}
+
+            with glossary_path.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            terms = data.get("terms") or {}
+            if not isinstance(terms, dict):
+                return {}
+            return terms
+        except Exception:
+            # 용어집이 없어도 번역은 동작해야 하므로 조용히 무시
+            return {}
+            
     def _format_bilingual_block(self, original: str, translated: str, header: Optional[str] = None) -> str:
         original = (original or "").strip()
         translated = (translated or "").strip()
@@ -529,26 +589,28 @@ if __name__ == "__main__":
         openai_api_key=OPENAI_API_KEY
     )
 
-    results = translator.translate_issue(
+    results_obj = translator.translate_issue(
         issue_key=issue_key,
         target_language=None,
         fields_to_translate=['summary', 'description', 'customfield_10399']
     )
 
+    translation_results = results_obj.get("results", {}) if isinstance(results_obj, dict) else {}
+
     # 결과 출력
-    if not results:
+    if not translation_results:
         print("⚠️ 번역 결과가 없습니다.")
     else:
         print("\n📊 Translation Results:")
         print("="*50)
-        for field, content in results.items():
+        for field, content in translation_results.items():
             print(f"\n{field.upper()}:")
             print("Original:")
-            print(content['original'])
+            print(content.get('original', ''))
             print("\nTranslated:")
-            print(content['translated'])
+            print(content.get('translated', ''))
 
-        update_payload = translator.build_field_update_payload(results)
+        update_payload = translator.build_field_update_payload(translation_results)
         if not update_payload:
             print("\nℹ️ 업데이트할 필드가 없습니다.")
         else:

@@ -1,0 +1,15 @@
+{
+    "description": "PUBG Studios Jira 티켓용 용어집",
+    "terms": {
+        "Facility": "퍼실리티",
+        "Hideout": "하이드아웃",
+        "Loadout": "로드아웃",
+        "Cooldown": "쿨타임",
+        "Crafting item": "크래프팅 아이템",
+        "Reputation": "우호도",
+        "Contract": "컨트랙트",
+        "Mission": "미션",
+        "Faction": "팩션",
+        "Faction Reputation": "팩션 우호도"
+    }
+}
