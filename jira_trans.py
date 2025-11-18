@@ -17,7 +17,17 @@ from openai import OpenAI
 class JiraTicketTranslator:
     """Jira 티켓을 번역하면서 이미지/첨부파일 마크업을 유지하는 클래스"""
 
-    DESCRIPTION_SECTIONS = ("Observed", "Expected Result", "Note")
+    # 섹션 헤더는 "영어 부분" 기준으로 관리
+    # 예시:
+    #   - "Observed:"
+    #   - "Observed/관찰됨:"
+    #   - "Expected/기대 결과:"
+    #   - "Expected Result/기대 결과:"
+    #   - "Note/참고:"
+    #   - "Video/영상:"
+    # 영어-only 헤더와 영어/국문 혼합 헤더를 모두 포착하기 위해
+    # 가능한 영어 형태들을 나열해 둔다.
+    DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Video")
 
     def __init__(self, jira_url: str, email: str, api_token: str, openai_api_key: str):
         """
@@ -351,6 +361,10 @@ class JiraTicketTranslator:
         return False
     
     def _is_header_line(self, line: str) -> bool:
+        """
+        이 줄이 섹션 헤더(Observed / Expected / Note / Video 등)인지 여부를 판단.
+        영어-only 라벨과 영어/국문 혼합 라벨(예: 'Expected/기대 결과:')을 모두 헤더로 취급한다.
+        """
         cleaned = re.sub(r"\{color:[^}]+\}|\{color\}", "", line or "").strip()
         return self._match_section_header(cleaned) is not None
 
@@ -380,13 +394,34 @@ class JiraTicketTranslator:
         return [(header, content) for header, content in sections if content]
 
     def _match_section_header(self, line: str) -> Optional[str]:
-        stripped = line.strip().rstrip(":")
-        stripped = re.sub(r"\{color:[^}]+\}|\{color\}", "", stripped)
-        stripped = stripped.strip("*_ ").lower()
+        """
+        Description 내에서 섹션 헤더(Observed, Expected, Note, Video 등)를 찾아서
+        매칭되는 경우 원래 라벨(영어/국문 혼합 포함)을 반환한다.
+
+        예:
+            "Expected Result:"           -> "Expected Result"
+            "Expected/기대 결과:"        -> "Expected/기대 결과"
+            "Video/영상:"                -> "Video/영상"
+        """
+        # 색상/스타일 마크업 제거
+        stripped = re.sub(r"\{color:[^}]+\}|\{color\}", "", line or "").strip()
+        # 마지막 콜론 제거 및 양끝 * / _ 제거
+        stripped_no_colon = stripped.rstrip(":").strip("*_ ")
+        lowered = stripped_no_colon.lower()
+
+        # 영어/한글 혼합 라벨인 경우 (예: "expected/기대 결과")
+        if "/" in lowered:
+            left = lowered.split("/", 1)[0].strip()
+        else:
+            left = lowered
+
         for header in self.DESCRIPTION_SECTIONS:
             normalized = header.lower()
-            if stripped == normalized or stripped.startswith(f"{normalized} "):
-                return header
+            # "expected" 또는 "expected result" 형태 모두 허용
+            if left == normalized or left.startswith(f"{normalized} "):
+                # canonical 문자열 대신, 실제 라벨(영어/국문 모두 포함 가능)을 그대로 사용
+                return stripped_no_colon
+
         return None
 
     def normalize_field_value(self, value) -> str:
