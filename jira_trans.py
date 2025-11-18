@@ -1,6 +1,7 @@
 import os
 import re
 from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 from urllib.parse import urlparse
@@ -12,6 +13,24 @@ import urllib.parse
 
 import requests
 from openai import OpenAI
+
+
+@dataclass
+class TranslationChunk:
+    id: str
+    field: str
+    original_text: str
+    clean_text: str
+    attachments: list[str]
+    header: Optional[str] = None
+
+
+@dataclass
+class FieldTranslationJob:
+    field: str
+    original_value: str
+    chunks: list[TranslationChunk]
+    mode: str = "default"
 
 
 class JiraTicketTranslator:
@@ -116,42 +135,14 @@ class JiraTicketTranslator:
         if not text or not text.strip():
             return text
 
-        # pbb_glossary.json을 읽어 용어 매핑(dict)으로 로드
-        terms = self._load_pbb_glossary_terms()
-
-        # target_language에 따라 글로서리 방향(소스 → 타겟)을 다르게 구성하고,
-        # 실제 텍스트에 등장하는 용어만 선별해서 토큰 사용량을 줄인다.
-        glossary_lines: list[str] = []
-        if terms:
-            tl = (target_language or "").lower()
-            if tl.startswith("korean"):
-                # English → Korean (JSON 정의 방향 그대로)
-                source_to_target = terms  # {"reputation": "우호도"}
-            else:
-                # Korean → English (역방향)
-                source_to_target = {tgt: src for src, tgt in terms.items()}
-
-            lowered_text = text.lower()
-            for src, tgt in source_to_target.items():
-                if src.lower() in lowered_text:
-                    glossary_lines.append(f"- {src} -> {tgt}")
-
-        pbb_glossary_text = "\n".join(glossary_lines) if glossary_lines else ""
-
-        glossary_instruction = ""
-        if pbb_glossary_text:
-            glossary_instruction = (
-                "Use this PBB(Project Black Budget) glossary for PBB-specific terms "
-                "(left = source, right = target):\n"
-                f"{pbb_glossary_text}"
-            )
-
+        glossary_instruction = self._build_glossary_instruction([text], target_language)
         system_msg = (
             f"Translate to {target_language}. "
             "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.) "
             "and translate only natural language text. "
-            f"{glossary_instruction}"
         )
+        if glossary_instruction:
+            system_msg = f"{system_msg} {glossary_instruction}"
 
         response = self.openai.chat.completions.create(
             model=self.openai_model,
@@ -161,6 +152,32 @@ class JiraTicketTranslator:
             ],
         )
         return (response.choices[0].message.content or "").strip()
+
+    def _build_glossary_instruction(self, texts: Sequence[str], target_language: str) -> str:
+        terms = self._load_pbb_glossary_terms()
+        if not terms:
+            return ""
+
+        tl = (target_language or "").lower()
+        if tl.startswith("korean"):
+            source_to_target = terms
+        else:
+            source_to_target = {tgt: src for src, tgt in terms.items()}
+
+        combined_text = "\n".join(texts).lower()
+        glossary_lines: list[str] = []
+        for src, tgt in source_to_target.items():
+            if src.lower() in combined_text:
+                glossary_lines.append(f"- {src} -> {tgt}")
+
+        if not glossary_lines:
+            return ""
+
+        return (
+            "Use this PBB(Project Black Budget) glossary for PBB-specific terms "
+            "(left = source, right = target):\n"
+            + "\n".join(glossary_lines)
+        )
 
     def translate_field(self, field_value: str, target_language: Optional[str] = None) -> str:
         """
@@ -349,6 +366,167 @@ class JiraTicketTranslator:
         except Exception:
             # 용어집이 없어도 번역은 동작해야 하므로 조용히 무시
             return {}
+
+    def _call_openai_batch(
+        self,
+        chunks: Sequence[TranslationChunk],
+        target_language: str,
+    ) -> dict[str, str]:
+        if not chunks:
+            return {}
+
+        glossary_instruction = self._build_glossary_instruction(
+            [chunk.clean_text for chunk in chunks],
+            target_language,
+        )
+        system_msg = (
+            f"Translate every provided item to {target_language}. "
+            "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
+            "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
+            "Return only valid JSON with the schema "
+            '{{"translations":[{{"id":"<chunk_id>","translated":"<text>"}}]}}.'
+        )
+        if glossary_instruction:
+            system_msg = f"{system_msg} {glossary_instruction}"
+
+        payload = {
+            "items": [
+                {"id": chunk.id, "text": chunk.clean_text}
+                for chunk in chunks
+            ]
+        }
+        user_msg = (
+            "Translate each item's text from the JSON payload below. "
+            "Keep ids unchanged and do not add commentary.\n"
+            f"{json.dumps(payload, ensure_ascii=False)}"
+        )
+
+        response = self.openai.chat.completions.create(
+            model=self.openai_model,
+            messages=[
+                {"role": "system", "content": system_msg},
+                {"role": "user", "content": user_msg},
+            ],
+        )
+        content = (response.choices[0].message.content or "").strip()
+        if not content:
+            raise ValueError("Translation response was empty.")
+
+        try:
+            parsed = json.loads(content)
+        except json.JSONDecodeError as exc:
+            raise ValueError("Failed to parse translation response as JSON.") from exc
+
+        translations = parsed.get("translations")
+        if not isinstance(translations, list):
+            raise ValueError("Translation response missing 'translations' list.")
+
+        result: dict[str, str] = {}
+        for item in translations:
+            if not isinstance(item, dict):
+                continue
+            chunk_id = item.get("id")
+            if not chunk_id:
+                continue
+            translated_text = (item.get("translated") or "").strip()
+            result[chunk_id] = translated_text
+
+        missing_ids = [chunk.id for chunk in chunks if chunk.id not in result]
+        if missing_ids:
+            raise ValueError(f"Translation response missing ids: {', '.join(missing_ids)}")
+
+        return result
+
+    def _create_translation_chunk(
+        self,
+        *,
+        chunk_id: str,
+        field: str,
+        original_text: str,
+        header: Optional[str] = None,
+    ) -> Optional[TranslationChunk]:
+        if original_text is None:
+            return None
+
+        attachments, clean_text = self.extract_attachments_markup(original_text)
+        return TranslationChunk(
+            id=chunk_id,
+            field=field,
+            original_text=original_text,
+            clean_text=clean_text,
+            attachments=attachments,
+            header=header,
+        )
+
+    def _plan_field_translation_job(
+        self,
+        field: str,
+        value: str,
+    ) -> Optional[FieldTranslationJob]:
+        if not value:
+            return None
+
+        if field == "summary":
+            _, core = self._split_bracket_prefix(value)
+            if not core.strip():
+                return None
+            chunk = self._create_translation_chunk(
+                chunk_id="summary",
+                field=field,
+                original_text=core,
+            )
+            if not chunk:
+                return None
+            return FieldTranslationJob(
+                field=field,
+                original_value=value,
+                chunks=[chunk],
+            )
+
+        if field == "description":
+            sections = self._extract_description_sections(value)
+            chunks: list[TranslationChunk] = []
+            if sections:
+                for idx, (header, content) in enumerate(sections):
+                    if not content.strip():
+                        continue
+                    chunk = self._create_translation_chunk(
+                        chunk_id=f"{field}__section_{idx}",
+                        field=field,
+                        original_text=content,
+                        header=header,
+                    )
+                    if chunk:
+                        chunks.append(chunk)
+            else:
+                chunk = self._create_translation_chunk(
+                    chunk_id=f"{field}__full",
+                    field=field,
+                    original_text=value,
+                )
+                if chunk:
+                    chunks.append(chunk)
+            if not chunks:
+                return None
+            return FieldTranslationJob(
+                field=field,
+                original_value=value,
+                chunks=chunks,
+                mode="description",
+            )
+
+        chunk = self._create_translation_chunk(
+            chunk_id=field,
+            field=field,
+            original_text=value,
+        )
+        if not chunk:
+            return None
+        return FieldTranslationJob(
+            field=field,
+            original_value=value,
+            chunks=[chunk],
+        )
             
     def _format_bilingual_block(self, original: str, translated: str, header: Optional[str] = None) -> str:
         original = (original or "").strip()
@@ -589,48 +767,66 @@ class JiraTicketTranslator:
             else:
                 resolved_target = "Korean"
 
-        # 2. 각 필드 번역
-        translation_results = {}
+        # 2. 각 필드를 단일 배치로 번역 준비
+        translation_results: dict[str, dict[str, str]] = {}
+        jobs: dict[str, FieldTranslationJob] = {}
+        all_chunks: list[TranslationChunk] = []
 
         for field in fields_to_translate:
             field_value = issue_fields.get(field)
+            if not field_value:
+                continue
 
-            if field_value:
-                print(f"🔄 Translating {field}...")
-                if field == "description":
-                    # 이미 번역 줄이 포함된 Description은 다시 번역하지 않는다.
-                    if self._is_description_already_translated(field_value):
-                        print(f"⏭️ Skipping {field} (already translated)")
-                        translated_value = ""
-                    else:
-                        translated_value = self.translate_description_field(field_value, resolved_target)
-                elif field == "summary":
-                    # 이미 '한글 / 영어' 같이 양언어로 구성된 Summary는 번역하지 않는다.
-                    if self._is_bilingual_summary(field_value):
-                        print(f"⏭️ Skipping {field} (already bilingual)")
-                        translated_value = ""
-                    else:
-                        # 제목 앞의 [Test] [System Menu] 같은 블록은 번역 대상에서 제외
-                        _, core = self._split_bracket_prefix(field_value)
-                        if core:
-                            translated_core = self.translate_field(core, resolved_target)
-                        else:
-                            translated_core = ""
-                        # 번역 문자열에는 대괄호 prefix를 포함하지 않는다
-                        translated_value = translated_core
-                elif field == "customfield_10399":
-                    # 재현 단계가 이미 '원문 블록 + 번역 블록' 구조면 다시 번역하지 않는다.
-                    if self._is_steps_bilingual(field_value):
-                        print(f"⏭️ Skipping {field} (already bilingual steps)")
-                        translated_value = ""
-                    else:
-                        translated_value = self.translate_field(field_value, resolved_target)
+            translation_results[field] = {
+                "original": field_value,
+                "translated": "",
+            }
+
+            print(f"🔄 Translating {field}...")
+            skip_reason = None
+            if field == "description" and self._is_description_already_translated(field_value):
+                skip_reason = "already translated"
+            elif field == "summary" and self._is_bilingual_summary(field_value):
+                skip_reason = "already bilingual"
+            elif field == "customfield_10399" and self._is_steps_bilingual(field_value):
+                skip_reason = "already bilingual steps"
+
+            if skip_reason:
+                print(f"⏭️ Skipping {field} ({skip_reason})")
+                continue
+
+            job = self._plan_field_translation_job(field, field_value)
+            if not job:
+                continue
+
+            jobs[field] = job
+            all_chunks.extend(job.chunks)
+
+        chunk_translations: dict[str, str] = {}
+        if all_chunks:
+            chunk_translations = self._call_openai_batch(all_chunks, resolved_target)
+
+        for field, job in jobs.items():
+            assembled: list[str] = []
+            for chunk in job.chunks:
+                translated_raw = chunk_translations.get(chunk.id, "")
+                restored = self.restore_attachments_markup(translated_raw, chunk.attachments)
+                if job.mode == "description":
+                    block = self._format_bilingual_block(
+                        chunk.original_text,
+                        restored,
+                        header=chunk.header,
+                    )
+                    if block:
+                        assembled.append(block)
                 else:
-                    translated_value = self.translate_field(field_value, resolved_target)
-                translation_results[field] = {
-                    'original': field_value,
-                    'translated': translated_value
-                }
+                    if restored:
+                        assembled.append(restored)
+            if job.mode == "description":
+                translated_value = "\n\n".join(filter(None, assembled)).strip()
+            else:
+                translated_value = "\n\n".join(filter(None, assembled))
+            translation_results[field]["translated"] = translated_value
 
         payload = self.build_field_update_payload(translation_results)
         updated = False
