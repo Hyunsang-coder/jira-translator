@@ -27,7 +27,7 @@ class JiraTicketTranslator:
     #   - "Video/영상:"
     # 영어-only 헤더와 영어/국문 혼합 헤더를 모두 포착하기 위해
     # 가능한 영어 형태들을 나열해 둔다.
-    DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Video")
+    DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Video", "Etc.")
 
     def __init__(self, jira_url: str, email: str, api_token: str, openai_api_key: str):
         """
@@ -231,19 +231,6 @@ class JiraTicketTranslator:
         cleaned = re.sub(r"`[^`]+`", " ", cleaned)
         cleaned = re.sub(r"[^A-Za-z\uac00-\ud7a3]", "", cleaned)
         return cleaned
-
-    def _split_bracket_prefix(self, text: str) -> tuple[str, str]:
-        """
-        Summary 맨 앞의 [System Menu] 같은 브래킷 블록을 분리한다.
-        예) "[Test] [System Menu] 에디터 ..." -> ("[Test] [System Menu] ", "에디터 ...")
-        여러 개의 대괄호 블록이 연속되는 경우도 허용한다.
-        """
-        if not text:
-            return "", ""
-        m = re.match(r'^(\s*(?:\[[^\]]*\]\s*)+)(.*)$', text)
-        if m:
-            return m.group(1), m.group(2)
-        return "", text
 
     def _is_bilingual_summary(self, summary: str) -> bool:
         """
