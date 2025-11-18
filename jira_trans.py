@@ -205,6 +205,33 @@ class JiraTicketTranslator:
 
         return final_text
 
+    def _translate_chunk_text(
+        self,
+        chunk: TranslationChunk,
+        target_language: str,
+    ) -> str:
+        return self.translate_text(chunk.clean_text, target_language) or ""
+
+    def _translate_chunk_list(
+        self,
+        chunk_list: Sequence[TranslationChunk],
+        target_language: str,
+    ) -> dict[str, str]:
+        translations: dict[str, str] = {}
+        for chunk in chunk_list:
+            translations[chunk.id] = self._translate_chunk_text(chunk, target_language)
+        return translations
+
+    def _translate_chunks_individually(
+        self,
+        jobs: dict[str, FieldTranslationJob],
+        target_language: str,
+    ) -> dict[str, str]:
+        per_chunk: dict[str, str] = {}
+        for job in jobs.values():
+            per_chunk.update(self._translate_chunk_list(job.chunks, target_language))
+        return per_chunk
+
     def translate_description_field(self, field_value: str, target_language: Optional[str] = None) -> str:
         sections = self._extract_description_sections(field_value)
         target = target_language or self.determine_target_language(field_value)
@@ -371,6 +398,42 @@ class JiraTicketTranslator:
         self,
         chunks: Sequence[TranslationChunk],
         target_language: str,
+        retries: int = 2,
+    ) -> dict[str, str]:
+        if not chunks:
+            return {}
+
+        attempt = 0
+        last_error: Optional[Exception] = None
+        batch_result: dict[str, str] = {}
+
+        while attempt <= retries:
+            attempt += 1
+            try:
+                batch_result = self._call_openai_batch_once(chunks, target_language)
+                break
+            except Exception as exc:
+                last_error = exc
+                if attempt > retries:
+                    break
+                print(f"⚠️ Batch translation failed (attempt {attempt}/{retries + 1}): {exc}")
+
+        if not batch_result and last_error:
+            raise last_error
+
+        missing_ids = [chunk.id for chunk in chunks if chunk.id not in batch_result]
+        if missing_ids:
+            print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
+            missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
+            fallback = self._translate_chunk_list(missing_chunks, target_language)
+            batch_result.update(fallback)
+
+        return batch_result
+
+    def _call_openai_batch_once(
+        self,
+        chunks: Sequence[TranslationChunk],
+        target_language: str,
     ) -> dict[str, str]:
         if not chunks:
             return {}
@@ -430,10 +493,6 @@ class JiraTicketTranslator:
                 continue
             translated_text = (item.get("translated") or "").strip()
             result[chunk_id] = translated_text
-
-        missing_ids = [chunk.id for chunk in chunks if chunk.id not in result]
-        if missing_ids:
-            raise ValueError(f"Translation response missing ids: {', '.join(missing_ids)}")
 
         return result
 
@@ -804,7 +863,14 @@ class JiraTicketTranslator:
 
         chunk_translations: dict[str, str] = {}
         if all_chunks:
-            chunk_translations = self._call_openai_batch(all_chunks, resolved_target)
+            try:
+                chunk_translations = self._call_openai_batch(all_chunks, resolved_target)
+            except Exception as exc:
+                print(f"⚠️ Batch translation failed, falling back to per-field mode: {exc}")
+                chunk_translations = self._translate_chunks_individually(
+                    jobs,
+                    resolved_target,
+                )
 
         for field, job in jobs.items():
             assembled: list[str] = []
