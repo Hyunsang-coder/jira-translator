@@ -232,6 +232,73 @@ class JiraTicketTranslator:
         cleaned = re.sub(r"[^A-Za-z\uac00-\ud7a3]", "", cleaned)
         return cleaned
 
+    def _split_bracket_prefix(self, text: str) -> tuple[str, str]:
+        """
+        Summary 맨 앞의 [System Menu] 같은 브래킷 블록을 분리한다.
+        예) "[Test] [System Menu] 에디터 ..." -> ("[Test] [System Menu] ", "에디터 ...")
+        여러 개의 대괄호 블록이 연속되는 경우도 허용한다.
+        """
+        if not text:
+            return "", ""
+        m = re.match(r'^(\s*(?:\[[^\]]*\]\s*)+)(.*)$', text)
+        if m:
+            return m.group(1), m.group(2)
+        return "", text
+
+    def _is_bilingual_summary(self, summary: str) -> bool:
+        """
+        Summary가 이미 '한글 / 영어' 같이 양언어로 구성되어 있는지 판별.
+        브래킷 prefix([Test] [System Menu])는 제외하고, 나머지 core 부분만 검사한다.
+        """
+        _, core = self._split_bracket_prefix(summary or "")
+        if " / " not in core:
+            return False
+        left, right = core.split(" / ", 1)
+        left_lang = self._detect_text_language(left)
+        right_lang = self._detect_text_language(right)
+        if left_lang == "unknown" or right_lang == "unknown":
+            return False
+        return left_lang != right_lang
+
+    def _is_description_already_translated(self, value: str) -> bool:
+        """
+        Description 내에 이미 번역 줄({color:#4c9aff} ...)이 포함되어 있으면
+        한 번 이상 번역된 것으로 간주하고 다시 번역하지 않는다.
+        """
+        if not value:
+            return False
+        return "{color:#4c9aff}" in value
+
+    def _is_steps_bilingual(self, value: str) -> bool:
+        """
+        customfield_10399(재현 단계)가 이미 '원문 블록 + 번역 블록' 형태인지 판별.
+        format_steps_value에서 original + '\\n\\n' + translated 형태로 만드는 것을 이용한다.
+        """
+        if not value:
+            return False
+        parts = [p.strip() for p in value.split("\n\n") if p.strip()]
+        if len(parts) < 2:
+            return False
+        first, second = parts[0], parts[1]
+        first_lang = self._detect_text_language(first)
+        second_lang = self._detect_text_language(second)
+        if first_lang == "unknown" or second_lang == "unknown":
+            return False
+        return first_lang != second_lang
+
+    def _split_bracket_prefix(self, text: str) -> tuple[str, str]:
+        """
+        Summary 맨 앞의 [System Menu] 같은 브래킷 블록을 분리한다.
+        예) "[Test] [System Menu] 에디터 ..." -> ("[Test] [System Menu] ", "에디터 ...")
+        여러 개의 대괄호 블록이 연속되는 경우도 허용한다.
+        """
+        if not text:
+            return "", ""
+        m = re.match(r'^(\s*(?:\[[^\]]*\]\s*)+)(.*)$', text)
+        if m:
+            return m.group(1), m.group(2)
+        return "", text
+
     def format_summary_value(self, original: str, translated: str) -> str:
         original = (original or "").strip()
         translated = (translated or "").strip()
@@ -341,9 +408,9 @@ class JiraTicketTranslator:
 
         bullet_match = re.match(r"(\s*(?:[-*#]+|\d+\.)\s+)(.*)", original_line)
         if bullet_match:
-            prefix = bullet_match.group(1)
             cleaned_translation = self._strip_bullet_prefix(translation)
-            return f"{prefix}{{color:#4c9aff}}{cleaned_translation}{{color}}"
+            # 원문은 bullet을 유지하되, 번역 줄은 bullet 없이 색상만 입힌 텍스트로 표시
+            return f"{{color:#4c9aff}}{cleaned_translation}{{color}}"
         return f"{{color:#4c9aff}}{translation}{{color}}"
 
     def _strip_bullet_prefix(self, text: str) -> str:
@@ -544,7 +611,33 @@ class JiraTicketTranslator:
             if field_value:
                 print(f"🔄 Translating {field}...")
                 if field == "description":
-                    translated_value = self.translate_description_field(field_value, resolved_target)
+                    # 이미 번역 줄이 포함된 Description은 다시 번역하지 않는다.
+                    if self._is_description_already_translated(field_value):
+                        print(f"⏭️ Skipping {field} (already translated)")
+                        translated_value = ""
+                    else:
+                        translated_value = self.translate_description_field(field_value, resolved_target)
+                elif field == "summary":
+                    # 이미 '한글 / 영어' 같이 양언어로 구성된 Summary는 번역하지 않는다.
+                    if self._is_bilingual_summary(field_value):
+                        print(f"⏭️ Skipping {field} (already bilingual)")
+                        translated_value = ""
+                    else:
+                        # 제목 앞의 [Test] [System Menu] 같은 블록은 번역 대상에서 제외
+                        _, core = self._split_bracket_prefix(field_value)
+                        if core:
+                            translated_core = self.translate_field(core, resolved_target)
+                        else:
+                            translated_core = ""
+                        # 번역 문자열에는 대괄호 prefix를 포함하지 않는다
+                        translated_value = translated_core
+                elif field == "customfield_10399":
+                    # 재현 단계가 이미 '원문 블록 + 번역 블록' 구조면 다시 번역하지 않는다.
+                    if self._is_steps_bilingual(field_value):
+                        print(f"⏭️ Skipping {field} (already bilingual steps)")
+                        translated_value = ""
+                    else:
+                        translated_value = self.translate_field(field_value, resolved_target)
                 else:
                     translated_value = self.translate_field(field_value, resolved_target)
                 translation_results[field] = {
