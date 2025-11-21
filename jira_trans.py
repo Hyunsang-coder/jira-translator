@@ -250,7 +250,9 @@ class JiraTicketTranslator:
         return "\n\n".join(filter(None, formatted_sections)).strip()
 
     def determine_target_language(self, text: str) -> str:
-        return {"ko": "English", "en": "Korean"}.get(self._detect_text_language(text), "Korean")
+        _, core = self._split_bracket_prefix(text)
+        detected = self._detect_text_language(core)
+        return {"ko": "English", "en": "Korean"}.get(detected, "Korean")
 
     def _detect_text_language(self, text: str) -> str:
         if not text:
@@ -270,7 +272,7 @@ class JiraTicketTranslator:
         cleaned = text
         cleaned = re.sub(r"![^!]+!", " ", cleaned)
         cleaned = re.sub(r"\[\^[^\]]+\]", " ", cleaned)
-        cleaned = re.sub(r"__[^_]+__", " ", cleaned)
+        cleaned = re.sub(r"__.*?__", " ", cleaned)
         cleaned = re.sub(r"\{color:[^}]+\}|\{color\}", " ", cleaned)
         cleaned = re.sub(r"`[^`]+`", " ", cleaned)
         cleaned = re.sub(r"[^A-Za-z\uac00-\ud7a3]", "", cleaned)
