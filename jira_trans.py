@@ -679,10 +679,21 @@ class JiraTicketTranslator:
     def _is_media_line(self, stripped_line: str) -> bool:
         if not stripped_line:
             return False
-        if stripped_line.startswith("!"):
-            return True
-        if stripped_line.startswith("[^"):
-            return True
+
+        def _strip_bullet_prefix(text: str) -> str:
+            return re.sub(r"^\s*(?:[-*#]+|\d+[\.\)])\s*", "", text or "").strip()
+
+        candidates = [stripped_line, _strip_bullet_prefix(stripped_line)]
+
+        for candidate in candidates:
+            if not candidate:
+                continue
+            if candidate.startswith("!"):
+                return True
+            if candidate.startswith("[^"):
+                return True
+            if candidate.startswith("["):
+                return True
         if "__IMAGE_PLACEHOLDER" in stripped_line or "__ATTACHMENT_PLACEHOLDER" in stripped_line:
             return True
         return False
@@ -736,11 +747,13 @@ class JiraTicketTranslator:
         stripped_no_colon = stripped.rstrip(":").strip("*_ ")
         lowered = stripped_no_colon.lower()
 
-        # 영어/한글 혼합 라벨인 경우 (예: "expected/기대 결과")
+        # 혼합 라벨에서 앞부분만 추출 (예: "expected/기대 결과", "observed(관찰 결과)" 등)
         if "/" in lowered:
             left = lowered.split("/", 1)[0].strip()
         else:
             left = lowered
+        # 괄호나 추가 설명이 붙어도 앞부분만 비교하도록 조정
+        left = re.split(r"[\(\[]", left, 1)[0].strip()
 
         for header in self.DESCRIPTION_SECTIONS:
             normalized = header.lower()

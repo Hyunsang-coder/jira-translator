@@ -297,3 +297,21 @@ def test_translate_text_adds_eomseum_instruction_for_korean(monkeypatch):
     non_korean_system = captured["messages"][0]["content"]
     assert "음슴체" not in non_korean_system
 
+
+def test_extract_description_sections_handles_parentheses_header(monkeypatch):
+    translator = _build_translator(monkeypatch)
+    description = (
+        "Observed(관찰 결과):\n"
+        "\n"
+        "PLSD를 닫으면 좌측 하단 플레이어 HUD 내 매우 작은 상태 아이콘이 출력되는 현상을 확인합니다.\n"
+        "\n"
+        "Expected (기대 결과):\n"
+        "PLSD를 닫더라도 좌측 하단 플레이어 HUD 내 매우 작은 상태 아이콘이 출력되지 않아야 합니다.\n"
+    )
+
+    sections = translator._extract_description_sections(description)
+
+    headers = [header for header, _ in sections]
+    assert headers == ["Observed(관찰 결과)", "Expected (기대 결과)"]
+    assert sections[0][1].startswith("PLSD를 닫으면")
+
