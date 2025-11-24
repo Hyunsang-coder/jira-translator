@@ -658,7 +658,14 @@ class JiraTicketTranslator:
                 lines.append(f"{{color:#4c9aff}}{translated}{{color}}")
             return "\n".join(lines).strip()
 
-        translation_lines = [line for line in translated.splitlines() if line.strip()]
+        translation_lines = []
+        for line in translated.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if self._is_media_line(stripped) or self._is_header_line(stripped):
+                continue
+            translation_lines.append(line)
         translation_index = 0
 
         def next_translation_line() -> str:
@@ -729,30 +736,33 @@ class JiraTicketTranslator:
         cleaned = re.sub(r"\{color:[^}]+\}|\{color\}", "", line or "").strip()
         return self._match_section_header(cleaned) is not None
 
-    def _extract_description_sections(self, text: str) -> list[tuple[str, str]]:
+    def _extract_description_sections(self, text: str) -> list[tuple[Optional[str], str]]:
         if not text:
             return []
 
-        sections: list[tuple[str, str]] = []
+        sections: list[tuple[Optional[str], str]] = []
         current_header: Optional[str] = None
         buffer: list[str] = []
 
         def flush():
-            if current_header is not None:
-                sections.append((current_header, "\n".join(buffer).strip()))
+            nonlocal buffer
+            if not buffer:
+                return
+            content = "\n".join(buffer).strip()
+            buffer = []
+            if content:
+                sections.append((current_header, content))
 
         for line in text.splitlines():
             header = self._match_section_header(line)
             if header:
                 flush()
                 current_header = header
-                buffer = []
                 continue
-            if current_header is not None:
-                buffer.append(line)
+            buffer.append(line)
         flush()
 
-        return [(header, content) for header, content in sections if content]
+        return sections
 
     def _match_section_header(self, line: str) -> Optional[str]:
         """

@@ -315,3 +315,19 @@ def test_extract_description_sections_handles_parentheses_header(monkeypatch):
     assert headers == ["Observed(관찰 결과)", "Expected (기대 결과)"]
     assert sections[0][1].startswith("PLSD를 닫으면")
 
+
+def test_extract_description_sections_preserves_intro_without_header(monkeypatch):
+    translator = _build_translator(monkeypatch)
+    description = (
+        "Pre-requisites:\n"
+        "Research facility installed\n"
+        "\n"
+        "Observed(관찰 결과):\n"
+        "위젯 가격 표시가 잘못되었습니다.\n"
+    )
+
+    sections = translator._extract_description_sections(description)
+
+    assert sections[0][0] is None
+    assert "Pre-requisites" in sections[0][1]
+    assert sections[1][0] == "Observed(관찰 결과)"
