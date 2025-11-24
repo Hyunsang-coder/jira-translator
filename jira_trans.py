@@ -13,6 +13,7 @@ import urllib.parse
 
 import requests
 from openai import OpenAI
+from pydantic import BaseModel
 
 
 @dataclass
@@ -23,6 +24,15 @@ class TranslationChunk:
     clean_text: str
     attachments: list[str]
     header: Optional[str] = None
+
+
+class TranslationItem(BaseModel):
+    id: str
+    translated: str
+
+
+class TranslationResponse(BaseModel):
+    translations: list[TranslationItem]
 
 
 @dataclass
@@ -145,6 +155,7 @@ class JiraTicketTranslator:
             system_msg += (
                 "Use terse memo-style Korean (음슴체): drop endings such as '합니다', "
                 "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
+                "For titles/summaries, be extremely concise and use noun-ending style."
             )
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
@@ -159,6 +170,10 @@ class JiraTicketTranslator:
         return (response.choices[0].message.content or "").strip()
 
     def _build_glossary_instruction(self, texts: Sequence[str], target_language: str) -> str:
+        """
+        단어 경계 매칭(\b)을 사용하여 정확히 일치하는 용어만 찾습니다.
+        예: 'key' 검색 시 'monkey'는 무시함.
+        """
         terms = self._load_pbb_glossary_terms()
         if not terms:
             return ""
@@ -171,8 +186,13 @@ class JiraTicketTranslator:
 
         combined_text = "\n".join(texts).lower()
         glossary_lines: list[str] = []
+
         for src, tgt in source_to_target.items():
-            if src.lower() in combined_text:
+            # re.escape는 특수문자가 포함된 용어(예: C++) 오동작 방지
+            # 단어 경계(\b) 매칭 수행
+            pattern = r"\b" + re.escape(src.lower()) + r"\b"
+            
+            if re.search(pattern, combined_text):
                 glossary_lines.append(f"- {src} -> {tgt}")
 
         if not glossary_lines:
@@ -471,6 +491,10 @@ class JiraTicketTranslator:
         chunks: Sequence[TranslationChunk],
         target_language: str,
     ) -> dict[str, str]:
+        """
+        OpenAI Structured Outputs(beta.parse)를 사용하여
+        JSON 파싱 에러를 원천 차단하고 안정성을 확보합니다.
+        """
         if not chunks:
             return {}
 
@@ -478,16 +502,23 @@ class JiraTicketTranslator:
             [chunk.clean_text for chunk in chunks],
             target_language,
         )
+        
+        # 시스템 메시지 간소화 (JSON 형식을 강제할 필요 없이 내용에만 집중)
         system_msg = (
             f"Translate every provided item to {target_language}. "
             "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
             "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
-            "Return only valid JSON with the schema "
-            '{{"translations":[{{"id":"<chunk_id>","translated":"<text>"}}]}}.'
+            "IMPORTANT: Keep the exact same number of lines as the source text. "
+            "Do not add commentary."
         )
+        if (target_language or "").lower().startswith("korean"):
+            system_msg += (
+                " Use terse memo-style Korean (음슴체) and concise noun phrases for titles/summaries."
+            )
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 
+        # Structured Outputs용 페이로드 구성
         payload = {
             "items": [
                 {"id": chunk.id, "text": chunk.clean_text}
@@ -495,40 +526,32 @@ class JiraTicketTranslator:
             ]
         }
         user_msg = (
-            "Translate each item's text from the JSON payload below. "
-            "Keep ids unchanged and do not add commentary.\n"
+            f"Translate the text fields in the following JSON data. Keep 'id' unchanged.\n"
             f"{json.dumps(payload, ensure_ascii=False)}"
         )
 
-        response = self.openai.chat.completions.create(
+        # client.beta.chat.completions.parse 사용
+        # response_format에 Pydantic 클래스를 넘겨줍니다.
+        completion = self.openai.beta.chat.completions.parse(
             model=self.openai_model,
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": user_msg},
             ],
+            response_format=TranslationResponse,
         )
-        content = (response.choices[0].message.content or "").strip()
-        if not content:
-            raise ValueError("Translation response was empty.")
 
-        try:
-            parsed = json.loads(content)
-        except json.JSONDecodeError as exc:
-            raise ValueError("Failed to parse translation response as JSON.") from exc
-
-        translations = parsed.get("translations")
-        if not isinstance(translations, list):
-            raise ValueError("Translation response missing 'translations' list.")
+        # 파싱된 결과(parsed)를 바로 사용
+        parsed_response = completion.choices[0].message.parsed
+        
+        if not parsed_response or not parsed_response.translations:
+            # 매우 드문 경우지만 결과가 없을 때를 대비
+            raise ValueError("Translation returned no structured data.")
 
         result: dict[str, str] = {}
-        for item in translations:
-            if not isinstance(item, dict):
-                continue
-            chunk_id = item.get("id")
-            if not chunk_id:
-                continue
-            translated_text = (item.get("translated") or "").strip()
-            result[chunk_id] = translated_text
+        for item in parsed_response.translations:
+            if item.id and item.translated:
+                result[item.id] = item.translated.strip()
 
         return result
 
@@ -644,7 +667,7 @@ class JiraTicketTranslator:
                 line = translation_lines[translation_index]
                 translation_index += 1
                 return line
-            return translated
+            return ""
 
         for line in original.splitlines():
             stripped = line.strip()
