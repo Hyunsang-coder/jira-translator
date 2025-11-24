@@ -235,3 +235,25 @@ def test_translate_issue_fallbacks_when_batch_fails(monkeypatch):
 
     assert translations["customfield_10399"]["translated"] == "KR:1. Open client\n2. Click start"
 
+
+def test_format_summary_value_truncates_translation(monkeypatch):
+    translator = _build_translator(monkeypatch)
+    original = "[Client] Crash occurs"
+    translated = "KR:" + ("한글 번역 " * 40)  # deliberately long
+
+    result = translator.format_summary_value(original, translated)
+
+    assert result.startswith(f"{original} / ")
+    assert len(result) <= 255
+    assert result.endswith("…")
+
+
+def test_format_summary_value_uses_original_when_no_space(monkeypatch):
+    translator = _build_translator(monkeypatch)
+    original = "X" * 255
+    translated = "KR:Translation"
+
+    result = translator.format_summary_value(original, translated)
+
+    assert result == original
+
