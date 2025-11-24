@@ -141,6 +141,11 @@ class JiraTicketTranslator:
             "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.) "
             "and translate only natural language text. "
         )
+        if (target_language or "").lower().startswith("korean"):
+            system_msg += (
+                "Use terse memo-style Korean (음슴체): drop endings such as '합니다', "
+                "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
+            )
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 

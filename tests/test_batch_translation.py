@@ -10,6 +10,22 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+if "requests" not in sys.modules:
+    requests_stub = types.ModuleType("requests")
+
+    class _DummySession:
+        def __init__(self):
+            self.auth = None
+
+        def get(self, *args, **kwargs):
+            raise RuntimeError("HTTP calls are not supported in tests")
+
+        def put(self, *args, **kwargs):
+            raise RuntimeError("HTTP calls are not supported in tests")
+
+    requests_stub.Session = _DummySession
+    sys.modules["requests"] = requests_stub
+
 if "openai" not in sys.modules:
     openai_stub = types.ModuleType("openai")
     openai_stub.OpenAI = lambda *args, **kwargs: SimpleNamespace(
@@ -256,4 +272,28 @@ def test_format_summary_value_uses_original_when_no_space(monkeypatch):
     result = translator.format_summary_value(original, translated)
 
     assert result == original
+
+
+def test_translate_text_adds_eomseum_instruction_for_korean(monkeypatch):
+    translator = _build_translator(monkeypatch)
+
+    captured = {}
+
+    def fake_create(model, messages):
+        captured["messages"] = messages
+        return SimpleNamespace(
+            choices=[SimpleNamespace(message=SimpleNamespace(content="번역 결과"))]
+        )
+
+    translator.openai.chat.completions.create = fake_create
+
+    translator.translate_text("Enter hideout", target_language="Korean")
+
+    system_message = captured["messages"][0]["content"]
+    assert "음슴체" in system_message
+    assert "하이드아웃 진입" in system_message or "이슈 확인" in system_message
+
+    translator.translate_text("Enter hideout", target_language="English")
+    non_korean_system = captured["messages"][0]["content"]
+    assert "음슴체" not in non_korean_system
 
