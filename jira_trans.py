@@ -330,7 +330,10 @@ class JiraTicketTranslator:
         """
         if not value:
             return False
-        return "{color:#4c9aff}" in value
+        # 단순히 태그만 있는 것이 아니라, 태그 안에 내용이 있거나 태그 뒤에 내용이 있는 패턴을 찾음
+        # 예: {color:#4c9aff}Translation{color}
+        # 단, 테이블 구분자(|)만 있는 경우는 제외 (예: {color:#4c9aff}|{color})
+        return bool(re.search(r"\{color:#4c9aff\}(?!\s*\|?\s*\{color\}).+", value))
 
     def _is_steps_bilingual(self, value: str) -> bool:
         """
@@ -646,48 +649,99 @@ class JiraTicketTranslator:
         )
             
     def _format_bilingual_block(self, original: str, translated: str, header: Optional[str] = None) -> str:
-        original = (original or "").strip()
+        original = (original or "").strip("\n")
         translated = (translated or "").strip()
+        
         lines: list[str] = []
         if header:
             lines.append(header)
-
+            
         if not original:
             if translated:
                 lines.append(f"{{color:#4c9aff}}{translated}{{color}}")
             return "\n".join(lines).strip()
 
-        translation_lines = []
+        # 번역문 라인 준비
+        translation_source_lines = []
         for line in translated.splitlines():
             stripped = line.strip()
             if not stripped:
                 continue
-            if self._is_media_line(stripped) or self._is_header_line(stripped):
+            # 미디어, 헤더, 표 라인은 번역 매칭에서 제외
+            if self._is_media_line(stripped) or self._is_header_line(stripped) or (stripped.startswith("|") and stripped.endswith("|")):
                 continue
-            translation_lines.append(line)
+            translation_source_lines.append(line)
+            
         translation_index = 0
 
         def next_translation_line() -> str:
             nonlocal translation_index
-            if translation_index < len(translation_lines):
-                line = translation_lines[translation_index]
+            if translation_index < len(translation_source_lines):
+                line = translation_source_lines[translation_index]
                 translation_index += 1
                 return line
             return ""
 
-        for line in original.splitlines():
-            stripped = line.strip()
-            lines.append(line)
-            if not stripped or self._is_media_line(stripped) or self._is_header_line(stripped):
-                continue
-            translated_line = next_translation_line().strip()
-            if translated_line:
-                if self._is_media_line(translated_line) or self._is_header_line(translated_line):
+        # 텍스트 버퍼 (미디어 나오기 전까지의 텍스트를 모아둠)
+        text_buffer: list[str] = []
+        
+        def flush_text_buffer():
+            nonlocal text_buffer
+            if not text_buffer:
+                return
+            
+            # 1. 원문 텍스트 출력
+            lines.extend(text_buffer)
+            
+            # 2. 번역문 텍스트 출력 (원문 바로 아래)
+            # 원문 라인 수만큼 번역문을 가져와서 포맷팅
+            translated_block = []
+            for org_line in text_buffer:
+                stripped = org_line.strip()
+                if not stripped:
                     continue
-                formatted = self._match_translated_line_format(line, translated_line)
-                if formatted:
-                    lines.append(formatted)
+                
+                translated_line = next_translation_line().strip()
+                if translated_line:
+                    formatted = self._match_translated_line_format(org_line, translated_line)
+                    if formatted:
+                        translated_block.append(formatted)
+            
+            if translated_block:
+                # 원문과 번역 블록 사이에 빈 줄 추가
+                lines.append("")
+                lines.extend(translated_block)
+            
+            text_buffer = []
 
+        original_lines = original.splitlines()
+        for line in original_lines:
+            stripped = line.strip()
+            
+            # 테이블 라인 처리 (|로 시작하고 |로 끝나는 경우)
+            if stripped.startswith("|") and stripped.endswith("|"):
+                flush_text_buffer() # 테이블 나오기 전 텍스트 처리
+                # 테이블은 번역하지 않고 원문 그대로 출력
+                lines.append(line)
+                continue
+
+            # 미디어 라인 처리
+            if self._is_media_line(stripped):
+                flush_text_buffer() # 미디어 나오기 전 텍스트 처리
+                lines.append(line) # 미디어 라인 출력
+                continue
+            
+            # 헤더 라인 처리
+            if self._is_header_line(stripped):
+                flush_text_buffer()
+                lines.append(line)
+                continue
+
+            # 일반 텍스트는 버퍼에 추가
+            text_buffer.append(line)
+
+        flush_text_buffer() # 남은 텍스트 처리
+            
         return "\n".join(lines).strip()
 
     def _match_translated_line_format(self, original_line: str, translated_line: str) -> str:
@@ -695,11 +749,23 @@ class JiraTicketTranslator:
         if not translation:
             return ""
 
-        bullet_match = re.match(r"(\s*(?:[-*#]+|\d+\.)\s+)(.*)", original_line)
-        if bullet_match:
+        # 원문의 들여쓰기 및 불릿/번호 패턴 감지
+        # 예: "  - Item" -> prefix="  - "
+        # 예: "    1. Item" -> prefix="    1. "
+        match = re.match(r"^(\s*(?:[-*#]+|\d+\.)\s+)(.*)", original_line)
+        if match:
+            prefix = match.group(1)
             cleaned_translation = self._strip_bullet_prefix(translation)
-            # 원문은 bullet을 유지하되, 번역 줄은 bullet 없이 색상만 입힌 텍스트로 표시
-            return f"{{color:#4c9aff}}{cleaned_translation}{{color}}"
+            # 원문의 prefix 구조를 유지하고, 내용만 색상 처리
+            return f"{prefix}{{color:#4c9aff}}{cleaned_translation}{{color}}"
+        
+        # 불릿이 없는 경우 (일반 텍스트)
+        # 원문의 leading whitespace를 감지하여 번역문에도 적용
+        indent_match = re.match(r"^(\s*)", original_line)
+        if indent_match:
+            indent = indent_match.group(1)
+            return f"{indent}{{color:#4c9aff}}{translation}{{color}}"
+        
         return f"{{color:#4c9aff}}{translation}{{color}}"
 
     def _strip_bullet_prefix(self, text: str) -> str:
@@ -747,7 +813,7 @@ class JiraTicketTranslator:
             nonlocal buffer
             if not buffer:
                 return
-            content = "\n".join(buffer).strip()
+            content = "\n".join(buffer).strip("\n")
             buffer = []
             if content:
                 sections.append((current_header, content))
