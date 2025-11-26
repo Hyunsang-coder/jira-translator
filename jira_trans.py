@@ -722,6 +722,8 @@ class JiraTicketTranslator:
             if stripped.startswith("|") and stripped.endswith("|"):
                 flush_text_buffer() # 테이블 나오기 전 텍스트 처리
                 # 테이블은 번역하지 않고 원문 그대로 출력
+                # Jira가 표를 제대로 렌더링하려면 앞에 빈 줄이 필요
+                lines.append("")
                 lines.append(line)
                 continue
 
@@ -835,13 +837,13 @@ class JiraTicketTranslator:
         매칭되는 경우 원래 라벨(영어/국문 혼합 포함)을 반환한다.
 
         예:
-            "Expected Result:"           -> "Expected Result"
-            "Expected/기대 결과:"        -> "Expected/기대 결과"
-            "Video/영상:"                -> "Video/영상"
+            "Expected Result:"           -> "Expected Result:"
+            "Expected/기대 결과:"        -> "Expected/기대 결과:"
+            "Video/영상:"                -> "Video/영상:"
         """
         # 색상/스타일 마크업 제거
         stripped = re.sub(r"\{color:[^}]+\}|\{color\}", "", line or "").strip()
-        # 마지막 콜론 제거 및 양끝 * / _ 제거
+        # 마지막 콜론 제거 및 양끝 * / _ 제거 (매칭 용도로만 사용)
         stripped_no_colon = stripped.rstrip(":").strip("*_ ")
         lowered = stripped_no_colon.lower()
 
@@ -857,8 +859,8 @@ class JiraTicketTranslator:
             normalized = header.lower()
             # "expected" 또는 "expected result" 형태 모두 허용
             if left == normalized or left.startswith(f"{normalized} "):
-                # canonical 문자열 대신, 실제 라벨(영어/국문 모두 포함 가능)을 그대로 사용
-                return stripped_no_colon
+                # 원본 형식을 그대로 반환 (콜론 포함)
+                return stripped
 
         return None
 
