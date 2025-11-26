@@ -820,6 +820,9 @@ class JiraTicketTranslator:
         if not translation:
             return ""
 
+        # 원문에 색상 태그가 있는지 확인
+        has_color_tag = "{color:" in original_line or "{color}" in original_line
+        
         # 원문의 들여쓰기 및 불릿/번호 패턴 감지
         # 예: "  - Item" -> prefix="  - "
         # 예: "    1. Item" -> prefix="    1. "
@@ -827,17 +830,27 @@ class JiraTicketTranslator:
         if match:
             prefix = match.group(1)
             cleaned_translation = self._strip_bullet_prefix(translation)
-            # 원문의 prefix 구조를 유지하고, 내용만 색상 처리
-            return f"{prefix}{{color:#4c9aff}}{cleaned_translation}{{color}}"
+            # 원문의 prefix 구조를 유지하고, 내용만 색상 처리 (원문에 색상 태그가 없을 때만)
+            if not has_color_tag:
+                return f"{prefix}{{color:#4c9aff}}{cleaned_translation}{{color}}"
+            else:
+                return f"{prefix}{cleaned_translation}"
         
         # 불릿이 없는 경우 (일반 텍스트)
         # 원문의 leading whitespace를 감지하여 번역문에도 적용
         indent_match = re.match(r"^(\s*)", original_line)
         if indent_match:
             indent = indent_match.group(1)
-            return f"{indent}{{color:#4c9aff}}{translation}{{color}}"
+            if not has_color_tag:
+                return f"{indent}{{color:#4c9aff}}{translation}{{color}}"
+            else:
+                return f"{indent}{translation}"
         
-        return f"{{color:#4c9aff}}{translation}{{color}}"
+        # 기본 케이스
+        if not has_color_tag:
+            return f"{{color:#4c9aff}}{translation}{{color}}"
+        else:
+            return translation
 
     def _strip_bullet_prefix(self, text: str) -> str:
         return re.sub(r"^\s*(?:[-*#]+|\d+\.)\s+", "", text).strip()
