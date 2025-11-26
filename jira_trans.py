@@ -667,8 +667,8 @@ class JiraTicketTranslator:
             stripped = line.strip()
             if not stripped:
                 continue
-            # 미디어, 헤더, 표 라인은 번역 매칭에서 제외
-            if self._is_media_line(stripped) or self._is_header_line(stripped) or (stripped.startswith("|") and stripped.endswith("|")):
+            # 미디어, 헤더 라인은 번역 매칭에서 제외 (표는 포함)
+            if self._is_media_line(stripped) or self._is_header_line(stripped):
                 continue
             translation_source_lines.append(line)
             
@@ -721,10 +721,79 @@ class JiraTicketTranslator:
             # 테이블 라인 처리 (|로 시작하고 |로 끝나는 경우)
             if stripped.startswith("|") and stripped.endswith("|"):
                 flush_text_buffer() # 테이블 나오기 전 텍스트 처리
-                # 테이블은 번역하지 않고 원문 그대로 출력
                 # Jira가 표를 제대로 렌더링하려면 앞에 빈 줄이 필요
                 lines.append("")
-                lines.append(line)
+                
+                # 번역된 표 라인 가져오기 (LLM이 표 전체를 하나의 라인으로 번역)
+                translated_table_line = next_translation_line()
+                
+                # 헤더 셀 (||)과 데이터 셀 (|) 구분
+                is_header_row = line.strip().startswith("||")
+                
+                if is_header_row:
+                    # 헤더 행 처리
+                    orig_cells = line.split("||")
+                    trans_cells = translated_table_line.split("||") if translated_table_line else []
+                    
+                    new_cells = []
+                    for i, orig_cell in enumerate(orig_cells):
+                        # split 결과의 첫번째와 마지막은 빈 문자열
+                        if i == 0 or i == len(orig_cells) - 1:
+                            new_cells.append(orig_cell)
+                            continue
+                        
+                        # 원문 셀에서 별표 제거하여 실제 내용 추출
+                        orig_content = orig_cell.strip().strip("*").strip()
+                        if not orig_content:
+                            new_cells.append(orig_cell)
+                            continue
+                        
+                        # 대응하는 번역 셀 가져오기
+                        if trans_cells and i < len(trans_cells):
+                            trans_content = trans_cells[i].strip().strip("*").strip()
+                            if trans_content:
+                                # 포맷: "*원문/번역*"
+                                new_cells.append(f"*{orig_content}/{trans_content}*")
+                            else:
+                                new_cells.append(orig_cell)
+                        else:
+                            new_cells.append(orig_cell)
+                    
+                    lines.append("||".join(new_cells))
+                else:
+                    # 데이터 행 처리
+                    orig_cells = line.split("|")
+                    trans_cells = translated_table_line.split("|") if translated_table_line else []
+                    
+                    new_cells = []
+                    for i, orig_cell in enumerate(orig_cells):
+                        # split 결과의 첫번째와 마지막은 빈 문자열
+                        if i == 0 or i == len(orig_cells) - 1:
+                            new_cells.append(orig_cell)
+                            continue
+                        
+                        orig_content = orig_cell.strip()
+                        if not orig_content:
+                            new_cells.append(orig_cell)
+                            continue
+                        
+                        # 셀 내용이 미디어인 경우 번역 스킵
+                        if self._is_media_line(orig_content):
+                            new_cells.append(orig_cell)
+                            continue
+                        
+                        # 대응하는 번역 셀 가져오기
+                        if trans_cells and i < len(trans_cells):
+                            trans_content = trans_cells[i].strip()
+                            if trans_content and not self._is_media_line(trans_content):
+                                # 포맷: "원문/번역"
+                                new_cells.append(f"{orig_content}/{trans_content}")
+                            else:
+                                new_cells.append(orig_cell)
+                        else:
+                            new_cells.append(orig_cell)
+                    
+                    lines.append("|".join(new_cells))
                 continue
 
             # 미디어 라인 처리
