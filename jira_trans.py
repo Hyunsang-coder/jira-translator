@@ -860,6 +860,9 @@ class JiraTicketTranslator:
                 return True
             if candidate.startswith("["):
                 return True
+            # 이미지 메타데이터 패턴 감지 (예: width=...,height=...,alt="..."!)
+            if re.search(r'(width|height|alt)=.*!$', candidate):
+                return True
         if "__IMAGE_PLACEHOLDER" in stripped_line or "__ATTACHMENT_PLACEHOLDER" in stripped_line:
             return True
         return False
