@@ -75,7 +75,7 @@ class JiraTicketTranslator:
 
         # OpenAI SDK 초기화 (LangChain 대체)
         self.openai = OpenAI(api_key=openai_api_key)
-        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5-mini")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.1")
         
         # 용어집 데이터 (translate_issue 호출 시 로드됨)
         self.glossary_terms: dict[str, str] = {}
@@ -412,6 +412,10 @@ class JiraTicketTranslator:
         for field, content in translation_results.items():
             original = content.get('original', '')
             translated = content.get('translated', '')
+
+            if not translated:
+                continue
+
             if field == "summary":
                 formatted = self.format_summary_value(original, translated)
             elif field == "description":
@@ -419,7 +423,7 @@ class JiraTicketTranslator:
             elif field.startswith("customfield_"): # Steps to Reproduce fields
                 formatted = self.format_steps_value(original, translated)
             else:
-                formatted = translated or original
+                formatted = translated
 
             if formatted:
                 payload[field] = formatted
