@@ -76,6 +76,10 @@ class JiraTicketTranslator:
         # OpenAI SDK 초기화 (LangChain 대체)
         self.openai = OpenAI(api_key=openai_api_key)
         self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5-mini")
+        
+        # 용어집 데이터 (translate_issue 호출 시 로드됨)
+        self.glossary_terms: dict[str, str] = {}
+        self.glossary_name: str = ""
 
     def extract_attachments_markup(self, text: str) -> tuple[list[str], str]:
         """
@@ -174,7 +178,7 @@ class JiraTicketTranslator:
         단어 경계 매칭(\b)을 사용하여 정확히 일치하는 용어만 찾습니다.
         예: 'key' 검색 시 'monkey'는 무시함.
         """
-        terms = self._load_pbb_glossary_terms()
+        terms = self.glossary_terms
         if not terms:
             return ""
 
@@ -198,8 +202,9 @@ class JiraTicketTranslator:
         if not glossary_lines:
             return ""
 
+        glossary_name_display = self.glossary_name or "Project"
         return (
-            "Use this PBB(Project Black Budget) glossary for PBB-specific terms "
+            f"Use this {glossary_name_display} glossary for specific terms "
             "(left = source, right = target):\n"
             + "\n".join(glossary_lines)
         )
@@ -411,7 +416,7 @@ class JiraTicketTranslator:
                 formatted = self.format_summary_value(original, translated)
             elif field == "description":
                 formatted = translated
-            elif field == "customfield_10399":
+            elif field.startswith("customfield_"): # Steps to Reproduce fields
                 formatted = self.format_steps_value(original, translated)
             else:
                 formatted = translated or original
@@ -421,21 +426,11 @@ class JiraTicketTranslator:
 
         return payload
 
-    def _load_pbb_glossary_terms(self) -> dict[str, str]:
-        """pbb_glossary.json에서 terms 딕셔너리를 로드.
-
-        pbb_glossary.json 구조:
-        {
-            "description": "...",
-            "terms": {
-                "reputation": "우호도",
-                ...
-            }
-        }
-        """
+    def _load_glossary_terms(self, filename: str) -> dict[str, str]:
+        """지정된 용어집 파일에서 terms 딕셔너리를 로드."""
         try:
             base_dir = Path(__file__).resolve().parent
-            glossary_path = base_dir / "pbb_glossary.json"
+            glossary_path = base_dir / filename
             if not glossary_path.exists():
                 return {}
 
@@ -833,7 +828,9 @@ class JiraTicketTranslator:
         fields_to_fetch: Optional[Sequence[str]] = None
     ) -> dict[str, str]:
         if not fields_to_fetch:
-            fields_to_fetch = ["summary", "description", "customfield_10399"]
+            # 기본값은 호출하는 쪽에서 결정해서 넘겨주도록 변경됨
+            # 하지만 안전장치로 남겨둠
+            fields_to_fetch = ["summary", "description"]
 
         endpoint = f"{self.jira_url}/rest/api/2/issue/{issue_key}"
         params = {
@@ -885,15 +882,29 @@ class JiraTicketTranslator:
         Args:
             issue_key: Jira 이슈 키 (예: 'BUG-123')
             target_language: 목표 언어
-            fields_to_translate: 번역할 필드 리스트 (기본: ['summary', 'description', 'customfield_10399'])
+            fields_to_translate: 번역할 필드 리스트 (기본: None -> 자동 결정)
 
         Returns:
             번역 결과 딕셔너리
         """
-        if fields_to_translate is None:
-            fields_to_translate = ['summary', 'description', 'customfield_10399']
+        # 1. 티켓 타입 판별 및 설정
+        if issue_key.upper().startswith("PUBG-"):
+            steps_field = "customfield_10237"
+            glossary_file = "pubg_glossary.json"
+            self.glossary_name = "PUBG"
+        else:
+            # 기본값은 PBB (P2-*)
+            steps_field = "customfield_10399"
+            glossary_file = "pbb_glossary.json"
+            self.glossary_name = "PBB(Project Black Budget)"
 
-        # 1. 이슈 조회
+        # 용어집 로드
+        self.glossary_terms = self._load_glossary_terms(glossary_file)
+
+        if fields_to_translate is None:
+            fields_to_translate = ['summary', 'description', steps_field]
+
+        # 2. 이슈 조회
         print(f"📥 Fetching issue {issue_key}...")
         issue_fields = self.fetch_issue_fields(issue_key, fields_to_translate)
 
@@ -908,7 +919,7 @@ class JiraTicketTranslator:
             else:
                 resolved_target = "Korean"
 
-        # 2. 각 필드를 단일 배치로 번역 준비
+        # 3. 각 필드를 단일 배치로 번역 준비
         translation_results: dict[str, dict[str, str]] = {}
         jobs: dict[str, FieldTranslationJob] = {}
         all_chunks: list[TranslationChunk] = []
@@ -929,7 +940,7 @@ class JiraTicketTranslator:
                 skip_reason = "already translated"
             elif field == "summary" and self._is_bilingual_summary(field_value):
                 skip_reason = "already bilingual"
-            elif field == "customfield_10399" and self._is_steps_bilingual(field_value):
+            elif field == steps_field and self._is_steps_bilingual(field_value):
                 skip_reason = "already bilingual steps"
 
             if skip_reason:
@@ -1051,7 +1062,7 @@ if __name__ == "__main__":
     results_obj = translator.translate_issue(
         issue_key=issue_key,
         target_language=None,
-        fields_to_translate=['summary', 'description', 'customfield_10399']
+        fields_to_translate=None # 자동 결정
     )
 
     translation_results = results_obj.get("results", {}) if isinstance(results_obj, dict) else {}
@@ -1112,7 +1123,7 @@ def handler(event, context):
     issue_key = event.get("issue_key")
     issue_url = event.get("issue_url")
     target_language = event.get("target_language")  # None이면 자동 판별
-    fields = event.get("fields_to_translate", ['summary', 'description', 'customfield_10399'])
+    fields = event.get("fields_to_translate") # None이면 자동 결정
     do_update = event.get("update", False)
     jira_url_override = event.get("jira_url")  # 선택: 이벤트로 JIRA URL 재정의
 
