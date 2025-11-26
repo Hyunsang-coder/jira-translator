@@ -1023,6 +1023,12 @@ class JiraTicketTranslator:
 
         endpoint = f"{self.jira_url}/rest/api/2/issue/{issue_key}"
         response = self.session.put(endpoint, json={"fields": field_payload}, timeout=15)
+        
+        # 👇 [추가] 에러 발생 시 상세 응답 내용 출력
+        if not response.ok:
+            print(f"❌ Jira API Error ({response.status_code})")
+            print(f"Response: {response.text}")
+            
         response.raise_for_status()
         print("✅ Jira 이슈가 업데이트되었습니다.")
 
@@ -1200,9 +1206,11 @@ if __name__ == "__main__":
     if not all([JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY]):
         raise EnvironmentError("JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY 환경 변수를 모두 설정해주세요.")
 
-    issue_url_input = input("번역할 Jira 티켓 URL을 입력하세요: ").strip()
+    default_url = "https://cloud.jira.krafton.com/browse/P2-70735"
+    issue_url_input = input(f"번역할 Jira 티켓 URL을 입력하세요 (Enter for default: {default_url}): ").strip()
     if not issue_url_input:
-        raise ValueError("Jira 티켓 URL은 필수 입력값입니다.")
+        issue_url_input = default_url
+        print(f"ℹ️ 기본 URL을 사용합니다: {issue_url_input}")
 
     input_base_url, issue_key = parse_issue_url(issue_url_input)
     if JIRA_URL and JIRA_URL.lower() != input_base_url.lower():
