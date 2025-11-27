@@ -285,17 +285,88 @@ class JiraTicketTranslator:
         return {"ko": "English", "en": "Korean"}.get(detected, "Korean")
 
     def _detect_text_language(self, text: str) -> str:
+        """
+        텍스트의 언어를 감지 (고도화된 로직).
+        
+        Returns:
+            "ko": 한국어
+            "en": 영어
+            "unknown": 알 수 없음
+        """
         if not text:
             return "unknown"
+        
         sanitized = self._extract_detectable_text(text)
         if not sanitized:
             return "unknown"
+        
+        # 1. 한글 문자 개수
         korean_chars = len(re.findall(r"[\uac00-\ud7a3]", sanitized))
+        
+        # 2. 영어 문자 개수
         latin_chars = len(re.findall(r"[A-Za-z]", sanitized))
+        
+        # 3. 영어 단어 패턴 감지 (일반적인 영어 단어들)
+        common_english_words = [
+            r'\bthe\b', r'\ba\b', r'\ban\b', r'\bis\b', r'\bare\b', r'\bwas\b', r'\bwere\b',
+            r'\bbe\b', r'\bto\b', r'\bof\b', r'\band\b', r'\bor\b', r'\bin\b', r'\bon\b',
+            r'\bat\b', r'\bby\b', r'\bfor\b', r'\bwith\b', r'\bfrom\b', r'\bas\b',
+            r'\bthis\b', r'\bthat\b', r'\bthese\b', r'\bthose\b',
+            r'\bi\b', r'\byou\b', r'\bhe\b', r'\bshe\b', r'\bit\b', r'\bwe\b', r'\bthey\b',
+            r'\bhave\b', r'\bhas\b', r'\bhad\b', r'\bdo\b', r'\bdoes\b', r'\bdid\b',
+            r'\bwill\b', r'\bwould\b', r'\bcould\b', r'\bshould\b', r'\bmay\b', r'\bmight\b',
+            r'\bcan\b', r'\bcannot\b', r'\bcan\'t\b',
+            r'\bnot\b', r'\bno\b', r'\byes\b',
+            r'\bif\b', r'\bthen\b', r'\belse\b', r'\bwhen\b', r'\bwhere\b', r'\bwhat\b',
+            r'\bwho\b', r'\bwhy\b', r'\bhow\b',
+            r'\bone\b', r'\btwo\b', r'\bthree\b', r'\bfirst\b', r'\bsecond\b', r'\bthird\b',
+        ]
+        
+        english_word_count = 0
+        sanitized_lower = sanitized.lower()
+        for pattern in common_english_words:
+            if re.search(pattern, sanitized_lower):
+                english_word_count += 1
+        
+        # 4. 한글 문장 구조 감지 (조사, 어미 패턴)
+        korean_particles = [
+            r'[이가]서', r'[이가]지만', r'[이가]고', r'[이가]며',
+            r'[을를]', r'[은는]', r'[에의]', r'[와과]',
+            r'[도만]', r'[부터까지]', r'[으로]',
+        ]
+        korean_endings = [
+            r'[다요음]\.', r'[다요음]\s', r'[다요음]$',
+            r'[습니다습니까]', r'[합니다합니다]', r'[됩니다됩니다]',
+            r'[있습니다없습니다]', r'[됩니다됩니다]',
+        ]
+        
+        korean_structure_score = 0
+        for pattern in korean_particles + korean_endings:
+            if re.search(pattern, sanitized):
+                korean_structure_score += 1
+        
+        # 5. 혼합 텍스트 처리
+        # 한글이 상당히 많으면 (최소 3자 이상) 한국어로 판단
+        if korean_chars >= 3:
+            # 영어 단어가 많아도 한글 문장 구조가 있으면 한국어 우선
+            if korean_structure_score > 0 or korean_chars > latin_chars * 0.5:
+                return "ko"
+        
+        # 6. 영어 판단
+        if latin_chars > 0:
+            # 영어 단어 패턴이 많거나, 한글이 거의 없으면 영어
+            if english_word_count >= 2 or (korean_chars == 0 and latin_chars >= 3):
+                return "en"
+            # 한글과 영어가 혼합된 경우, 영어가 훨씬 많으면 영어
+            if latin_chars > korean_chars * 2:
+                return "en"
+        
+        # 7. 기본 판단 (문자 개수 기반)
         if korean_chars > latin_chars:
             return "ko"
         if latin_chars > 0:
             return "en"
+        
         return "unknown"
 
     def _extract_detectable_text(self, text: str) -> str:
@@ -662,15 +733,45 @@ class JiraTicketTranslator:
             return "\n".join(lines).strip()
 
         # 번역문 라인 준비
+        # 원문의 코드블럭 상태를 추적하여 번역문에서도 동일하게 처리
         translation_source_lines = []
-        for line in translated.splitlines():
-            stripped = line.strip()
-            if not stripped:
+        in_code_block_trans = False
+        
+        # 원문을 먼저 스캔하여 번역 가능한 라인만 추출
+        original_lines_for_scan = original.splitlines()
+        translatable_original_lines = []
+        in_code_block_orig = False
+        
+        for orig_line in original_lines_for_scan:
+            is_code_line, in_code_block_orig = self._is_inside_code_block(orig_line, in_code_block_orig)
+            if is_code_line or in_code_block_orig:
+                continue  # 코드블럭 라인은 제외
+            
+            stripped_orig = orig_line.strip()
+            if not stripped_orig:
                 continue
+            
             # 미디어, 헤더 라인은 번역 매칭에서 제외 (표는 포함)
-            if self._is_media_line(stripped) or self._is_header_line(stripped):
+            if self._is_media_line(stripped_orig) or self._is_header_line(stripped_orig):
                 continue
-            translation_source_lines.append(line)
+            
+            translatable_original_lines.append(orig_line)
+        
+        # 번역문에서도 코드블럭 라인 제외하고 번역 가능한 라인만 추출
+        for trans_line in translated.splitlines():
+            is_code_line, in_code_block_trans = self._is_inside_code_block(trans_line, in_code_block_trans)
+            if is_code_line or in_code_block_trans:
+                continue  # 코드블럭 라인은 제외
+            
+            trans_stripped = trans_line.strip()
+            if not trans_stripped:
+                continue
+            
+            # 미디어, 헤더 라인은 번역 매칭에서 제외
+            if self._is_media_line(trans_stripped) or self._is_header_line(trans_stripped):
+                continue
+            
+            translation_source_lines.append(trans_line)
             
         translation_index = 0
 
@@ -715,8 +816,19 @@ class JiraTicketTranslator:
             text_buffer = []
 
         original_lines = original.splitlines()
+        in_code_block = False
+        
         for line in original_lines:
             stripped = line.strip()
+            
+            # 코드블럭 상태 업데이트
+            is_code_line, in_code_block = self._is_inside_code_block(line, in_code_block)
+            
+            # 코드블럭 내부 또는 코드블럭 태그 라인은 스킵
+            if is_code_line or in_code_block:
+                flush_text_buffer()  # 코드블럭 나오기 전 텍스트 처리
+                lines.append(line)  # 코드블럭 라인 출력
+                continue
             
             # 테이블 라인 처리 (|로 시작하고 |로 끝나는 경우)
             if stripped.startswith("|") and stripped.endswith("|"):
@@ -879,6 +991,68 @@ class JiraTicketTranslator:
         if "__IMAGE_PLACEHOLDER" in stripped_line or "__ATTACHMENT_PLACEHOLDER" in stripped_line:
             return True
         return False
+    
+    def _is_code_block_line(self, line: str) -> bool:
+        """
+        코드블럭 태그 라인인지 판단.
+        - {code} 또는 {code:language}가 포함된 라인
+        - {noformat}이 포함된 라인
+        """
+        if not line:
+            return False
+        stripped = line.strip()
+        
+        # noformat 태그 감지
+        if "{noformat}" in stripped:
+            return True
+            
+        # code 태그 감지
+        if re.search(r'\{code(?::[^}]*)?\}', stripped):
+            return True
+            
+        return False
+
+    def _is_inside_code_block(self, line: str, in_code_block: bool) -> tuple[bool, bool]:
+        """
+        코드블럭 내부인지 판단하고 상태 업데이트.
+        {code}, {code:language}, {noformat} 블록을 모두 처리.
+        태그가 한 줄에 홀수 개 있으면 상태를 토글합니다.
+        
+        Args:
+            line: 현재 라인
+            in_code_block: 현재 코드블럭 내부 상태
+            
+        Returns:
+            (is_code_line, new_in_code_block_state)
+            - is_code_line: 이 라인이 코드블럭 태그 라인인지 여부
+            - new_in_code_block_state: 업데이트된 코드블럭 내부 상태
+        """
+        if not line:
+            return False, in_code_block
+        
+        stripped = line.strip()
+        
+        # 1. {noformat} 처리
+        if "{noformat}" in stripped:
+            # 태그 개수 세기
+            count = stripped.count("{noformat}")
+            # 홀수 개면 상태 토글 (열거나 닫음)
+            if count % 2 == 1:
+                return True, not in_code_block
+            # 짝수 개면 (열고 닫힘) 해당 라인은 코드 라인이지만 블록 상태는 유지
+            return True, in_code_block
+            
+        # 2. {code} 처리
+        # {code} 또는 {code:xxx} 태그 찾기
+        code_tags = re.findall(r'\{code(?::[^}]*)?\}', stripped)
+        if code_tags:
+            # 태그 개수가 홀수면 상태 토글
+            if len(code_tags) % 2 == 1:
+                return True, not in_code_block
+            return True, in_code_block
+        
+        # 코드블럭 내부 상태 유지
+        return in_code_block, in_code_block
     
     def _is_header_line(self, line: str) -> bool:
         """
