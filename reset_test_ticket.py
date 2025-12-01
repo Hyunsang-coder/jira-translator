@@ -109,7 +109,7 @@ def main():
     
     raw_summary = source_data.get("summary", "")
     raw_description = source_data.get("description", "")
-    raw_steps = source_data.get(steps_field_source, "")
+    raw_steps = source_data.get(steps_field_source)  # None 체크를 위해 기본값 없이
 
     clean_data = {}
     
@@ -120,12 +120,16 @@ def main():
     clean_data["description"] = clean_text_field(raw_description)
     
     # Steps (필드 ID 매핑 주의: 소스 필드 -> 타겟 필드)
-    # clean_steps 내부에서 언어 감지 로직 사용
-    clean_data[steps_field_target] = clean_steps(raw_steps, translator)
+    # STR 필드가 있을 때만 포함 (None이거나 빈 문자열이면 제외)
+    if raw_steps:
+        clean_data[steps_field_target] = clean_steps(raw_steps, translator)
 
     print("\n📋 덮어쓸 내용 미리보기:")
     print(f"[Summary] {clean_data['summary']}")
-    print(f"[Steps] {len(clean_data[steps_field_target])} chars")
+    if steps_field_target in clean_data:
+        print(f"[Steps] {len(clean_data[steps_field_target])} chars")
+    else:
+        print("[Steps] (없음 - 업데이트에서 제외)")
     print(f"[Description] {len(clean_data['description'])} chars")
     
     # 3. 타겟 티켓 업데이트

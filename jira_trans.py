@@ -149,16 +149,30 @@ class JiraTicketTranslator:
         if not text or not text.strip():
             return text
 
+        # 언어 감지 먼저 수행
+        detected_lang = self._detect_text_language(text)
+        
         glossary_instruction = self._build_glossary_instruction([text])
-        system_msg = (
-            "If the text is in Korean, translate it to English. "
-            "If the text is in English, translate it to Korean. "
-            "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.) "
-            "and translate only natural language text. "
-            "When translating to Korean, use terse memo-style (음슴체): drop endings such as '합니다', "
-            "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
-            "For titles/summaries, be extremely concise and use noun-ending style."
-        )
+        
+        if detected_lang == "ko":
+            # 한국어 → 영어: 완전한 영어로 번역
+            system_msg = (
+                "You are a professional Korean to English translator. "
+                "Translate the following Korean text to English. "
+                "The output MUST be 100% in English - do NOT leave any Korean words. "
+                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
+            )
+        else:
+            # 영어 → 한국어: 고유명사는 영어 유지
+            system_msg = (
+                "You are a professional English to Korean translator. "
+                "Translate the following English text to Korean. "
+                "Keep proper nouns and game-specific terms in English. "
+                "Use terse memo-style (음슴체): drop endings such as '합니다', "
+                "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
+                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
+            )
+        
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 
@@ -275,6 +289,11 @@ class JiraTicketTranslator:
         """
         텍스트의 언어를 감지 (고도화된 로직).
         
+        핵심 원칙:
+        - 한국어 조사/어미가 있으면 거의 확실히 한국어 (영어 고유명사가 많아도)
+        - 한글이 1자라도 있고 문장 구조가 한국어면 한국어
+        - 순수 영어 문장 패턴이 있을 때만 영어로 판단
+        
         Returns:
             "ko": 한국어
             "en": 영어
@@ -283,6 +302,10 @@ class JiraTicketTranslator:
         if not text:
             return "unknown"
         
+        # 원본 텍스트에서 언어 감지 (마크업 제거 전)
+        original_text = text
+        
+        # 마크업 제거된 텍스트
         sanitized = self._extract_detectable_text(text)
         if not sanitized:
             return "unknown"
@@ -293,66 +316,96 @@ class JiraTicketTranslator:
         # 2. 영어 문자 개수
         latin_chars = len(re.findall(r"[A-Za-z]", sanitized))
         
-        # 3. 영어 단어 패턴 감지 (일반적인 영어 단어들)
-        common_english_words = [
-            r'\bthe\b', r'\ba\b', r'\ban\b', r'\bis\b', r'\bare\b', r'\bwas\b', r'\bwere\b',
-            r'\bbe\b', r'\bto\b', r'\bof\b', r'\band\b', r'\bor\b', r'\bin\b', r'\bon\b',
-            r'\bat\b', r'\bby\b', r'\bfor\b', r'\bwith\b', r'\bfrom\b', r'\bas\b',
-            r'\bthis\b', r'\bthat\b', r'\bthese\b', r'\bthose\b',
-            r'\bi\b', r'\byou\b', r'\bhe\b', r'\bshe\b', r'\bit\b', r'\bwe\b', r'\bthey\b',
-            r'\bhave\b', r'\bhas\b', r'\bhad\b', r'\bdo\b', r'\bdoes\b', r'\bdid\b',
-            r'\bwill\b', r'\bwould\b', r'\bcould\b', r'\bshould\b', r'\bmay\b', r'\bmight\b',
-            r'\bcan\b', r'\bcannot\b', r'\bcan\'t\b',
-            r'\bnot\b', r'\bno\b', r'\byes\b',
-            r'\bif\b', r'\bthen\b', r'\belse\b', r'\bwhen\b', r'\bwhere\b', r'\bwhat\b',
-            r'\bwho\b', r'\bwhy\b', r'\bhow\b',
-            r'\bone\b', r'\btwo\b', r'\bthree\b', r'\bfirst\b', r'\bsecond\b', r'\bthird\b',
+        # 3. 한국어 조사 패턴 (가장 확실한 한국어 지표)
+        # 한글 + 조사 패턴: 영어 고유명사 뒤에 한국어 조사가 붙는 경우도 포함
+        korean_particle_patterns = [
+            # 주격/목적격 조사
+            r'[\uac00-\ud7a3][이가](?:\s|$|[^\uac00-\ud7a3])',  # ~이/가
+            r'[\uac00-\ud7a3][을를](?:\s|$|[^\uac00-\ud7a3])',  # ~을/를
+            r'[\uac00-\ud7a3][은는](?:\s|$|[^\uac00-\ud7a3])',  # ~은/는
+            # 부사격 조사
+            r'[\uac00-\ud7a3]에서(?:\s|$)',  # ~에서
+            r'[\uac00-\ud7a3]에(?:\s|$)',    # ~에
+            r'[\uac00-\ud7a3]으?로(?:\s|$)', # ~으로/로
+            r'[\uac00-\ud7a3][와과](?:\s|$)', # ~와/과
+            r'[\uac00-\ud7a3]의(?:\s|$)',    # ~의
+            # 영어 단어 + 한국어 조사 (고유명사 처리)
+            r'[A-Za-z]에서(?:\s|$)',         # Records에서
+            r'[A-Za-z]으?로(?:\s|$)',        # Tab으로
+            r'[A-Za-z][을를](?:\s|$)',       # Tab을
+            r'[A-Za-z][이가](?:\s|$)',       # Tab이
+            r'[A-Za-z][은는](?:\s|$)',       # Tab은
+            r'[A-Za-z]와(?:\s|$)',           # Tab와
         ]
         
-        english_word_count = 0
-        sanitized_lower = sanitized.lower()
-        for pattern in common_english_words:
-            if re.search(pattern, sanitized_lower):
-                english_word_count += 1
+        korean_particle_count = 0
+        for pattern in korean_particle_patterns:
+            korean_particle_count += len(re.findall(pattern, original_text))
         
-        # 4. 한글 문장 구조 감지 (조사, 어미 패턴)
-        korean_particles = [
-            r'[이가]서', r'[이가]지만', r'[이가]고', r'[이가]며',
-            r'[을를]', r'[은는]', r'[에의]', r'[와과]',
-            r'[도만]', r'[부터까지]', r'[으로]',
+        # 4. 한국어 어미 패턴 (문장 종결)
+        korean_ending_patterns = [
+            r'입니다[.!?\s]?$', r'습니다[.!?\s]?$', r'됩니다[.!?\s]?$',
+            r'있습니다[.!?\s]?$', r'없습니다[.!?\s]?$', r'했습니다[.!?\s]?$',
+            r'합니다[.!?\s]?$', r'됩니다[.!?\s]?$', r'집니다[.!?\s]?$',
+            r'입니까[.!?\s]?$', r'습니까[.!?\s]?$',
+            r'세요[.!?\s]?$', r'해요[.!?\s]?$', r'돼요[.!?\s]?$',
+            r'[다음임함됨없음있음][.!?\s]?$',  # 음슴체
+            r'현상입니다', r'현상임', r'발생함', r'확인됨',
+            r'느립니다', r'빠릅니다', r'많습니다', r'적습니다',
+            r'됩니다', r'않습니다', r'못합니다',
         ]
-        korean_endings = [
-            r'[다요음]\.', r'[다요음]\s', r'[다요음]$',
-            r'[습니다습니까]', r'[합니다합니다]', r'[됩니다됩니다]',
-            r'[있습니다없습니다]', r'[됩니다됩니다]',
+        
+        korean_ending_count = 0
+        for pattern in korean_ending_patterns:
+            if re.search(pattern, original_text, re.MULTILINE):
+                korean_ending_count += 1
+        
+        # 5. 한국어 문장 구조 점수
+        korean_structure_score = korean_particle_count + korean_ending_count
+        
+        # 6. 영어 문장 패턴 (관사, 전치사, be동사 등이 문장 내에서 사용될 때)
+        english_sentence_patterns = [
+            r'\b(the|a|an)\s+\w+',           # 관사 + 명사
+            r'\b(is|are|was|were|be)\s+',    # be동사
+            r'\b(have|has|had)\s+(been|to)', # have + been/to
+            r'\b(to|for|from|with|by|at|in|on)\s+\w+',  # 전치사 + 명사
+            r'\b(when|where|what|who|why|how)\s+',      # 의문사
+            r'\b(if|then|else|because|although)\s+',    # 접속사
+            r'\bshould\s+(be|not|have)',     # should + 동사
+            r'\bcan\s+(be|not|have)',        # can + 동사
+            r'\bwill\s+(be|not|have)',       # will + 동사
         ]
         
-        korean_structure_score = 0
-        for pattern in korean_particles + korean_endings:
-            if re.search(pattern, sanitized):
-                korean_structure_score += 1
+        english_sentence_count = 0
+        text_lower = original_text.lower()
+        for pattern in english_sentence_patterns:
+            english_sentence_count += len(re.findall(pattern, text_lower))
         
-        # 5. 혼합 텍스트 처리
-        # 한글이 상당히 많으면 (최소 3자 이상) 한국어로 판단
-        if korean_chars >= 3:
-            # 영어 단어가 많아도 한글 문장 구조가 있으면 한국어 우선
-            if korean_structure_score > 0 or korean_chars > latin_chars * 0.5:
-                return "ko"
+        # === 판단 로직 (우선순위 순) ===
         
-        # 6. 영어 판단
-        if latin_chars > 0:
-            # 영어 단어 패턴이 많거나, 한글이 거의 없으면 영어
-            if english_word_count >= 2 or (korean_chars == 0 and latin_chars >= 3):
-                return "en"
-            # 한글과 영어가 혼합된 경우, 영어가 훨씬 많으면 영어
-            if latin_chars > korean_chars * 2:
-                return "en"
+        # 최우선: 한국어 조사/어미가 1개라도 있으면 한국어
+        if korean_structure_score >= 1:
+            return "ko"
         
-        # 7. 기본 판단 (문자 개수 기반)
+        # 한글이 있고, 영어 문장 패턴이 없으면 한국어
+        if korean_chars >= 1 and english_sentence_count == 0:
+            return "ko"
+        
+        # 한글이 영어보다 많으면 한국어
         if korean_chars > latin_chars:
             return "ko"
-        if latin_chars > 0:
+        
+        # 영어 문장 패턴이 있고 한글이 없으면 영어
+        if english_sentence_count >= 1 and korean_chars == 0:
             return "en"
+        
+        # 한글 없고 영어가 있으면 영어
+        if korean_chars == 0 and latin_chars > 0:
+            return "en"
+        
+        # 기본값: 한글이 조금이라도 있으면 한국어로 (보수적 접근)
+        if korean_chars > 0:
+            return "ko"
         
         return "unknown"
 
@@ -561,17 +614,34 @@ class JiraTicketTranslator:
             [chunk.clean_text for chunk in chunks],
         )
         
-        # 자동 언어 감지 프롬프트
-        system_msg = (
-            "For each provided item: "
-            "If the text is in Korean, translate it to English. "
-            "If the text is in English, translate it to Korean. "
-            "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
-            "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
-            "IMPORTANT: Keep the exact same number of lines as the source text. "
-            "Do not add commentary. "
-            "When translating to Korean, use terse memo-style (음슴체) and concise noun phrases for titles/summaries."
-        )
+        # 청크들의 주요 언어 감지 (첫 번째 청크 기준)
+        combined_text = "\n".join(chunk.clean_text for chunk in chunks)
+        detected_lang = self._detect_text_language(combined_text)
+        
+        if detected_lang == "ko":
+            # 한국어 → 영어: 완전한 영어로 번역
+            system_msg = (
+                "You are a professional Korean to English translator. "
+                "Translate each provided Korean text to English. "
+                "The output MUST be 100% in English - do NOT leave any Korean words. "
+                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
+                "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
+                "IMPORTANT: Keep the exact same number of lines as the source text. "
+                "Do not add commentary."
+            )
+        else:
+            # 영어 → 한국어: 고유명사는 영어 유지
+            system_msg = (
+                "You are a professional English to Korean translator. "
+                "Translate each provided English text to Korean. "
+                "Keep proper nouns and game-specific terms in English. "
+                "Use terse memo-style (음슴체) and concise noun phrases for titles/summaries. "
+                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
+                "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
+                "IMPORTANT: Keep the exact same number of lines as the source text. "
+                "Do not add commentary."
+            )
+        
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 

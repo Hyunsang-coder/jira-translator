@@ -1,5 +1,5 @@
 {
-    "description": "PUBG Studios Jira 티켓용 용어집",
+    "description": "PBB 용어집",
     "terms": {
         "Facility": "퍼실리티",
         "Hideout": "하이드아웃",
@@ -12,7 +12,7 @@
         "Faction": "팩션",
         "Faction Reputation": "팩션 우호도",
         "Design document": "기획서",
-        "asset" : "에셋",
+        "asset": "에셋",
         "Unstuck": "고립 해제",
         "Secured Items": "보안 아이템",
         "Compound S": "컴파운드 S",
