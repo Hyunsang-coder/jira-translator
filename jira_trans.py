@@ -56,7 +56,7 @@ class JiraTicketTranslator:
     #   - "Video/영상:"
     # 영어-only 헤더와 영어/국문 혼합 헤더를 모두 포착하기 위해
     # 가능한 영어 형태들을 나열해 둔다.
-    DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Video", "Etc.")
+    DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Notes", "Video", "Etc.")
 
     def __init__(self, jira_url: str, email: str, api_token: str, openai_api_key: str):
         """
@@ -135,13 +135,13 @@ class JiraTicketTranslator:
 
         return text
 
-    def translate_text(self, text: str, target_language: str = "Korean") -> str:
+    def translate_text(self, text: str) -> str:
         """
         텍스트를 번역 (마크업 제외)
+        한글 텍스트는 영어로, 영어 텍스트는 한글로 자동 번역.
 
         Args:
             text: 번역할 텍스트
-            target_language: 목표 언어
 
         Returns:
             번역된 텍스트
@@ -149,18 +149,16 @@ class JiraTicketTranslator:
         if not text or not text.strip():
             return text
 
-        glossary_instruction = self._build_glossary_instruction([text], target_language)
+        glossary_instruction = self._build_glossary_instruction([text])
         system_msg = (
-            f"Translate to {target_language}. "
+            "If the text is in Korean, translate it to English. "
+            "If the text is in English, translate it to Korean. "
             "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.) "
             "and translate only natural language text. "
+            "When translating to Korean, use terse memo-style (음슴체): drop endings such as '합니다', "
+            "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
+            "For titles/summaries, be extremely concise and use noun-ending style."
         )
-        if (target_language or "").lower().startswith("korean"):
-            system_msg += (
-                "Use terse memo-style Korean (음슴체): drop endings such as '합니다', "
-                "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
-                "For titles/summaries, be extremely concise and use noun-ending style."
-            )
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 
@@ -173,8 +171,9 @@ class JiraTicketTranslator:
         )
         return (response.choices[0].message.content or "").strip()
 
-    def _build_glossary_instruction(self, texts: Sequence[str], target_language: str) -> str:
+    def _build_glossary_instruction(self, texts: Sequence[str]) -> str:
         """
+        양방향 용어집 지원: 영어→한국어, 한국어→영어 모두 포함.
         단어 경계 매칭(\b)을 사용하여 정확히 일치하는 용어만 찾습니다.
         예: 'key' 검색 시 'monkey'는 무시함.
         """
@@ -182,22 +181,19 @@ class JiraTicketTranslator:
         if not terms:
             return ""
 
-        tl = (target_language or "").lower()
-        if tl.startswith("korean"):
-            source_to_target = terms
-        else:
-            source_to_target = {tgt: src for src, tgt in terms.items()}
-
         combined_text = "\n".join(texts).lower()
         glossary_lines: list[str] = []
 
-        for src, tgt in source_to_target.items():
-            # re.escape는 특수문자가 포함된 용어(예: C++) 오동작 방지
-            # 단어 경계(\b) 매칭 수행
-            pattern = r"\b" + re.escape(src.lower()) + r"\b"
+        for eng, kor in terms.items():
+            # 영어 용어가 텍스트에 있으면 영어→한국어 매핑 추가
+            eng_pattern = r"\b" + re.escape(eng.lower()) + r"\b"
+            if re.search(eng_pattern, combined_text):
+                glossary_lines.append(f"- {eng} <-> {kor}")
+                continue
             
-            if re.search(pattern, combined_text):
-                glossary_lines.append(f"- {src} -> {tgt}")
+            # 한국어 용어가 텍스트에 있으면 한국어→영어 매핑 추가
+            if kor.lower() in combined_text:
+                glossary_lines.append(f"- {kor} <-> {eng}")
 
         if not glossary_lines:
             return ""
@@ -205,17 +201,17 @@ class JiraTicketTranslator:
         glossary_name_display = self.glossary_name or "Project"
         return (
             f"Use this {glossary_name_display} glossary for specific terms "
-            "(left = source, right = target):\n"
+            "(bidirectional mapping):\n"
             + "\n".join(glossary_lines)
         )
 
-    def translate_field(self, field_value: str, target_language: Optional[str] = None) -> str:
+    def translate_field(self, field_value: str) -> str:
         """
         Jira 필드 값을 번역 (이미지/첨부파일 마크업 보존)
+        한글→영어, 영어→한글 자동 번역.
 
         Args:
             field_value: 원본 필드 값
-            target_language: 목표 언어
 
         Returns:
             번역된 필드 값 (마크업 보존)
@@ -223,12 +219,11 @@ class JiraTicketTranslator:
         if not field_value:
             return field_value
 
-        target = target_language or self.determine_target_language(field_value)
         # 1. 이미지/첨부파일 마크업 추출
         attachments, clean_text = self.extract_attachments_markup(field_value)
 
         # 2. 텍스트만 번역
-        translated_text = self.translate_text(clean_text, target)
+        translated_text = self.translate_text(clean_text)
 
         # 3. 마크업 복원
         final_text = self.restore_attachments_markup(translated_text, attachments)
@@ -238,51 +233,43 @@ class JiraTicketTranslator:
     def _translate_chunk_text(
         self,
         chunk: TranslationChunk,
-        target_language: str,
     ) -> str:
-        return self.translate_text(chunk.clean_text, target_language) or ""
+        return self.translate_text(chunk.clean_text) or ""
 
     def _translate_chunk_list(
         self,
         chunk_list: Sequence[TranslationChunk],
-        target_language: str,
     ) -> dict[str, str]:
         translations: dict[str, str] = {}
         for chunk in chunk_list:
-            translations[chunk.id] = self._translate_chunk_text(chunk, target_language)
+            translations[chunk.id] = self._translate_chunk_text(chunk)
         return translations
 
     def _translate_chunks_individually(
         self,
         jobs: dict[str, FieldTranslationJob],
-        target_language: str,
     ) -> dict[str, str]:
         per_chunk: dict[str, str] = {}
         for job in jobs.values():
-            per_chunk.update(self._translate_chunk_list(job.chunks, target_language))
+            per_chunk.update(self._translate_chunk_list(job.chunks))
         return per_chunk
 
-    def translate_description_field(self, field_value: str, target_language: Optional[str] = None) -> str:
+    def translate_description_field(self, field_value: str) -> str:
+        """한글→영어, 영어→한글 자동 번역."""
         sections = self._extract_description_sections(field_value)
-        target = target_language or self.determine_target_language(field_value)
 
         if not sections:
-            translated = self.translate_field(field_value, target)
+            translated = self.translate_field(field_value)
             return self._format_bilingual_block(field_value, translated)
 
         formatted_sections = []
         for header, content in sections:
-            translated_section = self.translate_field(content, target)
+            translated_section = self.translate_field(content)
             formatted_sections.append(
                 self._format_bilingual_block(content, translated_section, header=header)
             )
 
         return "\n\n".join(filter(None, formatted_sections)).strip()
-
-    def determine_target_language(self, text: str) -> str:
-        _, core = self._split_bracket_prefix(text)
-        detected = self._detect_text_language(core)
-        return {"ko": "English", "en": "Korean"}.get(detected, "Korean")
 
     def _detect_text_language(self, text: str) -> str:
         """
@@ -526,7 +513,6 @@ class JiraTicketTranslator:
     def _call_openai_batch(
         self,
         chunks: Sequence[TranslationChunk],
-        target_language: str,
         retries: int = 2,
     ) -> dict[str, str]:
         if not chunks:
@@ -539,7 +525,7 @@ class JiraTicketTranslator:
         while attempt <= retries:
             attempt += 1
             try:
-                batch_result = self._call_openai_batch_once(chunks, target_language)
+                batch_result = self._call_openai_batch_once(chunks)
                 break
             except Exception as exc:
                 last_error = exc
@@ -554,7 +540,7 @@ class JiraTicketTranslator:
         if missing_ids:
             print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
             missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
-            fallback = self._translate_chunk_list(missing_chunks, target_language)
+            fallback = self._translate_chunk_list(missing_chunks)
             batch_result.update(fallback)
 
         return batch_result
@@ -562,32 +548,30 @@ class JiraTicketTranslator:
     def _call_openai_batch_once(
         self,
         chunks: Sequence[TranslationChunk],
-        target_language: str,
     ) -> dict[str, str]:
         """
         OpenAI Structured Outputs(beta.parse)를 사용하여
         JSON 파싱 에러를 원천 차단하고 안정성을 확보합니다.
+        한글→영어, 영어→한글 자동 번역.
         """
         if not chunks:
             return {}
 
         glossary_instruction = self._build_glossary_instruction(
             [chunk.clean_text for chunk in chunks],
-            target_language,
         )
         
-        # 시스템 메시지 간소화 (JSON 형식을 강제할 필요 없이 내용에만 집중)
+        # 자동 언어 감지 프롬프트
         system_msg = (
-            f"Translate every provided item to {target_language}. "
+            "For each provided item: "
+            "If the text is in Korean, translate it to English. "
+            "If the text is in English, translate it to Korean. "
             "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
             "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
             "IMPORTANT: Keep the exact same number of lines as the source text. "
-            "Do not add commentary."
+            "Do not add commentary. "
+            "When translating to Korean, use terse memo-style (음슴체) and concise noun phrases for titles/summaries."
         )
-        if (target_language or "").lower().startswith("korean"):
-            system_msg += (
-                " Use terse memo-style Korean (음슴체) and concise noun phrases for titles/summaries."
-            )
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
 
@@ -1209,16 +1193,14 @@ class JiraTicketTranslator:
     def translate_issue(
         self,
         issue_key: str,
-        target_language: Optional[str] = None,
         fields_to_translate: Optional[list[str]] = None,
         perform_update: bool = False
     ) -> dict:
         """
-        Jira 이슈를 번역
+        Jira 이슈를 번역 (한글→영어, 영어→한글 자동 번역)
 
         Args:
             issue_key: Jira 이슈 키 (예: 'BUG-123')
-            target_language: 목표 언어
             fields_to_translate: 번역할 필드 리스트 (기본: None -> 자동 결정)
 
         Returns:
@@ -1248,13 +1230,6 @@ class JiraTicketTranslator:
         if not issue_fields:
             print(f"⚠️ No fields found for {issue_key}")
             return {"results": {}, "update_payload": {}, "updated": False, "error": "no_fields"}
-        resolved_target = target_language
-        if resolved_target is None:
-            summary_text = issue_fields.get('summary', '')
-            if summary_text:
-                resolved_target = self.determine_target_language(summary_text)
-            else:
-                resolved_target = "Korean"
 
         # 3. 각 필드를 단일 배치로 번역 준비
         translation_results: dict[str, dict[str, str]] = {}
@@ -1294,13 +1269,10 @@ class JiraTicketTranslator:
         chunk_translations: dict[str, str] = {}
         if all_chunks:
             try:
-                chunk_translations = self._call_openai_batch(all_chunks, resolved_target)
+                chunk_translations = self._call_openai_batch(all_chunks)
             except Exception as exc:
                 print(f"⚠️ Batch translation failed, falling back to per-field mode: {exc}")
-                chunk_translations = self._translate_chunks_individually(
-                    jobs,
-                    resolved_target,
-                )
+                chunk_translations = self._translate_chunks_individually(jobs)
 
         for field, job in jobs.items():
             assembled: list[str] = []
@@ -1400,8 +1372,7 @@ if __name__ == "__main__":
 
     results_obj = translator.translate_issue(
         issue_key=issue_key,
-        target_language=None,
-        fields_to_translate=None # 자동 결정
+        fields_to_translate=None  # 자동 결정
     )
 
     translation_results = results_obj.get("results", {}) if isinstance(results_obj, dict) else {}
@@ -1461,8 +1432,7 @@ def handler(event, context):
 
     issue_key = event.get("issue_key")
     issue_url = event.get("issue_url")
-    target_language = event.get("target_language")  # None이면 자동 판별
-    fields = event.get("fields_to_translate") # None이면 자동 결정
+    fields = event.get("fields_to_translate")  # None이면 자동 결정
     do_update = event.get("update", False)
     jira_url_override = event.get("jira_url")  # 선택: 이벤트로 JIRA URL 재정의
 
@@ -1490,7 +1460,6 @@ def handler(event, context):
 
     results_obj = translator.translate_issue(
         issue_key=issue_key,
-        target_language=target_language,
         fields_to_translate=fields,
         perform_update=do_update
     )
