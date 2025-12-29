@@ -1,0 +1,136 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Jira Ticket Translator - OpenAI 기반 한/영 양방향 번역 Lambda 함수
+
+Globals:
+  Function:
+    Timeout: 60
+    MemorySize: 512
+    Runtime: python3.12
+    Architectures:
+      - x86_64
+
+Parameters:
+  JiraUrl:
+    Type: String
+    Default: https://cloud.jira.krafton.com
+    Description: Jira 인스턴스 URL
+
+  JiraEmail:
+    Type: String
+    Description: Jira 계정 이메일
+    NoEcho: true
+
+  JiraApiToken:
+    Type: String
+    Description: Jira API 토큰
+    NoEcho: true
+
+  OpenAIApiKey:
+    Type: String
+    Description: OpenAI API 키
+    NoEcho: true
+
+  OpenAIModel:
+    Type: String
+    Default: gpt-4.1
+    Description: 사용할 OpenAI 모델
+
+  StageName:
+    Type: String
+    Default: prod
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: API Gateway 스테이지 이름
+
+Resources:
+  # Lambda 함수
+  JiraTranslatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub jira-translator-${StageName}
+      Description: Jira 티켓을 한/영 양방향 자동 번역하는 Lambda 함수
+      CodeUri: .
+      Handler: jira_trans.handler
+      Timeout: 120
+      MemorySize: 1024
+      Environment:
+        Variables:
+          JIRA_URL: !Ref JiraUrl
+          JIRA_EMAIL: !Ref JiraEmail
+          JIRA_API_TOKEN: !Ref JiraApiToken
+          OPENAI_API_KEY: !Ref OpenAIApiKey
+          OPENAI_MODEL: !Ref OpenAIModel
+          PYTHONPATH: /var/task/package
+      Events:
+        TranslateApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref JiraTranslatorApi
+            Path: /translate
+            Method: POST
+        TranslateApiGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref JiraTranslatorApi
+            Path: /translate
+            Method: GET
+        HealthCheck:
+          Type: Api
+          Properties:
+            RestApiId: !Ref JiraTranslatorApi
+            Path: /health
+            Method: GET
+
+  # API Gateway REST API
+  JiraTranslatorApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub jira-translator-api-${StageName}
+      StageName: !Ref StageName
+      Description: Jira Translator REST API
+      EndpointConfiguration:
+        Type: REGIONAL
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Api-Key,Authorization'"
+        AllowOrigin: "'*'"
+      MethodSettings:
+        - ResourcePath: /*
+          HttpMethod: '*'
+          LoggingLevel: INFO
+          DataTraceEnabled: true
+          ThrottlingBurstLimit: 50
+          ThrottlingRateLimit: 100
+
+  # CloudWatch Log Group for Lambda
+  JiraTranslatorLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/jira-translator-${StageName}
+      RetentionInDays: 30
+
+Outputs:
+  JiraTranslatorFunctionArn:
+    Description: Lambda 함수 ARN
+    Value: !GetAtt JiraTranslatorFunction.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-FunctionArn
+
+  JiraTranslatorApiUrl:
+    Description: API Gateway 엔드포인트 URL
+    Value: !Sub https://${JiraTranslatorApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/translate
+    Export:
+      Name: !Sub ${AWS::StackName}-ApiUrl
+
+  HealthCheckUrl:
+    Description: 헬스체크 엔드포인트 URL
+    Value: !Sub https://${JiraTranslatorApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/health
+
+  ApiId:
+    Description: API Gateway REST API ID
+    Value: !Ref JiraTranslatorApi
+

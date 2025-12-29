@@ -1,0 +1,12 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "jira-translator"
+resolve_s3 = true
+s3_prefix = "jira-translator"
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "JiraUrl=\"https://krafton.atlassian.net\" OpenAIModel=\"gpt-5.2\" StageName=\"prod\""
+image_repositories = []
+
+[default.global.parameters]
+region = "ap-northeast-2"
