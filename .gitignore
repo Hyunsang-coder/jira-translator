@@ -16,4 +16,4 @@ wheels/
 #aws, sam
 .aws-sam
 template.yaml
-samconfig.toml
+samconfig.tomlsamconfig.toml
