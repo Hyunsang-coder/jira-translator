@@ -89,7 +89,10 @@ def main():
     )
 
     # 필드 결정
-    steps_field_source = "customfield_10237" if source_key.startswith("PUBG-") else "customfield_10399"
+    if source_key.startswith("PUBG-") or source_key.startswith("PAYDAY-"):
+        steps_field_source = "customfield_10237"
+    else:
+        steps_field_source = "customfield_10399"
     steps_field_target = "customfield_10399" # P2-70735는 PBB 프로젝트이므로 10399
 
     fields_to_fetch = ["summary", "description", steps_field_source]

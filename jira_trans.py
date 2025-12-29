@@ -1281,6 +1281,10 @@ class JiraTicketTranslator:
             steps_field = "customfield_10237"
             glossary_file = "pubg_glossary.json"
             self.glossary_name = "PUBG"
+        elif issue_key.upper().startswith("PAYDAY-"):
+            steps_field = "customfield_10237"
+            glossary_file = "heist_glossary.json"
+            self.glossary_name = "HeistRoyale"
         else:
             # 기본값은 PBB (P2-*)
             steps_field = "customfield_10399"

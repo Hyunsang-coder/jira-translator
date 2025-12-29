@@ -70,5 +70,22 @@ class TestTicketTypeLogic(unittest.TestCase):
         fields_arg = call_args[0][1]
         self.assertIn("customfield_10399", fields_arg)
 
+    def test_payday_ticket_logic(self):
+        """Test that PAYDAY tickets use customfield_10237 and heist_glossary.json"""
+        issue_key = "PAYDAY-7"
+        
+        self.translator.translate_issue(issue_key)
+        
+        # Verify glossary loading
+        self.translator._load_glossary_terms.assert_called_with("heist_glossary.json")
+        self.assertEqual(self.translator.glossary_name, "HeistRoyale")
+        
+        # Verify fields fetched (should include customfield_10237)
+        call_args = self.translator.fetch_issue_fields.call_args
+        self.assertIsNotNone(call_args)
+        fields_arg = call_args[0][1]
+        self.assertIn("customfield_10237", fields_arg)
+        self.assertNotIn("customfield_10399", fields_arg)
+
 if __name__ == '__main__':
     unittest.main()

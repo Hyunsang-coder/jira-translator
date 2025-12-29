@@ -4,17 +4,18 @@ Jira 티켓을 한/영 양방향으로 자동 번역하는 AWS Lambda 기반 서
 
 ## 주요 기능
 
-- ✅ **양방향 번역**: 한글 ↔ 영어 자동 감지 및 번역
-- ✅ **마크업 보존**: 이미지, 첨부파일, 코드 블록 등 Jira 마크업 유지
-- ✅ **용어집 지원**: 프로젝트별 용어집을 통한 일관된 번역
-- ✅ **REST API**: API Gateway를 통한 HTTP 엔드포인트 제공
-- ✅ **로컬 테스트**: 로컬 환경에서 전체 파이프라인 테스트 가능
+- ✅ **양방향 번역**: 한글 ↔ 영어 자동 감지 및 번역 (OpenAI GPT 모델 활용)
+- ✅ **마크업 보존**: 이미지(`!...!`), 첨부파일(`[^...]`), 코드 블록(`{code}`), 링크 등 Jira 마크업 완벽 유지
+- ✅ **프로젝트별 용어집**: `PUBG`, `PBB`, `HeistRoyale` 등 프로젝트별 맞춤 용어집 지원
+- ✅ **자동 필드 매핑**: 이슈 키 접두사에 따른 재현 단계(Steps) 필드 자동 판별
+- ✅ **REST API**: API Gateway/Lambda URL을 통한 HTTP 엔드포인트 제공
+- ✅ **로컬 테스트**: 실제 배포 전 로컬 환경에서 번역 품질 및 로직 검증 가능
 
 ## 아키텍처
 
 ```
 ┌─────────────┐
-│ API Gateway │
+│ API Gateway │ (또는 Lambda Function URL)
 └──────┬──────┘
        │
        ▼
@@ -28,229 +29,98 @@ Jira 티켓을 한/영 양방향으로 자동 번역하는 AWS Lambda 기반 서
 
 - Python 3.12+
 - AWS CLI 및 SAM CLI 설치
-- AWS 계정 및 적절한 권한
-- Jira API 토큰
+- Jira API 토큰 (Atlassian 계정 설정에서 발급)
 - OpenAI API 키
 
-## 설치
+## 설치 및 설정
 
-### 1. 저장소 클론
-
+### 1. 저장소 클론 및 의존성 설치
 ```bash
 git clone <repository-url>
 cd jira-translator
-```
-
-### 2. 의존성 설치
-
-```bash
 pip install -r requirements.txt
 ```
 
-또는 `uv` 사용:
-
-```bash
-uv pip install -r requirements.txt
-```
-
-### 3. 환경 변수 설정
-
-`.env` 파일 생성:
-
-```bash
-JIRA_URL=https://your-jira-instance.com
+### 2. 환경 변수 설정 (`.env`)
+로컬 테스트를 위해 프로젝트 루트에 `.env` 파일을 생성합니다.
+```env
+JIRA_URL=https://cloud.jira.krafton.com
 JIRA_EMAIL=your-email@example.com
 JIRA_API_TOKEN=your-jira-api-token
 OPENAI_API_KEY=your-openai-api-key
-OPENAI_MODEL=gpt-5.2
+OPENAI_MODEL=gpt-4o  # 권장 모델
 ```
 
-## 배포
+## 프로젝트별 자동 매핑 가이드
 
-### 1. AWS 자격 증명 설정
+이슈 키의 Prefix에 따라 시스템이 자동으로 설정을 변경합니다.
 
-`samconfig.toml`에 AWS 프로필 설정:
+| 프로젝트 | 이슈 키 Prefix | 용어집 파일 | 재현 단계 필드 ID |
+| :--- | :--- | :--- | :--- |
+| **PUBG** | `PUBG-` | `pubg_glossary.json` | `customfield_10237` |
+| **HeistRoyale** | `PAYDAY-` | `heist_glossary.json` | `customfield_10237` |
+| **PBB** | `P2-` / 기타 | `pbb_glossary.json` | `customfield_10399` |
 
-```toml
-[default.global.parameters]
-region = "ap-northeast-2"
-profile = "your-aws-profile"
-```
+## 배포 (AWS SAM)
 
-### 2. SAM 템플릿 파라미터 설정
-
-`template.yaml` 또는 `samconfig.toml`에서 다음 파라미터 설정:
-
-- `JiraUrl`: Jira 인스턴스 URL
-- `JiraEmail`: Jira 계정 이메일
-- `JiraApiToken`: Jira API 토큰
-- `OpenAIApiKey`: OpenAI API 키
-- `OpenAIModel`: 사용할 OpenAI 모델 (기본값: `gpt-5.2`)
-- `StageName`: 배포 스테이지 (`dev`, `staging`, `prod`)
-
-### 3. 빌드 및 배포
-
+### 1. 빌드 및 배포
 ```bash
-# 빌드
 sam build
-
-# 배포
 sam deploy
 ```
-
-배포 후 출력되는 API Gateway URL을 확인하세요.
+*참고: 코드 수정 후에는 반드시 `sam build`를 먼저 수행해야 변경 사항이 반영됩니다.*
 
 ## API 사용법
 
-### 번역 엔드포인트
-
-**POST** `/translate`
-
+### 번역 및 업데이트 요청
+**POST** `/` (Lambda URL)
 ```json
 {
-  "issue_key": "PROJ-123",
-  "target_language": null,
-  "fields_to_translate": ["summary", "description"],
-  "perform_update": false
+  "issue_key": "PAYDAY-7",
+  "update": true
 }
 ```
 
-**GET** `/translate?issue_key=PROJ-123&fields=summary,description`
+**파라미터 상세:**
+- `issue_key` (필수): 번역할 Jira 이슈 키 (예: `P2-70735`, `PAYDAY-5`)
+- `update` (선택): `true`일 경우 번역 후 Jira 티켓을 실제로 업데이트합니다. (기본값: `false`)
 
-**파라미터:**
-- `issue_key` (필수): 번역할 Jira 이슈 키
-- `target_language` (선택): `"ko"` 또는 `"en"`. `null`이면 자동 감지
-- `fields_to_translate` (선택): 번역할 필드 목록 (기본값: `["summary", "description"]`)
-- `perform_update` (선택): 번역 후 Jira에 자동 업데이트 여부 (기본값: `false`)
+## 로컬 개발 및 테스트
 
-**응답:**
-
-```json
-{
-  "issue_key": "PROJ-123",
-  "results": {
-    "summary": {
-      "original": "Original text",
-      "translated": "번역된 텍스트"
-    },
-    "description": {
-      "original": "...",
-      "translated": "..."
-    }
-  },
-  "update_payload": {
-    "summary": "번역된 텍스트",
-    "description": "..."
-  }
-}
-```
-
-### 헬스체크 엔드포인트
-
-**GET** `/health`
-
-Lambda 함수 상태 확인용 엔드포인트입니다.
-
-## 로컬 개발
-
-### 로컬 테스트 실행
-
+### 1. 통합 테스트 실행 (CLI)
 ```bash
 python main.py
 ```
+이슈 키를 입력받아 번역 결과를 터미널에 출력하고, 선택적으로 Jira 업데이트까지 수행합니다.
 
-이 스크립트는:
-1. Jira 이슈 조회
-2. OpenAI를 통한 번역
-3. 번역 결과 미리보기
-4. 사용자 확인 후 Jira 업데이트
-
-### 로컬 Lambda 테스트
-
+### 2. 유닛 테스트
 ```bash
-sam local invoke JiraTranslatorFunction --event events/event.json
+# 티켓 타입 판별 로직 테스트
+export PYTHONPATH=$PYTHONPATH:$(pwd)/package
+python3 -m unittest tests/test_ticket_type_logic.py
 ```
 
 ## 프로젝트 구조
 
 ```
 jira-translator/
-├── jira_trans.py          # 핵심 번역 로직
-├── main.py                # 로컬 테스트 스크립트
-├── template.yaml          # SAM 템플릿
-├── samconfig.toml        # SAM 배포 설정
-├── requirements.txt       # Python 의존성
-├── pbb_glossary.json      # PUBG 용어집
+├── jira_trans.py          # 핵심 번역 로직 및 Lambda 핸들러
+├── heist_glossary.json    # HeistRoyale(PAYDAY) 용어집
 ├── pubg_glossary.json     # PUBG 용어집
-└── tests/                 # 테스트 파일
+├── pbb_glossary.json      # PBB 용어집
+├── template.yaml          # SAM 템플릿
+├── requirements.txt       # 의존성 목록
+├── main.py                # 로컬 실행 스크립트
+└── tests/                 # 테스트 케이스 (필드 매핑, 포맷팅 등)
 ```
 
 ## 주요 기능 상세
 
-### 마크업 보존
+### 마크업 및 섹션 보존
+번역 시 `{code}`, `!image.png!`, `[Link]`와 같은 Jira 전용 구문을 보호하여 번역 후에도 깨지지 않도록 처리합니다. 또한 `Observed:`, `Expected:`와 같은 섹션 헤더를 인식하여 구조를 유지합니다.
 
-Jira 마크업 형식을 자동으로 감지하고 보존합니다:
+### 용어집(Glossary) 활용
+각 프로젝트별 JSON 파일에 등록된 전문 용어들을 번역 시 OpenAI에 함께 전달하여, 일관성 있는 고품질 번역 결과를 보장합니다.
 
-- 이미지: `!image.png!`, `!image.png|thumbnail!`
-- 첨부파일: `[^attachment.pdf]`
-- 코드 블록: `{code}`, `{code:python}`
-- 링크: `[링크|URL]`
-
-### 용어집 지원
-
-프로젝트별 용어집 파일(`*_glossary.json`)을 지원하여 일관된 번역을 제공합니다.
-
-### 섹션 헤더 처리
-
-Description 필드의 섹션 헤더를 자동으로 인식하고 처리합니다:
-
-- `Observed:`, `Expected:`, `Note:`, `Video:` 등
-
-## 환경 변수
-
-| 변수명 | 설명 | 필수 |
-|--------|------|------|
-| `JIRA_URL` | Jira 인스턴스 URL | ✅ |
-| `JIRA_EMAIL` | Jira 계정 이메일 | ✅ |
-| `JIRA_API_TOKEN` | Jira API 토큰 | ✅ |
-| `OPENAI_API_KEY` | OpenAI API 키 | ✅ |
-| `OPENAI_MODEL` | 사용할 OpenAI 모델 | ❌ (기본값: `gpt-5.2`) |
-
-## 트러블슈팅
-
-### CloudWatch Logs Role 오류
-
-API Gateway 배포 시 "CloudWatch Logs role ARN must be set" 오류가 발생하면:
-
-1. `template.yaml`에 `ApiGatewayCloudWatchRole`과 `ApiGatewayAccount` 리소스가 포함되어 있는지 확인
-2. 스택을 삭제 후 재배포:
-
-```bash
-aws cloudformation delete-stack --stack-name jira-translator
-sam build
-sam deploy
-```
-
-### 다른 AWS 계정으로 배포
-
-`samconfig.toml`에서 프로필 변경:
-
-```toml
-[default.global.parameters]
-profile = "your-target-profile"
-```
-
-SSO 사용 시:
-
-```bash
-aws sso login --profile your-target-profile
-```
-
-## 라이선스
-
-[라이선스 정보 추가]
-
-## 기여
-
-[기여 가이드라인 추가]
-
+---
+*Last Updated: 2025-12-29*
