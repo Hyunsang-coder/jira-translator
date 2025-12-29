@@ -12,3 +12,7 @@ wheels/
 
 # .env
 .env
+
+#aws, sam
+.aws-sam
+template.yaml
