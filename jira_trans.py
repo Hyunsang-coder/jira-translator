@@ -1019,7 +1019,7 @@ class JiraTicketTranslator:
             return translation
 
     def _strip_bullet_prefix(self, text: str) -> str:
-        return re.sub(r"^\s*(?:[-*#]+|\d+\.)\s+", "", text).strip()
+        return re.sub(r"^\s*(?:[-*#]+|\d+[\.\)])\s*", "", text).strip()
 
     def _is_media_line(self, stripped_line: str) -> bool:
         if not stripped_line:
@@ -1476,65 +1476,89 @@ if __name__ == "__main__":
 
 ## 핸들러 함수
 def handler(event, context):
-    event = event or {}
-    # Parse API Gateway proxy body (JSON or x-www-form-urlencoded)
-    body_raw = event.get("body") or ""
-    if event.get("isBase64Encoded"):
-        if isinstance(body_raw, str):
-            body_raw = body_raw.encode("utf-8", "ignore")
-        body_raw = base64.b64decode(body_raw).decode("utf-8", "ignore")
-    headers = event.get("headers") or {}
-    content_type = headers.get("content-type") or headers.get("Content-Type") or ""
-    content_type = content_type.lower() if isinstance(content_type, str) else ""
-    parsed = {}
     try:
-        if "application/json" in content_type:
-            parsed = json.loads(body_raw or "{}")
-        elif "application/x-www-form-urlencoded" in content_type:
-            parsed = {
-                k: (v[0] if isinstance(v, list) else v)
-                for k, v in urllib.parse.parse_qs(body_raw).items()
-            }
-    except Exception:
+        event = event or {}
+        # Parse API Gateway proxy body (JSON or x-www-form-urlencoded)
+        body_raw = event.get("body") or ""
+        if event.get("isBase64Encoded"):
+            if isinstance(body_raw, str):
+                body_raw = body_raw.encode("utf-8", "ignore")
+            body_raw = base64.b64decode(body_raw).decode("utf-8", "ignore")
+        headers = event.get("headers") or {}
+        content_type = headers.get("content-type") or headers.get("Content-Type") or ""
+        content_type = content_type.lower() if isinstance(content_type, str) else ""
         parsed = {}
-    if isinstance(parsed, dict):
-        event.update(parsed)
+        try:
+            if "application/json" in content_type:
+                parsed = json.loads(body_raw or "{}")
+            elif "application/x-www-form-urlencoded" in content_type:
+                parsed = {
+                    k: (v[0] if isinstance(v, list) else v)
+                    for k, v in urllib.parse.parse_qs(body_raw).items()
+                }
+        except Exception:
+            parsed = {}
+        if isinstance(parsed, dict):
+            event.update(parsed)
 
-    issue_key = event.get("issue_key")
-    issue_url = event.get("issue_url")
-    fields = event.get("fields_to_translate")  # None이면 자동 결정
-    do_update = event.get("update", False)
-    jira_url_override = event.get("jira_url")  # 선택: 이벤트로 JIRA URL 재정의
+        issue_key = event.get("issue_key")
+        issue_url = event.get("issue_url")
+        fields = event.get("fields_to_translate")  # None이면 자동 결정
+        do_update = event.get("update", False)
+        # [보안 수정] jira_url 오버라이드 제거
+        # jira_url_override = event.get("jira_url")  <-- 삭제 권장
+        
+        # [수정] 환경 변수에서만 URL 로드
+        JIRA_URL = os.getenv("JIRA_URL", "https://cloud.jira.krafton.com").rstrip("/")
+        JIRA_EMAIL = os.getenv("JIRA_EMAIL")
+        JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        
+        # ... (검증 및 translator 초기화 로직 유지) ...
+        
+        if not all([JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY]):
+            raise EnvironmentError("JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY 환경 변수가 필요합니다.")
 
-    JIRA_URL = (jira_url_override or os.getenv("JIRA_URL", "https://cloud.jira.krafton.com")).rstrip("/")
-    JIRA_EMAIL = os.getenv("JIRA_EMAIL")
-    JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        # issue_key 우선, 없으면 URL에서 추출
+        if not issue_key:
+            if issue_url:
+                _, issue_key = parse_issue_url(issue_url)
+            else:
+                raise ValueError("issue_key 또는 issue_url 중 하나는 필수입니다.")
 
-    if not all([JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY]):
-        raise EnvironmentError("JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY 환경 변수가 필요합니다.")
+        translator = JiraTicketTranslator(
+            jira_url=JIRA_URL,
+            email=JIRA_EMAIL,
+            api_token=JIRA_API_TOKEN,
+            openai_api_key=OPENAI_API_KEY
+        )
 
-    # issue_key 우선, 없으면 URL에서 추출
-    if not issue_key:
-        if issue_url:
-            _, issue_key = parse_issue_url(issue_url)
-        else:
-            raise ValueError("issue_key 또는 issue_url 중 하나는 필수입니다.")
+        results_obj = translator.translate_issue(
+            issue_key=issue_key,
+            fields_to_translate=fields,
+            perform_update=do_update
+        )
 
-    translator = JiraTicketTranslator(
-        jira_url=JIRA_URL,
-        email=JIRA_EMAIL,
-        api_token=JIRA_API_TOKEN,
-        openai_api_key=OPENAI_API_KEY
-    )
+        response_data = {
+            "issue_key": issue_key,
+            **results_obj
+        }
 
-    results_obj = translator.translate_issue(
-        issue_key=issue_key,
-        fields_to_translate=fields,
-        perform_update=do_update
-    )
+        # [수정] API Gateway Proxy Response Format 준수
+        return {
+            "statusCode": 200,
+            "headers": {"Content-Type": "application/json"},
+            "body": json.dumps(response_data, ensure_ascii=False)
+        }
 
-    return {
-        "issue_key": issue_key,
-        **results_obj
-    }
+    except Exception as e:
+        print(f"❌ Error: {str(e)}")
+        # 에러 발생 시에도 정형화된 JSON 응답 반환
+        return {
+            "statusCode": 500, # 상황에 따라 400 등 분기 가능
+            "headers": {"Content-Type": "application/json"},
+            "body": json.dumps({
+                "error": str(e),
+                "type": type(e).__name__
+            }, ensure_ascii=False)
+        }

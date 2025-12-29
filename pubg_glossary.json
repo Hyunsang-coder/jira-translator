@@ -5,7 +5,7 @@
         "Workshop": "제작소",
         "Nameplate": "네임플레이트",
         "Vehicle": "탈 것",
-        "무기 참": "Weapon Charm",
+        "Weapon Charm": "무기 참",
         "Reputation": "우호도",
         "Contender": "컨텐더",
         "Hideout": "은신처",
@@ -13,6 +13,8 @@
         "Imprint": "도안",
         "Voucher": "획득권",
         "Prime Parcel": "최고급 꾸러미",
-        "Loot Cache": "전리품"
+        "Loot Cache": "전리품",
+        "Contraband": "밀수품",
+        "Colored Smoke Grenade": "컬러 연막탄"
     }
 }
