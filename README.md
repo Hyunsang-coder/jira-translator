@@ -57,9 +57,9 @@ OPENAI_MODEL=gpt-4o  # 권장 모델
 
 | 프로젝트 | 이슈 키 Prefix | 용어집 파일 | 재현 단계 필드 ID |
 | :--- | :--- | :--- | :--- |
-| **PUBG** | `PUBG-` | `pubg_glossary.json` | `customfield_10237` |
-| **HeistRoyale** | `PAYDAY-` | `heist_glossary.json` | `customfield_10237` |
-| **PBB** | `P2-` / 기타 | `pbb_glossary.json` | `customfield_10399` |
+| **PUBG** | `PUBG-` | `glossaries/pubg_glossary.json` | `customfield_10237` |
+| **HeistRoyale** | `PAYDAY-` | `glossaries/heist_glossary.json` | `customfield_10237` |
+| **PBB** | `P2-` / 기타 | `glossaries/pbb_glossary.json` | `customfield_10399` |
 
 ## 배포 (AWS SAM)
 
@@ -102,6 +102,14 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 ### 3. SAM 로컬 테스트 (2가지 방법)
 SAM 템플릿(`template.yaml`)을 사용해 AWS 배포 전 로컬에서 Lambda/API Gateway 동작을 검증할 수 있습니다.
 
+
+**AWS login 필요!!**
+```bash
+aws configure sso 
+#configure 되어 있으면
+aws sso login --profile AdministratorAccess-700388609892
+``` 
+
 #### 방법 A) `sam local invoke` (1회 실행)
 - **장점**: 빠름, 반복 테스트에 좋음, 서버를 띄우지 않음
 - **검증 범위**: Lambda 핸들러 로직(요청 파싱/번역 호출/응답 포맷)
@@ -126,9 +134,11 @@ SAM 템플릿(`template.yaml`)을 사용해 AWS 배포 전 로컬에서 Lambda/A
 `events/translate.json`:
 ```json
 {
-  "body": "{\"issue_key\":\"P2-70735\",\"update\":false}",
-  "headers": { "Content-Type": "application/json" },
-  "isBase64Encoded": false
+    "body": "{\"issue_key\":\"P2-70735\",\"update\":false}",
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "isBase64Encoded": false
 }
 ```
 
@@ -158,26 +168,24 @@ curl -X POST "http://127.0.0.1:3000/translate" \
 
 ```
 jira-translator/
-├── jira_trans.py          # 핵심 번역 로직(호환 래퍼 포함)
+├── jira_trans.py          # Facade (진입점 호환성 유지)
 ├── handler.py             # Lambda 핸들러(진입점)
-├── prompts.py             # 프롬프트/용어집 지시문 빌더
-├── models.py              # 데이터 모델(TranslationChunk 등)
-├── heist_glossary.json    # HeistRoyale(PAYDAY) 용어집
-├── pubg_glossary.json     # PUBG 용어집
-├── pbb_glossary.json      # PBB 용어집
+├── modules/               # 핵심 로직 모듈 (Refactored)
+│   ├── jira_client.py     # Jira API 클라이언트
+│   ├── translation_engine.py # OpenAI 번역 엔진
+│   ├── formatting.py      # 포맷팅 및 마크업 처리
+│   └── language.py        # 언어 감지 로직
+├── glossaries/            # 프로젝트별 용어집
+│   ├── heist_glossary.json
+│   ├── pubg_glossary.json
+│   └── pbb_glossary.json
+├── prompts.py             # 프롬프트 빌더
+├── models.py              # 데이터 모델
 ├── template.yaml          # SAM 템플릿
 ├── requirements.txt       # 의존성 목록
 ├── main.py                # 로컬 실행 스크립트
-└── tests/                 # 테스트 케이스 (필드 매핑, 포맷팅 등)
+└── tests/                 # 테스트 케이스
 ```
 
-## 주요 기능 상세
-
-### 마크업 및 섹션 보존
-번역 시 `{code}`, `!image.png!`, `[Link]`와 같은 Jira 전용 구문을 보호하여 번역 후에도 깨지지 않도록 처리합니다. 또한 `Observed:`, `Expected:`와 같은 섹션 헤더를 인식하여 구조를 유지합니다.
-
-### 용어집(Glossary) 활용
-각 프로젝트별 JSON 파일에 등록된 전문 용어들을 번역 시 OpenAI에 함께 전달하여, 일관성 있는 고품질 번역 결과를 보장합니다.
-
 ---
-*Last Updated: 2025-12-29*
+*Last Updated: 2025-12-30*

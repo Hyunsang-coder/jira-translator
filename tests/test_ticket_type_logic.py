@@ -21,6 +21,10 @@ class TestTicketTypeLogic(unittest.TestCase):
         self.translator._call_openai_batch = MagicMock(return_value={})
         self.translator.update_issue_fields = MagicMock()
         self.translator._load_glossary_terms = MagicMock(return_value={"term": "translation"})
+        
+        # Patch the TranslationEngine._load_glossary_terms inside the Facade's component
+        # Because in the new architecture, the Facade delegates this to the Engine
+        self.translator.translation_engine._load_glossary_terms = self.translator._load_glossary_terms
 
     def test_pubg_ticket_logic(self):
         """Test that PUBG tickets use customfield_10237 and pubg_glossary.json"""
