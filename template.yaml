@@ -75,7 +75,7 @@ Resources:
       FunctionName: !Sub jira-translator-${StageName}
       Description: Jira 티켓을 한/영 양방향 자동 번역하는 Lambda 함수
       CodeUri: .
-      Handler: jira_trans.handler
+      Handler: handler.lambda_handler
       Timeout: 120
       MemorySize: 1024
       Environment:

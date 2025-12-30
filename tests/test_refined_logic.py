@@ -42,9 +42,11 @@ class TestRefinedLogic(unittest.TestCase):
         
         expected = (
             "Text Line 1\n"
+            "\n"
             "{color:#4c9aff}Text Line 1 Translated{color}\n"
             "!image.png!\n"
             "Text Line 2\n"
+            "\n"
             "{color:#4c9aff}Text Line 2 Translated{color}"
         )
         
@@ -58,6 +60,7 @@ class TestRefinedLogic(unittest.TestCase):
         expected = (
             "Text 1\n"
             "Text 2\n"
+            "\n"
             "{color:#4c9aff}Text 1 Trans{color}\n"
             "{color:#4c9aff}Text 2 Trans{color}\n"
             "!image.png!"

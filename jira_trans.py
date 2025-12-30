@@ -1,46 +1,35 @@
 import os
 import re
 from collections.abc import Sequence
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
-from urllib.parse import urlparse
+import urllib.parse
 from dotenv import load_dotenv
 
 import json
 import base64
-import urllib.parse
 
 import requests
 from openai import OpenAI
-from pydantic import BaseModel
+from prompts import PromptBuilder
 
+from models import (
+    FieldTranslationJob,
+    PYDANTIC_AVAILABLE,
+    TranslationChunk,
+    TranslationItem,
+    TranslationResponse,
+)
 
-@dataclass
-class TranslationChunk:
-    id: str
-    field: str
-    original_text: str
-    clean_text: str
-    attachments: list[str]
-    header: Optional[str] = None
-
-
-class TranslationItem(BaseModel):
-    id: str
-    translated: str
-
-
-class TranslationResponse(BaseModel):
-    translations: list[TranslationItem]
-
-
-@dataclass
-class FieldTranslationJob:
-    field: str
-    original_value: str
-    chunks: list[TranslationChunk]
-    mode: str = "default"
+# Backward-compat re-exports (tests/external code may import these from jira_trans)
+__all__ = [
+    "JiraTicketTranslator",
+    "TranslationChunk",
+    "TranslationItem",
+    "TranslationResponse",
+    "FieldTranslationJob",
+    "parse_issue_url",
+]
 
 
 class JiraTicketTranslator:
@@ -80,6 +69,7 @@ class JiraTicketTranslator:
         # 용어집 데이터 (translate_issue 호출 시 로드됨)
         self.glossary_terms: dict[str, str] = {}
         self.glossary_name: str = ""
+        self.prompt_builder = PromptBuilder(self.glossary_terms, self.glossary_name)
 
     def extract_attachments_markup(self, text: str) -> tuple[list[str], str]:
         """
@@ -135,7 +125,7 @@ class JiraTicketTranslator:
 
         return text
 
-    def translate_text(self, text: str) -> str:
+    def translate_text(self, text: str, target_language: Optional[str] = None) -> str:
         """
         텍스트를 번역 (마크업 제외)
         한글 텍스트는 영어로, 영어 텍스트는 한글로 자동 번역.
@@ -149,32 +139,25 @@ class JiraTicketTranslator:
         if not text or not text.strip():
             return text
 
-        # 언어 감지 먼저 수행
+        # 언어 감지(기본) + target_language(옵션)로 방향 강제 지원
         detected_lang = self._detect_text_language(text)
-        
-        glossary_instruction = self._build_glossary_instruction([text])
-        
-        if detected_lang == "ko":
-            # 한국어 → 영어: 완전한 영어로 번역
-            system_msg = (
-                "You are a professional Korean to English translator. "
-                "Translate the following Korean text to English. "
-                "The output MUST be 100% in English - do NOT leave any Korean words. "
-                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
-            )
-        else:
-            # 영어 → 한국어: 고유명사는 영어 유지
-            system_msg = (
-                "You are a professional English to Korean translator. "
-                "Translate the following English text to Korean. "
-                "Keep proper nouns and game-specific terms in English. "
-                "Use terse memo-style (음슴체): drop endings such as '합니다', "
-                "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
-                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
-            )
-        
-        if glossary_instruction:
-            system_msg = f"{system_msg} {glossary_instruction}"
+        forced = None
+        if target_language:
+            tl = str(target_language).strip().lower()
+            if tl in {"english", "en"}:
+                # output English => Korean -> English 프롬프트 선택
+                forced = "ko"
+            elif tl in {"korean", "ko"}:
+                # output Korean => English -> Korean 프롬프트 선택
+                forced = "en"
+        direction_lang = forced or detected_lang
+
+        glossary_instruction = self.prompt_builder.build_glossary_instruction([text])
+        system_msg = self.prompt_builder.build_system_message(
+            detected_lang=direction_lang,
+            glossary_instruction=glossary_instruction,
+            batch=False,
+        )
 
         response = self.openai.chat.completions.create(
             model=self.openai_model,
@@ -184,40 +167,6 @@ class JiraTicketTranslator:
             ],
         )
         return (response.choices[0].message.content or "").strip()
-
-    def _build_glossary_instruction(self, texts: Sequence[str]) -> str:
-        """
-        양방향 용어집 지원: 영어→한국어, 한국어→영어 모두 포함.
-        단어 경계 매칭(\b)을 사용하여 정확히 일치하는 용어만 찾습니다.
-        예: 'key' 검색 시 'monkey'는 무시함.
-        """
-        terms = self.glossary_terms
-        if not terms:
-            return ""
-
-        combined_text = "\n".join(texts).lower()
-        glossary_lines: list[str] = []
-
-        for eng, kor in terms.items():
-            # 영어 용어가 텍스트에 있으면 영어→한국어 매핑 추가
-            eng_pattern = r"\b" + re.escape(eng.lower()) + r"\b"
-            if re.search(eng_pattern, combined_text):
-                glossary_lines.append(f"- {eng} <-> {kor}")
-                continue
-            
-            # 한국어 용어가 텍스트에 있으면 한국어→영어 매핑 추가
-            if kor.lower() in combined_text:
-                glossary_lines.append(f"- {kor} <-> {eng}")
-
-        if not glossary_lines:
-            return ""
-
-        glossary_name_display = self.glossary_name or "Project"
-        return (
-            f"Use this {glossary_name_display} glossary for specific terms "
-            "(bidirectional mapping):\n"
-            + "\n".join(glossary_lines)
-        )
 
     def translate_field(self, field_value: str) -> str:
         """
@@ -247,25 +196,28 @@ class JiraTicketTranslator:
     def _translate_chunk_text(
         self,
         chunk: TranslationChunk,
+        target_language: Optional[str] = None,
     ) -> str:
         return self.translate_text(chunk.clean_text) or ""
 
     def _translate_chunk_list(
         self,
         chunk_list: Sequence[TranslationChunk],
+        target_language: Optional[str] = None,
     ) -> dict[str, str]:
         translations: dict[str, str] = {}
         for chunk in chunk_list:
-            translations[chunk.id] = self._translate_chunk_text(chunk)
+            translations[chunk.id] = self._translate_chunk_text(chunk, target_language)
         return translations
 
     def _translate_chunks_individually(
         self,
         jobs: dict[str, FieldTranslationJob],
+        target_language: Optional[str] = None,
     ) -> dict[str, str]:
         per_chunk: dict[str, str] = {}
         for job in jobs.values():
-            per_chunk.update(self._translate_chunk_list(job.chunks))
+            per_chunk.update(self._translate_chunk_list(job.chunks, target_language))
         return per_chunk
 
     def translate_description_field(self, field_value: str) -> str:
@@ -566,6 +518,7 @@ class JiraTicketTranslator:
     def _call_openai_batch(
         self,
         chunks: Sequence[TranslationChunk],
+        target_language: Optional[str] = None,
         retries: int = 2,
     ) -> dict[str, str]:
         if not chunks:
@@ -578,7 +531,7 @@ class JiraTicketTranslator:
         while attempt <= retries:
             attempt += 1
             try:
-                batch_result = self._call_openai_batch_once(chunks)
+                batch_result = self._call_openai_batch_once(chunks, target_language)
                 break
             except Exception as exc:
                 last_error = exc
@@ -593,7 +546,7 @@ class JiraTicketTranslator:
         if missing_ids:
             print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
             missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
-            fallback = self._translate_chunk_list(missing_chunks)
+            fallback = self._translate_chunk_list(missing_chunks, target_language)
             batch_result.update(fallback)
 
         return batch_result
@@ -601,6 +554,7 @@ class JiraTicketTranslator:
     def _call_openai_batch_once(
         self,
         chunks: Sequence[TranslationChunk],
+        target_language: Optional[str] = None,
     ) -> dict[str, str]:
         """
         OpenAI Structured Outputs(beta.parse)를 사용하여
@@ -610,40 +564,25 @@ class JiraTicketTranslator:
         if not chunks:
             return {}
 
-        glossary_instruction = self._build_glossary_instruction(
+        glossary_instruction = self.prompt_builder.build_glossary_instruction(
             [chunk.clean_text for chunk in chunks],
         )
-        
-        # 청크들의 주요 언어 감지 (첫 번째 청크 기준)
+
         combined_text = "\n".join(chunk.clean_text for chunk in chunks)
         detected_lang = self._detect_text_language(combined_text)
-        
-        if detected_lang == "ko":
-            # 한국어 → 영어: 완전한 영어로 번역
-            system_msg = (
-                "You are a professional Korean to English translator. "
-                "Translate each provided Korean text to English. "
-                "The output MUST be 100% in English - do NOT leave any Korean words. "
-                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
-                "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
-                "IMPORTANT: Keep the exact same number of lines as the source text. "
-                "Do not add commentary."
-            )
-        else:
-            # 영어 → 한국어: 고유명사는 영어 유지
-            system_msg = (
-                "You are a professional English to Korean translator. "
-                "Translate each provided English text to Korean. "
-                "Keep proper nouns and game-specific terms in English. "
-                "Use terse memo-style (음슴체) and concise noun phrases for titles/summaries. "
-                "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
-                "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
-                "IMPORTANT: Keep the exact same number of lines as the source text. "
-                "Do not add commentary."
-            )
-        
-        if glossary_instruction:
-            system_msg = f"{system_msg} {glossary_instruction}"
+        forced = None
+        if target_language:
+            tl = str(target_language).strip().lower()
+            if tl in {"english", "en"}:
+                forced = "ko"
+            elif tl in {"korean", "ko"}:
+                forced = "en"
+        direction_lang = forced or detected_lang
+        system_msg = self.prompt_builder.build_system_message(
+            detected_lang=direction_lang,
+            glossary_instruction=glossary_instruction,
+            batch=True,
+        )
 
         # Structured Outputs용 페이로드 구성
         payload = {
@@ -657,29 +596,51 @@ class JiraTicketTranslator:
             f"{json.dumps(payload, ensure_ascii=False)}"
         )
 
-        # client.beta.chat.completions.parse 사용
-        # response_format에 Pydantic 클래스를 넘겨줍니다.
-        completion = self.openai.beta.chat.completions.parse(
+        # 1) Structured Outputs 경로 (Lambda/Linux 등 pydantic 사용 가능 환경)
+        if (
+            PYDANTIC_AVAILABLE
+            and hasattr(self.openai, "beta")
+            and hasattr(self.openai.beta, "chat")
+            and hasattr(self.openai.beta.chat, "completions")
+            and hasattr(self.openai.beta.chat.completions, "parse")
+        ):
+            completion = self.openai.beta.chat.completions.parse(
+                model=self.openai_model,
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": user_msg},
+                ],
+                response_format=TranslationResponse,
+            )
+
+            parsed_response = completion.choices[0].message.parsed
+            if not parsed_response or not getattr(parsed_response, "translations", None):
+                raise ValueError("Translation returned no structured data.")
+
+            result: dict[str, str] = {}
+            for item in parsed_response.translations:
+                if item.id and item.translated:
+                    result[item.id] = item.translated.strip()
+            return result
+
+        # 2) JSON 텍스트 응답 경로 (로컬/테스트 등)
+        completion = self.openai.chat.completions.create(
             model=self.openai_model,
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": user_msg},
             ],
-            response_format=TranslationResponse,
         )
 
-        # 파싱된 결과(parsed)를 바로 사용
-        parsed_response = completion.choices[0].message.parsed
-        
-        if not parsed_response or not parsed_response.translations:
-            # 매우 드문 경우지만 결과가 없을 때를 대비
-            raise ValueError("Translation returned no structured data.")
-
+        content = completion.choices[0].message.content if completion and completion.choices else ""
+        parsed = json.loads(content or "{}")
+        items = (parsed or {}).get("translations") or []
         result: dict[str, str] = {}
-        for item in parsed_response.translations:
-            if item.id and item.translated:
-                result[item.id] = item.translated.strip()
-
+        for item in items:
+            item_id = (item or {}).get("id")
+            translated = (item or {}).get("translated")
+            if item_id and translated:
+                result[str(item_id)] = str(translated).strip()
         return result
 
     def _create_translation_chunk(
@@ -1263,6 +1224,7 @@ class JiraTicketTranslator:
     def translate_issue(
         self,
         issue_key: str,
+        target_language: Optional[str] = None,
         fields_to_translate: Optional[list[str]] = None,
         perform_update: bool = False
     ) -> dict:
@@ -1293,6 +1255,9 @@ class JiraTicketTranslator:
 
         # 용어집 로드
         self.glossary_terms = self._load_glossary_terms(glossary_file)
+        # 프롬프트 빌더에 최신 용어집 반영
+        self.prompt_builder.glossary_terms = self.glossary_terms
+        self.prompt_builder.glossary_name = self.glossary_name
 
         if fields_to_translate is None:
             fields_to_translate = ['summary', 'description', steps_field]
@@ -1343,10 +1308,10 @@ class JiraTicketTranslator:
         chunk_translations: dict[str, str] = {}
         if all_chunks:
             try:
-                chunk_translations = self._call_openai_batch(all_chunks)
+                chunk_translations = self._call_openai_batch(all_chunks, target_language)
             except Exception as exc:
                 print(f"⚠️ Batch translation failed, falling back to per-field mode: {exc}")
-                chunk_translations = self._translate_chunks_individually(jobs)
+                chunk_translations = self._translate_chunks_individually(jobs, target_language)
 
         for field, job in jobs.items():
             assembled: list[str] = []
@@ -1389,7 +1354,7 @@ class JiraTicketTranslator:
 
 
 def parse_issue_url(issue_url: str) -> tuple[str, str]:
-    parsed = urlparse(issue_url.strip())
+    parsed = urllib.parse.urlparse(issue_url.strip())
 
     if not parsed.scheme or not parsed.netloc:
         raise ValueError("유효한 Jira 이슈 URL을 입력해주세요.")
@@ -1479,90 +1444,12 @@ if __name__ == "__main__":
 
 
 ## 핸들러 함수
-def handler(event, context):
-    try:
-        event = event or {}
-        # Parse API Gateway proxy body (JSON or x-www-form-urlencoded)
-        body_raw = event.get("body") or ""
-        if event.get("isBase64Encoded"):
-            if isinstance(body_raw, str):
-                body_raw = body_raw.encode("utf-8", "ignore")
-            body_raw = base64.b64decode(body_raw).decode("utf-8", "ignore")
-        headers = event.get("headers") or {}
-        content_type = headers.get("content-type") or headers.get("Content-Type") or ""
-        content_type = content_type.lower() if isinstance(content_type, str) else ""
-        parsed = {}
-        try:
-            if "application/json" in content_type:
-                parsed = json.loads(body_raw or "{}")
-            elif "application/x-www-form-urlencoded" in content_type:
-                parsed = {
-                    k: (v[0] if isinstance(v, list) else v)
-                    for k, v in urllib.parse.parse_qs(body_raw).items()
-                }
-        except Exception:
-            parsed = {}
-        if isinstance(parsed, dict):
-            event.update(parsed)
+def lambda_handler(event, context):
+    """
+    Backward compatibility wrapper.
+    template.yaml은 `handler.lambda_handler`를 사용하지만,
+    기존에 `jira_trans.lambda_handler`를 호출하던 환경이 있을 수 있어 유지합니다.
+    """
+    from handler import lambda_handler as _lambda_handler
 
-        issue_key = event.get("issue_key")
-        issue_url = event.get("issue_url")
-        fields = event.get("fields_to_translate")  # None이면 자동 결정
-        do_update = event.get("update", False)
-        # [보안 수정] jira_url 오버라이드 제거
-        # jira_url_override = event.get("jira_url")  <-- 삭제 권장
-        
-        # [수정] 환경 변수에서만 URL 로드
-        JIRA_URL = os.getenv("JIRA_URL", "https://cloud.jira.krafton.com").rstrip("/")
-        JIRA_EMAIL = os.getenv("JIRA_EMAIL")
-        JIRA_API_TOKEN = os.getenv("JIRA_API_TOKEN")
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-        
-        # ... (검증 및 translator 초기화 로직 유지) ...
-        
-        if not all([JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY]):
-            raise EnvironmentError("JIRA_URL, JIRA_EMAIL, JIRA_API_TOKEN, OPENAI_API_KEY 환경 변수가 필요합니다.")
-
-        # issue_key 우선, 없으면 URL에서 추출
-        if not issue_key:
-            if issue_url:
-                _, issue_key = parse_issue_url(issue_url)
-            else:
-                raise ValueError("issue_key 또는 issue_url 중 하나는 필수입니다.")
-
-        translator = JiraTicketTranslator(
-            jira_url=JIRA_URL,
-            email=JIRA_EMAIL,
-            api_token=JIRA_API_TOKEN,
-            openai_api_key=OPENAI_API_KEY
-        )
-
-        results_obj = translator.translate_issue(
-            issue_key=issue_key,
-            fields_to_translate=fields,
-            perform_update=do_update
-        )
-
-        response_data = {
-            "issue_key": issue_key,
-            **results_obj
-        }
-
-        # [수정] API Gateway Proxy Response Format 준수
-        return {
-            "statusCode": 200,
-            "headers": {"Content-Type": "application/json"},
-            "body": json.dumps(response_data, ensure_ascii=False)
-        }
-
-    except Exception as e:
-        print(f"❌ Error: {str(e)}")
-        # 에러 발생 시에도 정형화된 JSON 응답 반환
-        return {
-            "statusCode": 500, # 상황에 따라 400 등 분기 가능
-            "headers": {"Content-Type": "application/json"},
-            "body": json.dumps({
-                "error": str(e),
-                "type": type(e).__name__
-            }, ensure_ascii=False)
-        }
+    return _lambda_handler(event, context)

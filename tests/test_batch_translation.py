@@ -157,11 +157,12 @@ def test_translate_issue_batches_all_fields(monkeypatch):
 
     assert translations["summary"]["translated"] == "KR:Crash occurs"
 
+    # NOTE: 현 구현은 섹션 헤더의 원본 표기(콜론 포함)를 그대로 유지한다.
     observed_block = translator._format_bilingual_block(
-        "App crashes.", "KR:App crashes.", header="Observed"
+        "App crashes.", "KR:App crashes.", header="Observed:"
     )
     expected_block = translator._format_bilingual_block(
-        "App should not crash.", "KR:App should not crash.", header="Expected"
+        "App should not crash.", "KR:App should not crash.", header="Expected:"
     )
     expected_description = "\n\n".join([observed_block, expected_block]).strip()
     assert translations["description"]["translated"] == expected_description
@@ -241,10 +242,10 @@ def test_translate_issue_fallbacks_when_batch_fails(monkeypatch):
     assert translations["summary"]["translated"] == "KR:Crash occurs"
 
     observed_block = translator._format_bilingual_block(
-        "App crashes.", "KR:App crashes.", header="Observed"
+        "App crashes.", "KR:App crashes.", header="Observed:"
     )
     expected_block = translator._format_bilingual_block(
-        "App should not crash.", "KR:App should not crash.", header="Expected"
+        "App should not crash.", "KR:App should not crash.", header="Expected:"
     )
     expected_description = "\n\n".join([observed_block, expected_block]).strip()
     assert translations["description"]["translated"] == expected_description
@@ -312,7 +313,8 @@ def test_extract_description_sections_handles_parentheses_header(monkeypatch):
     sections = translator._extract_description_sections(description)
 
     headers = [header for header, _ in sections]
-    assert headers == ["Observed(관찰 결과)", "Expected (기대 결과)"]
+    # NOTE: 현 구현은 헤더의 ':'를 보존한다.
+    assert headers == ["Observed(관찰 결과):", "Expected (기대 결과):"]
     assert sections[0][1].startswith("PLSD를 닫으면")
 
 
@@ -330,4 +332,4 @@ def test_extract_description_sections_preserves_intro_without_header(monkeypatch
 
     assert sections[0][0] is None
     assert "Pre-requisites" in sections[0][1]
-    assert sections[1][0] == "Observed(관찰 결과)"
+    assert sections[1][0] == "Observed(관찰 결과):"

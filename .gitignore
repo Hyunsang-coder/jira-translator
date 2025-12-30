@@ -12,8 +12,11 @@ wheels/
 
 # .env
 .env
+env.json
 
 #aws, sam
 .aws-sam
 samconfig.tomlsamconfig.toml
 samconfig.toml
+
+

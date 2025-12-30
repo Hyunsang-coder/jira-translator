@@ -95,16 +95,73 @@ python main.py
 
 ### 2. 유닛 테스트
 ```bash
-# 티켓 타입 판별 로직 테스트
-export PYTHONPATH=$PYTHONPATH:$(pwd)/package
-python3 -m unittest tests/test_ticket_type_logic.py
+# (권장) pytest
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
+```
+
+### 3. SAM 로컬 테스트 (2가지 방법)
+SAM 템플릿(`template.yaml`)을 사용해 AWS 배포 전 로컬에서 Lambda/API Gateway 동작을 검증할 수 있습니다.
+
+#### 방법 A) `sam local invoke` (1회 실행)
+- **장점**: 빠름, 반복 테스트에 좋음, 서버를 띄우지 않음
+- **검증 범위**: Lambda 핸들러 로직(요청 파싱/번역 호출/응답 포맷)
+
+1) 환경변수 파일 준비(로컬 전용, 절대 커밋하지 않기)
+
+`env.json`:
+```json
+{
+  "JiraTranslatorFunction": {
+    "JIRA_URL": "https://cloud.jira.krafton.com",
+    "JIRA_EMAIL": "your-email@example.com",
+    "JIRA_API_TOKEN": "your-jira-api-token",
+    "OPENAI_API_KEY": "your-openai-api-key",
+    "OPENAI_MODEL": "gpt-5.2"
+  }
+}
+```
+
+2) API Gateway Proxy 이벤트 파일 준비
+
+`events/translate.json`:
+```json
+{
+  "body": "{\"issue_key\":\"P2-70735\",\"update\":false}",
+  "headers": { "Content-Type": "application/json" },
+  "isBase64Encoded": false
+}
+```
+
+3) 빌드 후 invoke 실행
+```bash
+sam build
+sam local invoke JiraTranslatorFunction --event events/translate.json --env-vars env.json
+```
+
+#### 방법 B) `sam local start-api` (로컬 HTTP로 실제 호출)
+- **장점**: API Gateway처럼 **실제 HTTP 요청**으로 검증(라우팅/Content-Type/body 파싱 포함)
+- **검증 범위**: `/translate`, `/health` 엔드포인트 동작까지 end-to-end
+
+```bash
+sam build
+sam local start-api --env-vars env.json
+```
+
+다른 터미널에서 호출:
+```bash
+curl -X POST "http://127.0.0.1:3000/translate" \
+  -H "Content-Type: application/json" \
+  -d '{"issue_key":"P2-70735","update":false}'
 ```
 
 ## 프로젝트 구조
 
 ```
 jira-translator/
-├── jira_trans.py          # 핵심 번역 로직 및 Lambda 핸들러
+├── jira_trans.py          # 핵심 번역 로직(호환 래퍼 포함)
+├── handler.py             # Lambda 핸들러(진입점)
+├── prompts.py             # 프롬프트/용어집 지시문 빌더
+├── models.py              # 데이터 모델(TranslationChunk 등)
 ├── heist_glossary.json    # HeistRoyale(PAYDAY) 용어집
 ├── pubg_glossary.json     # PUBG 용어집
 ├── pbb_glossary.json      # PBB 용어집

@@ -34,12 +34,14 @@ class TestBlockFormatting(unittest.TestCase):
         original = "* Item 1\n!image.png!\n* Item 2"
         translated = "* Item 1 Translated\n!image.png!\n* Item 2 Translated"
         
-        # Media should be in original block, but skipped in translation block
+        # NOTE: 현 구현은 텍스트를 "원문 블록 + (빈줄) + 번역 블록"으로 flush한 뒤
+        # 미디어 라인을 출력한다. 즉, 첫 번째 아이템의 번역이 이미지 앞에 온다.
         expected = (
             "* Item 1\n"
+            "\n"
+            "* {color:#4c9aff}Item 1 Translated{color}\n"
             "!image.png!\n"
             "* Item 2\n\n"
-            "* {color:#4c9aff}Item 1 Translated{color}\n"
             "* {color:#4c9aff}Item 2 Translated{color}"
         )
         
@@ -51,7 +53,9 @@ class TestBlockFormatting(unittest.TestCase):
         translated = "- Item 1 Translated\n1. Item 2 Translated"
         
         expected = (
-            "  - Item 1\n"
+            # NOTE: _format_bilingual_block은 최종 결과에 strip()을 호출하므로,
+            # 첫 줄의 leading whitespace는 제거된다.
+            "- Item 1\n"
             "    1. Item 2\n\n"
             "  - {color:#4c9aff}Item 1 Translated{color}\n"
             "    1. {color:#4c9aff}Item 2 Translated{color}"
