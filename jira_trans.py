@@ -50,7 +50,7 @@ class JiraTicketTranslator:
     def __init__(self, jira_url: str, email: str, api_token: str, openai_api_key: str):
         """
         Args:
-            jira_url: Jira 인스턴스 URL (예: 'https://cloud.jira.krafton.com')
+            jira_url: Jira 인스턴스 URL 
             email: Jira 계정 이메일
             api_token: Jira API 토큰
             openai_api_key: OpenAI API 키
@@ -64,7 +64,7 @@ class JiraTicketTranslator:
 
         # OpenAI SDK 초기화 (LangChain 대체)
         self.openai = OpenAI(api_key=openai_api_key)
-        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.1")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.2")
         
         # 용어집 데이터 (translate_issue 호출 시 로드됨)
         self.glossary_terms: dict[str, str] = {}

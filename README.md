@@ -112,7 +112,7 @@ SAM 템플릿(`template.yaml`)을 사용해 AWS 배포 전 로컬에서 Lambda/A
 ```json
 {
   "JiraTranslatorFunction": {
-    "JIRA_URL": "https://cloud.jira.krafton.com",
+    "JIRA_URL": "your-jira-instance-url",
     "JIRA_EMAIL": "your-email@example.com",
     "JIRA_API_TOKEN": "your-jira-api-token",
     "OPENAI_API_KEY": "your-openai-api-key",

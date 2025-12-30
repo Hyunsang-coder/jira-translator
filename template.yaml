@@ -14,12 +14,12 @@ Globals:
 Parameters:
   JiraUrl:
     Type: String
-    Default: https://cloud.jira.krafton.com
+    Default: https://your-jira-instance.com
     Description: Jira 인스턴스 URL
 
   JiraEmail:
     Type: String
-    Default: hyunsang_joo@pubg.com
+    Default: your-email@example.com
     Description: Jira 계정 이메일
     NoEcho: true
 
