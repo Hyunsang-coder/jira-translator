@@ -68,7 +68,10 @@ class PromptBuilder:
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
                     "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
                     "IMPORTANT: Keep the exact same number of lines as the source text. "
-                    "Do not add commentary."
+                    "Do not add commentary. " 
+                    "Title rule: When translating titles/summaries, start with the symptom directly. "
+                    "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
+                    "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
                 )
             else:
                 system_msg = (
@@ -76,6 +79,9 @@ class PromptBuilder:
                     "Translate the following Korean text to English. "
                     "The output MUST be 100% in English - do NOT leave any Korean words. "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
+                    "Title rule: When translating titles/summaries, start with the symptom directly. "
+                    "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
+                    "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
                 )
         else:
             if batch:
@@ -87,7 +93,7 @@ class PromptBuilder:
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
                     "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
                     "IMPORTANT: Keep the exact same number of lines as the source text. "
-                    "Do not add commentary."
+                    "Do not add commentary. "
                 )
             else:
                 system_msg = (
