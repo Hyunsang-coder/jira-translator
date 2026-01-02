@@ -63,11 +63,35 @@ OPENAI_MODEL=gpt-4o  # 권장 모델
 
 ## 배포 (AWS SAM)
 
-### 1. 빌드 및 배포
+### 1. 환경 변수 설정
+`.env` 파일에 다음 환경 변수를 설정하세요:
+```env
+JIRA_URL=https://krafton.atlassian.net
+JIRA_EMAIL=your-email@example.com
+JIRA_API_TOKEN=your-jira-api-token
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_MODEL=gpt-5.2
+STAGE_NAME=prod
+```
+
+### 2. 배포 스크립트 사용 (권장)
+```bash
+./deploy.sh
+```
+
+### 3. 수동 배포
+환경 변수를 설정한 후 직접 배포:
 ```bash
 sam build
-sam deploy
+sam deploy --parameter-overrides \
+  "JiraUrl=\"$JIRA_URL\" \
+   JiraEmail=\"$JIRA_EMAIL\" \
+   JiraApiToken=\"$JIRA_API_TOKEN\" \
+   OpenAIApiKey=\"$OPENAI_API_KEY\" \
+   OpenAIModel=\"$OPENAI_MODEL\" \
+   StageName=\"$STAGE_NAME\""
 ```
+
 *참고: 코드 수정 후에는 반드시 `sam build`를 먼저 수행해야 변경 사항이 반영됩니다.*
 
 ## API 사용법
