@@ -309,6 +309,10 @@ class JiraTicketTranslator:
             steps_field = "customfield_10237"
             glossary_file = "pubg_glossary.json"
             glossary_name = "PUBG"
+        elif issue_key.upper().startswith("PUBGXBSG-"):
+            steps_field = "customfield_10237"
+            glossary_file = "bsg_glossary.json"
+            glossary_name = "BSG"
         elif issue_key.upper().startswith("PAYDAY-"):
             steps_field = "customfield_10237"
             glossary_file = "heist_glossary.json"

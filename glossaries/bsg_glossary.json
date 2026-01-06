@@ -1,0 +1,32 @@
+{
+    "description": "BSG 용어집",
+    "terms": {
+        "Abyssal Waste Attack": "Abyssal Waste Attack",
+        "Ambient Infected": "앰비언트 좀비",
+        "Auto-Turret": "오토 터렛",
+        "Basic Infected": "기본 좀비",
+        "Behemoth": "비히모스",
+        "Concussion Mine": "충격 지뢰",
+        "Crawler": "크롤러",
+        "Death Bloom": "데스 블룸",
+        "Electrified": "감전",
+        "Elemental Muzzle Attachment": "속성 총구 부착물",
+        "fortifications": "방어 시설",
+        "game premise": "게임 배경",
+        "Horde Tide": "호드 웨이브",
+        "Impact": "충격",
+        "Incendiary": "화염",
+        "Infected": "좀비",
+        "Patient Zero": "페이션트 제로",
+        "Regurgitate on Hit": "피격 시 구토",
+        "Regurgitate on Tick": "틱마다 구토",
+        "Spawning Pool": "스포닝 풀",
+        "Special Infected": "특수 좀비",
+        "Spitter": "스피터",
+        "storage container": "보관함",
+        "Storm Tide": "스톰 웨이브",
+        "taunt": "도발",
+        "Tide": "웨이브",
+        "toxic Red Fog": "유독성 붉은 안개"
+    }
+}
