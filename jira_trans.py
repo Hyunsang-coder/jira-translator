@@ -396,11 +396,20 @@ class JiraTicketTranslator:
                 translated_raw = chunk_translations.get(chunk.id, "")
                 restored = self.restore_attachments_markup(translated_raw, chunk.attachments)
                 if job.mode == "description":
-                    block = self._format_bilingual_block(
-                        chunk.original_text,
-                        restored,
-                        header=chunk.header,
-                    )
+                    # 스킵 섹션은 헤더 + 원문만 출력 (번역 없음)
+                    if chunk.skip_translation:
+                        block_parts = []
+                        if chunk.header:
+                            block_parts.append(chunk.header)
+                        if chunk.original_text:
+                            block_parts.append(chunk.original_text)
+                        block = "\n".join(block_parts).strip()
+                    else:
+                        block = self._format_bilingual_block(
+                            chunk.original_text,
+                            restored,
+                            header=chunk.header,
+                        )
                     if block:
                         assembled.append(block)
                 else:
