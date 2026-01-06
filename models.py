@@ -25,6 +25,7 @@ class TranslationChunk:
     clean_text: str
     attachments: list[str]
     header: Optional[str] = None
+    skip_translation: bool = False  # 번역 스킵 여부 (QA Environment 등)
 
 
 class TranslationItem(BaseModel):

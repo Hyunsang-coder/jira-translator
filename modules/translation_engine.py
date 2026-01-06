@@ -200,11 +200,16 @@ class TranslationEngine:
         if not chunks:
             return {}
 
+        # 번역 대상 청크만 필터링 (skip_translation=True인 청크 제외)
+        translatable_chunks = [c for c in chunks if not c.skip_translation]
+        if not translatable_chunks:
+            return {}
+
         glossary_instruction = self.prompt_builder.build_glossary_instruction(
-            [chunk.clean_text for chunk in chunks],
+            [chunk.clean_text for chunk in translatable_chunks],
         )
 
-        combined_text = "\n".join(chunk.clean_text for chunk in chunks)
+        combined_text = "\n".join(chunk.clean_text for chunk in translatable_chunks)
         detected_lang = language.detect_text_language(combined_text, extract_text_func=language.extract_detectable_text)
         forced = None
         if target_language:
@@ -224,7 +229,7 @@ class TranslationEngine:
         payload = {
             "items": [
                 {"id": chunk.id, "text": chunk.clean_text}
-                for chunk in chunks
+                for chunk in translatable_chunks
             ]
         }
         user_msg = (
@@ -332,6 +337,10 @@ class TranslationEngine:
                 for idx, (header, content) in enumerate(sections):
                     if not content.strip():
                         continue
+                    
+                    # 스킵 섹션 체크 (QA Environment 등)
+                    skip_translation = formatting.should_skip_section_translation(header)
+                    
                     chunk = self.create_translation_chunk(
                         chunk_id=f"{field}__section_{idx}",
                         field=field,
@@ -339,6 +348,9 @@ class TranslationEngine:
                         header=header,
                     )
                     if chunk:
+                        if skip_translation:
+                            # 스킵 섹션은 번역하지 않고 원문 유지
+                            chunk.skip_translation = True
                         chunks.append(chunk)
             else:
                 chunk = self.create_translation_chunk(

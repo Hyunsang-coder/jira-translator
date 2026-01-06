@@ -3,6 +3,9 @@ from typing import Optional
 
 DESCRIPTION_SECTIONS = ("Observed", "Expected", "Expected Result", "Note", "Notes", "Video", "Etc.")
 
+# 번역 스킵할 섹션 (영어 키워드 기준, 대소문자 무시)
+SKIP_TRANSLATION_SECTIONS = ("QA Environment",)
+
 def extract_attachments_markup(text: str) -> tuple[list[str], str]:
     """
     Jira 마크업에서 이미지와 첨부파일 마크업을 추출하고 플레이스홀더로 대체
@@ -134,8 +137,6 @@ def is_media_line(stripped_line: str) -> bool:
             return True
         if candidate.startswith("[^"):
             return True
-        if candidate.startswith("["):
-            return True
         # 이미지 메타데이터 패턴 감지 (예: width=...,height=...,alt="..."!)
         if re.search(r'(width|height|alt)=.*!$', candidate):
             return True
@@ -205,6 +206,50 @@ def is_inside_code_block(line: str, in_code_block: bool) -> tuple[bool, bool]:
     # 코드블럭 내부 상태 유지
     return in_code_block, in_code_block
 
+def match_bracket_label_header(line: str) -> Optional[str]:
+    """
+    *[라벨]* 또는 *[한글 / English]* 형태의 라벨을 헤더로 인식.
+    매칭되면 원본 라인을 반환.
+    
+    예:
+        "*[QA 환경 / QA Environment]*" -> "*[QA 환경 / QA Environment]*"
+        "*[상세 설명 / Details]*"      -> "*[상세 설명 / Details]*"
+    """
+    if not line:
+        return None
+    
+    stripped = line.strip()
+    
+    # *[...]* 패턴 매칭 (볼드 + 대괄호)
+    if re.match(r'^\*\[[^\]]+\]\*\s*$', stripped):
+        return stripped
+    
+    return None
+
+def should_skip_section_translation(header: str) -> bool:
+    """
+    이 섹션 헤더가 번역 스킵 대상인지 판단.
+    *[한글 / English]* 형태에서 영어 부분을 추출하여 SKIP_TRANSLATION_SECTIONS와 비교.
+    """
+    if not header:
+        return False
+    
+    # *[한글 / English]* 형태에서 라벨 추출
+    match = re.match(r'^\*\[([^\]]+)\]\*', header.strip())
+    if match:
+        label = match.group(1)
+        # "/" 뒤의 영어 부분 추출
+        if "/" in label:
+            english_part = label.split("/", 1)[1].strip()
+        else:
+            english_part = label.strip()
+        
+        for skip_keyword in SKIP_TRANSLATION_SECTIONS:
+            if skip_keyword.lower() in english_part.lower():
+                return True
+    
+    return False
+
 def match_section_header(line: str) -> Optional[str]:
     """
     Description 내에서 섹션 헤더(Observed, Expected, Note, Video 등)를 찾아서
@@ -214,9 +259,17 @@ def match_section_header(line: str) -> Optional[str]:
         "Expected Result:"           -> "Expected Result:"
         "Expected/기대 결과:"        -> "Expected/기대 결과:"
         "Video/영상:"                -> "Video/영상:"
+        "*[QA 환경 / QA Environment]*" -> "*[QA 환경 / QA Environment]*"
     """
     # 색상/스타일 마크업 제거
     stripped = re.sub(r"\{color:[^}]+\}|\{color\}", "", line or "").strip()
+    
+    # 1. *[라벨]* 패턴 체크 (우선)
+    bracket_header = match_bracket_label_header(stripped)
+    if bracket_header:
+        return bracket_header
+    
+    # 2. 기존 DESCRIPTION_SECTIONS 매칭
     # 마지막 콜론 제거 및 양끝 * / _ 제거 (매칭 용도로만 사용)
     stripped_no_colon = stripped.rstrip(":").strip("*_ ")
     lowered = stripped_no_colon.lower()
