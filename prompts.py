@@ -107,6 +107,13 @@ class PromptBuilder:
 
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
+            system_msg = (
+                f"{system_msg}\n\n"
+                "GLOSSARY NOTE RULE:\n"
+                "- In glossary mappings, any text inside parentheses '(... )' is a note/description for disambiguation.\n"
+                "- Use the note to choose the correct meaning, but DO NOT include the parentheses text in the translation output.\n"
+                "- Example: 'Marksman <-> 저격수 (플레이어 롤/클래스)' => output '저격수' (omit the note).\n"
+            )
 
         return system_msg
 
