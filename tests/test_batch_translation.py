@@ -275,30 +275,6 @@ def test_format_summary_value_uses_original_when_no_space(monkeypatch):
     assert result == original
 
 
-def test_translate_text_adds_eomseum_instruction_for_korean(monkeypatch):
-    translator = _build_translator(monkeypatch)
-
-    captured = {}
-
-    def fake_create(model, messages):
-        captured["messages"] = messages
-        return SimpleNamespace(
-            choices=[SimpleNamespace(message=SimpleNamespace(content="번역 결과"))]
-        )
-
-    translator.openai.chat.completions.create = fake_create
-
-    translator.translate_text("Enter hideout", target_language="Korean")
-
-    system_message = captured["messages"][0]["content"]
-    assert "음슴체" in system_message
-    assert "하이드아웃 진입" in system_message or "이슈 확인" in system_message
-
-    translator.translate_text("Enter hideout", target_language="English")
-    non_korean_system = captured["messages"][0]["content"]
-    assert "음슴체" not in non_korean_system
-
-
 def test_extract_description_sections_handles_parentheses_header(monkeypatch):
     translator = _build_translator(monkeypatch)
     description = (

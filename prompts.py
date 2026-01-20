@@ -89,7 +89,7 @@ class PromptBuilder:
                     "You are a professional English to Korean translator. "
                     "Translate each provided English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
-                    "Use terse memo-style (음슴체) and concise noun phrases for titles/summaries. "
+                    "Concise noun phrases for titles/summaries. "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
                     "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
                     "IMPORTANT: Keep the exact same number of lines as the source text. "
@@ -100,7 +100,6 @@ class PromptBuilder:
                     "You are a professional English to Korean translator. "
                     "Translate the following English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
-                    "Use terse memo-style (음슴체): drop endings such as '합니다', "
                     "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
                 )

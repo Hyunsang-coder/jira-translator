@@ -33,6 +33,11 @@
         "Gear Mods": "장비 모드",
         "Gear Bench": "장비 작업대",
         "Weapon Mods": "무기 모드",
-        "Weapon Bench": "무기 작업대"
+        "Weapon Bench": "무기 작업대",
+        "Clipping": "클리핑",
+        "Collision": "콜리전",
+        "Deployable": "진입",
+        "Deployment Zone": "진입 지점",
+        "Base": "기지"
     }
 }
