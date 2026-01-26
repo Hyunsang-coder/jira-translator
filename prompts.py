@@ -62,7 +62,7 @@ class PromptBuilder:
         if detected_lang == "ko":
             if batch:
                 system_msg = (
-                    "You are a professional Korean to English translator. "
+                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
                     "Translate each provided Korean text to English. "
                     "The output MUST be 100% in English - do NOT leave any Korean words. "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
@@ -78,7 +78,7 @@ class PromptBuilder:
                 )
             else:
                 system_msg = (
-                    "You are a professional Korean to English translator. "
+                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
                     "Translate the following Korean text to English. "
                     "The output MUST be 100% in English - do NOT leave any Korean words. "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
@@ -92,7 +92,7 @@ class PromptBuilder:
         else:
             if batch:
                 system_msg = (
-                    "You are a professional English to Korean translator. "
+                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
                     "Translate each provided English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
                     "Concise noun phrases for titles/summaries. "
@@ -103,7 +103,7 @@ class PromptBuilder:
                 )
             else:
                 system_msg = (
-                    "You are a professional English to Korean translator. "
+                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
                     "Translate the following English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
                     "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
