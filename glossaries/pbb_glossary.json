@@ -36,8 +36,10 @@
         "Weapon Bench": "무기 작업대",
         "Clipping": "클리핑",
         "Collision": "콜리전",
-        "Deployable": "진입",
+        "Deployable": "진입 가능",
         "Deployment Zone": "진입 지점",
+        "Deploy": "레이드 진입 (인게임/매치 시작)",
+        "Enter the Hideout": "하이드아웃 진입 (NOT Deploy - 하이드아웃은 아웃게임 로비)",
         "Base": "기지"
     }
 }
