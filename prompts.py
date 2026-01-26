@@ -72,6 +72,9 @@ class PromptBuilder:
                     "Title rule: When translating titles/summaries, start with the symptom directly. "
                     "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
                     "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
+                    "Observation rule: When translating '확인하다' in reproduction steps, "
+                    "prefer 'observe' or 'notice' over 'confirm' "
+                    "(e.g., '에러가 발생하는 것을 확인' → 'Observe that the error occurs'). "
                 )
             else:
                 system_msg = (
@@ -82,6 +85,9 @@ class PromptBuilder:
                     "Title rule: When translating titles/summaries, start with the symptom directly. "
                     "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
                     "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
+                    "Observation rule: When translating '확인하다' in reproduction steps, "
+                    "prefer 'observe' or 'notice' over 'confirm' "
+                    "(e.g., '에러가 발생하는 것을 확인' → 'Observe that the error occurs'). "
                 )
         else:
             if batch:
