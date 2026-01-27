@@ -3,7 +3,8 @@
     "allow": [
       "Bash(cat:*)",
       "Bash(PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest:*)",
-      "Bash(python /tmp/test_example.py:*)"
+      "Bash(python /tmp/test_example.py:*)",
+      "Bash(find:*)"
     ]
   }
 }
