@@ -4,7 +4,18 @@
       "Bash(cat:*)",
       "Bash(PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest:*)",
       "Bash(python /tmp/test_example.py:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(python:*)",
+      "Bash(grep:*)",
+      "Bash(awk:*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(.venv/bin/pip install:*)",
+      "Bash(.venv/bin/python -m pytest -q tests/)",
+      "Bash(ls:*)",
+      "Bash(/usr/local/opt/python@3.13/bin/python3.13 -m pip install:*)",
+      "Bash(/usr/local/opt/python@3.13/bin/python3.13 -m pytest:*)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -1,21 +1,8 @@
-import os
-import re
 from collections.abc import Sequence
-from pathlib import Path
 from typing import Optional
-import urllib.parse
-from dotenv import load_dotenv
-
-import json
-import base64
-
-import requests
-from openai import OpenAI
-from prompts import PromptBuilder
 
 from models import (
     FieldTranslationJob,
-    PYDANTIC_AVAILABLE,
     TranslationChunk,
     TranslationItem,
     TranslationResponse,
@@ -108,19 +95,13 @@ class JiraTicketTranslator:
     def prompt_builder(self, value):
         self.translation_engine.prompt_builder = value
 
-    # --- Delegated Methods ---
-
-    def extract_attachments_markup(self, text: str) -> tuple[list[str], str]:
-        return formatting.extract_attachments_markup(text)
+    # --- Delegated Methods (kept for test compatibility) ---
 
     def restore_attachments_markup(self, text: str, attachments: list[str]) -> str:
         return formatting.restore_attachments_markup(text, attachments)
 
     def translate_text(self, text: str, target_language: Optional[str] = None) -> str:
         return self.translation_engine.translate_text(text, target_language)
-
-    def translate_field(self, field_value: str) -> str:
-        return self.translation_engine.translate_field(field_value)
 
     def _translate_chunk_text(
         self,
@@ -151,15 +132,6 @@ class JiraTicketTranslator:
             per_chunk.update(self._translate_chunk_list(job.chunks, target_language))
         return per_chunk
 
-    def translate_description_field(self, field_value: str) -> str:
-        return self.translation_engine.translate_description_field(field_value)
-
-    def _detect_text_language(self, text: str) -> str:
-        return language.detect_text_language(text, extract_text_func=formatting.extract_attachments_markup)
-
-    def _extract_detectable_text(self, text: str) -> str:
-        return language.extract_detectable_text(text)
-
     def _is_bilingual_summary(self, summary: str) -> bool:
         return language.is_bilingual_summary(summary, split_bracket_func=formatting.split_bracket_prefix)
 
@@ -169,14 +141,8 @@ class JiraTicketTranslator:
     def _is_steps_bilingual(self, value: str) -> bool:
         return language.is_steps_bilingual(value)
 
-    def _split_bracket_prefix(self, text: str) -> tuple[str, str]:
-        return formatting.split_bracket_prefix(text)
-
     def format_summary_value(self, original: str, translated: str) -> str:
         return formatting.format_summary_value(original, translated)
-
-    def format_steps_value(self, original: str, translated: str) -> str:
-        return formatting.format_steps_value(original, translated)
 
     def build_field_update_payload(self, translation_results: dict[str, dict[str, str]]) -> dict[str, str]:
         return self.translation_engine.build_field_update_payload(translation_results)
@@ -228,33 +194,12 @@ class JiraTicketTranslator:
     ) -> dict[str, str]:
         return self.translation_engine._call_openai_batch_once(chunks, target_language)
 
-    def _create_translation_chunk(
-        self,
-        *,
-        chunk_id: str,
-        field: str,
-        original_text: str,
-        header: Optional[str] = None,
-    ) -> Optional[TranslationChunk]:
-        return self.translation_engine.create_translation_chunk(
-            chunk_id=chunk_id,
-            field=field,
-            original_text=original_text,
-            header=header
-        )
-
     def _plan_field_translation_job(
         self,
         field: str,
         value: str,
     ) -> Optional[FieldTranslationJob]:
         return self.translation_engine.plan_field_translation_job(field, value)
-
-    def _flatten_adf_node(self, node) -> str:
-        return self.jira_client._flatten_adf_node(node)
-
-    def normalize_field_value(self, value) -> str:
-        return self.jira_client.normalize_field_value(value)
 
     def fetch_issue_fields(
         self,
@@ -265,8 +210,8 @@ class JiraTicketTranslator:
 
     def update_issue_fields(self, issue_key: str, field_payload: dict[str, str]) -> None:
         self.jira_client.update_issue_fields(issue_key, field_payload)
-    
-    # Internal methods for compatibility with formatting module functions that were moved
+
+    # Formatting wrappers (kept for test compatibility)
     def _match_translated_line_format(self, original_line: str, translated_line: str) -> str:
         return formatting.match_translated_line_format(original_line, translated_line)
 
@@ -275,24 +220,6 @@ class JiraTicketTranslator:
 
     def _extract_description_sections(self, text: str) -> list[tuple[Optional[str], str]]:
         return formatting.extract_description_sections(text)
-
-    def _match_section_header(self, line: str) -> Optional[str]:
-        return formatting.match_section_header(line)
-
-    def _strip_bullet_prefix(self, text: str) -> str:
-        return formatting.strip_bullet_prefix(text)
-
-    def _is_media_line(self, stripped_line: str) -> bool:
-        return formatting.is_media_line(stripped_line)
-
-    def _is_code_block_line(self, line: str) -> bool:
-        return formatting.is_code_block_line(line)
-
-    def _is_inside_code_block(self, line: str, in_code_block: bool) -> tuple[bool, bool]:
-        return formatting.is_inside_code_block(line, in_code_block)
-    
-    def _is_header_line(self, line: str) -> bool:
-        return formatting.is_header_line(line)
 
     def translate_issue(
         self,

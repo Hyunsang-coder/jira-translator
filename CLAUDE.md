@@ -159,6 +159,17 @@ Return meaningful error messages to the user in Lambda responses.
 2. Manual test with a real issue: `python main.py` (no update)
 3. If touching markup or glossary logic, explicitly test edge cases
 
+### Translation Style Testing
+
+Use the `/test-translation` skill to validate translation quality:
+```bash
+/test-translation P2-12345
+```
+
+This resets the test ticket (P2-70735) with source content, runs translation, and verifies style:
+- **EN→KO**: '습니다'체 사용 확인
+- **KO→EN**: Symptom-first titles, 'observe' over 'confirm'
+
 ### Git Workflow
 
 - Do NOT commit automatically

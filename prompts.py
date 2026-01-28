@@ -96,6 +96,8 @@ class PromptBuilder:
                     "Translate each provided English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
                     "Concise noun phrases for titles/summaries. "
+                    "Use formal '습니다' style for description body text "
+                    "(e.g., '발생합니다', '확인됩니다', '필요합니다'). "
                     "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
                     "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
                     "IMPORTANT: Keep the exact same number of lines as the source text. "
@@ -107,7 +109,9 @@ class PromptBuilder:
                     "Translate the following English text to Korean. "
                     "Keep proper nouns and game-specific terms in English. "
                     "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
-                    "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
+                    "Use formal '습니다' style for description body text "
+                    "(e.g., '발생합니다', '확인됩니다', '필요합니다'). "
+                    "Preserve Jira markup (*bold*, _italic*, {{code}}, etc.)."
                 )
 
         if glossary_instruction:
