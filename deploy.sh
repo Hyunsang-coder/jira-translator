@@ -74,6 +74,17 @@ sam deploy --parameter-overrides \
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ 배포 완료!${NC}"
+
+    # 배포된 Lambda 버전 정보 출력
+    echo -e "${YELLOW}📋 배포된 Lambda 정보:${NC}"
+    FUNCTION_NAME="jira-translator-${STAGE_NAME}"
+    aws lambda get-function --function-name "$FUNCTION_NAME" \
+        --query 'Configuration.{LastModified:LastModified,CodeSha256:CodeSha256}' \
+        --output table 2>/dev/null || echo "   (Lambda 정보 조회 실패 - AWS CLI 설정 확인)"
+
+    # Git commit 정보
+    echo -e "${YELLOW}📋 Git 커밋 정보:${NC}"
+    echo "   $(git log -1 --format='%h %s' 2>/dev/null || echo 'Git 정보 없음')"
 else
     echo -e "${RED}❌ 배포 실패${NC}"
     exit 1
