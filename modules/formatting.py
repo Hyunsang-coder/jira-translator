@@ -121,7 +121,59 @@ def split_bracket_prefix(text: str) -> tuple[str, str]:
 def strip_bullet_prefix(text: str) -> str:
     return re.sub(r"^\s*(?:[-*#]+|\d+[\.\)])\s*", "", text).strip()
 
+# 미디어 파일 확장자 패턴
+MEDIA_EXTENSIONS = r'\.(mp4|mov|avi|webm|mkv|jpg|jpeg|png|gif|bmp|webp|pdf|mp3|wav)'
+
+
+def is_media_only_line(stripped_line: str) -> bool:
+    """
+    라인이 미디어 마크업만 포함하는지 판단 (순수 미디어 라인).
+
+    미디어+텍스트 혼합 라인은 False 반환 (텍스트 부분 번역 필요).
+    예:
+        "[^video.mp4]" -> True (미디어만)
+        "[^video.mp4]," -> True (미디어 + 구두점만)
+        "!image.png|thumbnail!" -> True (미디어만)
+        "[video.mp4|https://...]" -> True (외부 링크 미디어)
+        "[^video.mp4] - description" -> False (미디어 + 텍스트)
+    """
+    if not stripped_line:
+        return False
+
+    def _strip_bullet_prefix_local(text: str) -> str:
+        return re.sub(r"^\s*(?:[-*#]+|\d+[\.\)])\s*", "", text or "").strip()
+
+    # 불릿 제거 후 체크
+    candidate = _strip_bullet_prefix_local(stripped_line)
+    if not candidate:
+        return False
+
+    # 플레이스홀더만 있는 라인
+    if re.fullmatch(r'(__IMAGE_PLACEHOLDER_\d+__|__ATTACHMENT_PLACEHOLDER_\d+__)[,\s]*', candidate):
+        return True
+
+    # 이미지 마크업만 있는 라인: !...! 형식 (뒤에 구두점/공백만 허용)
+    if re.fullmatch(r'![^!]+![,\s]*', candidate):
+        return True
+
+    # 첨부파일 마크업만 있는 라인: [^...] 형식 (뒤에 구두점/공백만 허용)
+    if re.fullmatch(r'\[\^[^\]]+\][,\s]*', candidate):
+        return True
+
+    # 외부 링크 미디어: [filename.ext|url] 형식 (미디어 확장자를 가진 파일)
+    if re.fullmatch(rf'\[[^\]|]+{MEDIA_EXTENSIONS}\|[^\]]+\][,\s]*', candidate, re.IGNORECASE):
+        return True
+
+    return False
+
+
 def is_media_line(stripped_line: str) -> bool:
+    """
+    라인에 미디어 마크업이 포함되어 있는지 판단.
+
+    미디어+텍스트 혼합 라인도 True 반환.
+    번역 소스 라인 필터링에 사용 (번역문에서 미디어 라인 제외).
+    """
     if not stripped_line:
         return False
 
@@ -136,6 +188,9 @@ def is_media_line(stripped_line: str) -> bool:
         if candidate.startswith("!"):
             return True
         if candidate.startswith("[^"):
+            return True
+        # 외부 링크 미디어: [filename.ext|url] 형식
+        if re.match(rf'\[[^\]|]+{MEDIA_EXTENSIONS}\|', candidate, re.IGNORECASE):
             return True
         # 이미지 메타데이터 패턴 감지 (예: width=...,height=...,alt="..."!)
         if re.search(r'(width|height|alt)=.*!$', candidate):
@@ -327,8 +382,38 @@ def extract_description_sections(text: str) -> list[tuple[Optional[str], str]]:
 
     return sections
 
+def strip_media_markup(text: str) -> str:
+    """
+    텍스트에서 미디어 마크업을 제거.
+
+    번역문에 포함된 미디어 마크업을 제거하여 중복 방지.
+    예: "[^video.mp4] - description" -> "- description"
+    """
+    if not text:
+        return text
+
+    # 첨부파일 마크업 제거: [^filename]
+    text = re.sub(r'\[\^[^\]]+\]\s*', '', text)
+    # 이미지 마크업 제거: !...!
+    text = re.sub(r'![^!]+!\s*', '', text)
+    # 외부 링크 미디어 제거: [filename.ext|url]
+    text = re.sub(rf'\[[^\]|]+{MEDIA_EXTENSIONS}\|[^\]]+\]\s*', '', text, flags=re.IGNORECASE)
+    # 플레이스홀더 제거
+    text = re.sub(r'__(?:IMAGE|ATTACHMENT)_PLACEHOLDER_\d+__\s*', '', text)
+
+    # 앞의 구두점/공백 정리
+    text = re.sub(r'^[\s,\-]+', '', text).strip()
+
+    return text
+
+
 def match_translated_line_format(original_line: str, translated_line: str) -> str:
     translation = translated_line.strip()
+    if not translation:
+        return ""
+
+    # 번역문에서 미디어 마크업 제거 (원문에 이미 있으므로 중복 방지)
+    translation = strip_media_markup(translation)
     if not translation:
         return ""
 
@@ -396,24 +481,26 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
         if not stripped_orig:
             continue
         
-        # 미디어, 헤더 라인은 번역 매칭에서 제외 (표는 포함)
-        if is_media_line(stripped_orig) or is_header_line(stripped_orig):
+        # 순수 미디어 라인, 헤더 라인은 번역 매칭에서 제외 (표는 포함)
+        # 미디어+텍스트 혼합 라인은 포함 (텍스트 부분 번역 필요)
+        if is_media_only_line(stripped_orig) or is_header_line(stripped_orig):
             continue
-        
+
         translatable_original_lines.append(orig_line)
-    
+
     # 번역문에서도 코드블럭 라인 제외하고 번역 가능한 라인만 추출
     for trans_line in translated.splitlines():
         is_code_line, in_code_block_trans = is_inside_code_block(trans_line, in_code_block_trans)
         if is_code_line or in_code_block_trans:
             continue  # 코드블럭 라인은 제외
-        
+
         trans_stripped = trans_line.strip()
         if not trans_stripped:
             continue
-        
-        # 미디어, 헤더 라인은 번역 매칭에서 제외
-        if is_media_line(trans_stripped) or is_header_line(trans_stripped):
+
+        # 순수 미디어 라인, 헤더 라인은 번역 매칭에서 제외
+        # 미디어+텍스트 혼합 라인은 포함
+        if is_media_only_line(trans_stripped) or is_header_line(trans_stripped):
             continue
         
         translation_source_lines.append(trans_line)
@@ -553,14 +640,20 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
                 lines.append("|".join(new_cells))
             continue
 
-        # 미디어 라인 처리
-        if is_media_line(stripped):
+        # 순수 미디어 라인 처리 (미디어만 있는 라인은 번역 스킵)
+        if is_media_only_line(stripped):
             flush_text_buffer() # 미디어 나오기 전 텍스트 처리
             lines.append(line) # 미디어 라인 출력
             continue
         
         # 헤더 라인 처리
         if is_header_line(stripped):
+            flush_text_buffer()
+            lines.append(line)
+            continue
+
+        # 빈 줄 처리: 문단 구분자로 사용하여 번역 블록 위치 정확도 향상
+        if not stripped:
             flush_text_buffer()
             lines.append(line)
             continue

@@ -18,6 +18,7 @@ import sys
 from dotenv import load_dotenv
 
 from jira_trans import JiraTicketTranslator, parse_issue_url
+from modules.language import detect_text_language
 
 
 TEST_TICKET = "P2-70735"
@@ -39,15 +40,15 @@ def clean_text_field(text: str) -> str:
     return cleaned.strip()
 
 
-def clean_steps(text: str, translator: JiraTicketTranslator) -> str:
+def clean_steps(text: str) -> str:
     """Steps 필드에서 번역문 제거 (언어 감지 기반)"""
     if not text:
         return ""
 
     parts = [p.strip() for p in text.split("\n\n") if p.strip()]
     if len(parts) >= 2:
-        first_lang = translator._detect_text_language(parts[0])
-        second_lang = translator._detect_text_language(parts[1])
+        first_lang = detect_text_language(parts[0])
+        second_lang = detect_text_language(parts[1])
         if first_lang != "unknown" and second_lang != "unknown" and first_lang != second_lang:
             return parts[0]
     return text
@@ -87,7 +88,7 @@ def reset_test_ticket(translator: JiraTicketTranslator, source_key: str) -> bool
 
     raw_steps = source_data.get(steps_field_source)
     if raw_steps:
-        clean_data[steps_field_target] = clean_steps(raw_steps, translator)
+        clean_data[steps_field_target] = clean_steps(raw_steps)
 
     print(f"  Summary: {clean_data['summary'][:50]}...")
     print(f"  Description: {len(clean_data['description'])} chars")
