@@ -221,6 +221,24 @@ class JiraTicketTranslator:
     def _extract_description_sections(self, text: str) -> list[tuple[Optional[str], str]]:
         return formatting.extract_description_sections(text)
 
+    @staticmethod
+    def _determine_glossary(project_key: str) -> tuple[str, str]:
+        """프로젝트 키로 glossary 파일명과 이름을 결정."""
+        mapping = {
+            "PUBG": ("pubg_glossary.json", "PUBG"),
+            "PM": ("pubg_glossary.json", "PUBG"),
+            "PUBGXBSG": ("bsg_glossary.json", "BSG"),
+            "PAYDAY": ("heist_glossary.json", "HeistRoyale"),
+        }
+        return mapping.get(project_key, ("pbb_glossary.json", "PBB(Project Black Budget)"))
+
+    @staticmethod
+    def _fallback_steps_field(project_key: str) -> str:
+        """detect_steps_field 실패 시 기존 하드코딩 기반 fallback."""
+        if project_key in ("PUBG", "PM", "PUBGXBSG", "PAYDAY"):
+            return "customfield_10237"
+        return "customfield_10399"
+
     def translate_issue(
         self,
         issue_key: str,
@@ -232,23 +250,13 @@ class JiraTicketTranslator:
         Jira 이슈를 번역 (한글→영어, 영어→한글 자동 번역)
         """
         # 1. 티켓 타입 판별 및 설정
-        if issue_key.upper().startswith("PUBG-") or issue_key.upper().startswith("PM-"):
-            steps_field = "customfield_10237"
-            glossary_file = "pubg_glossary.json"
-            glossary_name = "PUBG"
-        elif issue_key.upper().startswith("PUBGXBSG-"):
-            steps_field = "customfield_10237"
-            glossary_file = "bsg_glossary.json"
-            glossary_name = "BSG"
-        elif issue_key.upper().startswith("PAYDAY-"):
-            steps_field = "customfield_10237"
-            glossary_file = "heist_glossary.json"
-            glossary_name = "HeistRoyale"
-        else:
-            # 기본값은 PBB (P2-*)
-            steps_field = "customfield_10399"
-            glossary_file = "pbb_glossary.json"
-            glossary_name = "PBB(Project Black Budget)"
+        project_key = issue_key.split("-")[0].upper()
+        glossary_file, glossary_name = self._determine_glossary(project_key)
+
+        # Steps 필드 자동 탐지 (createmeta API) → 실패 시 하드코딩 fallback
+        steps_field = self.jira_client.detect_steps_field(project_key)
+        if steps_field is None:
+            steps_field = self._fallback_steps_field(project_key)
 
         # 용어집 로드
         # Load locally to support mocking self._load_glossary_terms
