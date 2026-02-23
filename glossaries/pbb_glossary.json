@@ -205,14 +205,6 @@
         "en": "/Hour"
       },
       {
-        "ko": "10월",
-        "en": "October"
-      },
-      {
-        "ko": "11월",
-        "en": "November"
-      },
-      {
         "ko": "12ga 드래곤브레스",
         "en": "12ga Dragonbreath"
       },
@@ -241,16 +233,8 @@
         "en": "12ga Dragon."
       },
       {
-        "ko": "12월",
-        "en": "December"
-      },
-      {
         "ko": "1시간 미만",
         "en": "Less than 1 hour"
-      },
-      {
-        "ko": "1월",
-        "en": "January"
       },
       {
         "ko": "2002년까지 말이야.",
@@ -267,14 +251,6 @@
       {
         "ko": "23번 공",
         "en": "23 Ball"
-      },
-      {
-        "ko": "2월",
-        "en": "February"
-      },
-      {
-        "ko": "3월",
-        "en": "March"
       },
       {
         "ko": "4ga 드래곤브레스",
@@ -303,30 +279,6 @@
       {
         "ko": "4게이지 드래곤 브레스",
         "en": "4ga Dragon."
-      },
-      {
-        "ko": "4월",
-        "en": "April"
-      },
-      {
-        "ko": "5월",
-        "en": "May"
-      },
-      {
-        "ko": "6월",
-        "en": "June"
-      },
-      {
-        "ko": "7월",
-        "en": "July"
-      },
-      {
-        "ko": "8월",
-        "en": "August"
-      },
-      {
-        "ko": "9월",
-        "en": "September"
       },
       {
         "ko": "AKN-12 5.45 구경",
@@ -933,20 +885,8 @@
         "en": "~1 hour"
       },
       {
-        "ko": "가격",
-        "en": "Price"
-      },
-      {
         "ko": "가구",
         "en": "Furniture"
-      },
-      {
-        "ko": "가득 참",
-        "en": "Full"
-      },
-      {
-        "ko": "가득참",
-        "en": "FULL"
       },
       {
         "ko": "가상현실",
@@ -955,10 +895,6 @@
       {
         "ko": "가속",
         "en": "Acceleration"
-      },
-      {
-        "ko": "가슴",
-        "en": "Chest"
       },
       {
         "ko": "가시 식물",
@@ -987,20 +923,12 @@
         "note": "Also: Gadgets"
       },
       {
-        "ko": "가져가기",
-        "en": "Take"
-      },
-      {
         "ko": "가족 문제",
         "en": "Family Affairs"
       },
       {
         "ko": "가청 거리",
         "en": "Audible Range"
-      },
-      {
-        "ko": "가치",
-        "en": "Value"
       },
       {
         "ko": "감시 카메라",
@@ -1063,10 +991,6 @@
         "en": "Cowrie"
       },
       {
-        "ko": "개요",
-        "en": "Overview"
-      },
-      {
         "ko": "개인",
         "en": "Personal"
       },
@@ -1088,10 +1012,6 @@
         "en": "Population Tracking"
       },
       {
-        "ko": "갯수",
-        "en": "Count"
-      },
-      {
         "ko": "거래",
         "en": "Trade"
       },
@@ -1102,10 +1022,6 @@
       {
         "ko": "거주지",
         "en": "Residences"
-      },
-      {
-        "ko": "건너뛰기",
-        "en": "Skip"
       },
       {
         "ko": "건너뛰려먼 LMB를 길게 누르세요",
@@ -1141,17 +1057,9 @@
         "en": "Black Lotus"
       },
       {
-        "ko": "검은색",
-        "en": "Black"
-      },
-      {
         "ko": "검은색 회로 기판",
         "en": "Black Circ. Board",
         "note": "Also: Black Circuit Board"
-      },
-      {
-        "ko": "게임",
-        "en": "Game"
       },
       {
         "ko": "게임 메시지",
@@ -1172,10 +1080,6 @@
       {
         "ko": "격자 정렬 회전",
         "en": "Rotate to Grid"
-      },
-      {
-        "ko": "결과",
-        "en": "Result"
       },
       {
         "ko": "결합됨",
@@ -1209,10 +1113,6 @@
       {
         "ko": "경화제",
         "en": "Hardener"
-      },
-      {
-        "ko": "계속",
-        "en": "Continue"
       },
       {
         "ko": "계정:",
@@ -1394,10 +1294,6 @@
         "en": "Bone Density II"
       },
       {
-        "ko": "골반",
-        "en": "Pelvis"
-      },
-      {
         "ko": "골프 검문소",
         "en": "Checkpoint Golf"
       },
@@ -1450,10 +1346,6 @@
       {
         "ko": "과출력",
         "en": "Blinding Output"
-      },
-      {
-        "ko": "관리",
-        "en": "Manage"
       },
       {
         "ko": "관성",
@@ -1546,10 +1438,6 @@
       {
         "ko": "균형",
         "en": "Balanced"
-      },
-      {
-        "ko": "그래픽",
-        "en": "Graphics"
       },
       {
         "ko": "그래픽 리프",
@@ -1676,10 +1564,6 @@
         "en": "Waterworks"
       },
       {
-        "ko": "긍정적",
-        "en": "Positive"
-      },
-      {
         "ko": "기동성",
         "en": "Mobility"
       },
@@ -1712,11 +1596,6 @@
       {
         "ko": "기밀: 지정 인원 열람 전용",
         "en": "Confidential: Eyes Only"
-      },
-      {
-        "ko": "기본",
-        "en": "Default",
-        "note": "Also: Standard"
       },
       {
         "ko": "기본 사격 모드",
@@ -1874,10 +1753,6 @@
         "en": "Low Cabinet"
       },
       {
-        "ko": "낮음",
-        "en": "Low"
-      },
-      {
         "ko": "내 기지로 복귀",
         "en": "Return to your Base"
       },
@@ -1888,10 +1763,6 @@
       {
         "ko": "내구도",
         "en": "Durability"
-      },
-      {
-        "ko": "내용",
-        "en": "Contents"
       },
       {
         "ko": "내화제",
@@ -1943,10 +1814,6 @@
         "en": "Basketball Hoop"
       },
       {
-        "ko": "높음",
-        "en": "High"
-      },
-      {
         "ko": "뇌산호",
         "en": "Brain Coral"
       },
@@ -1976,10 +1843,6 @@
         "en": "Tatami Floor"
       },
       {
-        "ko": "다리",
-        "en": "Legs"
-      },
-      {
         "ko": "다리 상부",
         "en": "Upper Leg"
       },
@@ -2006,10 +1869,6 @@
       {
         "ko": "다운로드가 완료될 때까지 대기",
         "en": "Wait for download to complete"
-      },
-      {
-        "ko": "다음",
-        "en": "Next"
       },
       {
         "ko": "다음!",
@@ -2054,14 +1913,6 @@
       {
         "ko": "담즙 분비",
         "en": "Bile Secretion"
-      },
-      {
-        "ko": "당기기",
-        "en": "Pull"
-      },
-      {
-        "ko": "당신",
-        "en": "You"
       },
       {
         "ko": "대기 중",
@@ -2273,10 +2124,6 @@
         "en": "Free Look"
       },
       {
-        "ko": "뒤로 가기",
-        "en": "Back"
-      },
-      {
         "ko": "뒤로 이동",
         "en": "Move Backward"
       },
@@ -2446,20 +2293,12 @@
         "en": "Lens"
       },
       {
-        "ko": "로그",
-        "en": "Log"
-      },
-      {
         "ko": "로그인",
         "en": "Login Directly"
       },
       {
         "ko": "로그인 타입 변경",
         "en": "Change Login Type"
-      },
-      {
-        "ko": "로딩 중",
-        "en": "LOADING"
       },
       {
         "ko": "로딩 중, 잠시만 기다리세요",
@@ -2505,10 +2344,6 @@
       {
         "ko": "마스터 음량",
         "en": "Master Volume"
-      },
-      {
-        "ko": "마우스",
-        "en": "Mouse"
       },
       {
         "ko": "마우스 감도",
@@ -2573,10 +2408,6 @@
       {
         "ko": "매치메이킹 진행 중...",
         "en": "Matchmaking in progress..."
-      },
-      {
-        "ko": "머리",
-        "en": "Head"
       },
       {
         "ko": "먼저 처리할 일이 좀 있어.",
@@ -2653,10 +2484,6 @@
       {
         "ko": "모던 젠",
         "en": "Modern Zen"
-      },
-      {
-        "ko": "모두",
-        "en": "ALL"
       },
       {
         "ko": "모두 보기",
@@ -2741,14 +2568,6 @@
         "en": "Motor Efficiency"
       },
       {
-        "ko": "목",
-        "en": "Neck"
-      },
-      {
-        "ko": "목록",
-        "en": "List"
-      },
-      {
         "ko": "목표",
         "en": "Objectives"
       },
@@ -2763,14 +2582,6 @@
       {
         "ko": "목표물에 불을 붙이는 벅샷 쉘.",
         "en": "Buckshot shells that set the target on fire."
-      },
-      {
-        "ko": "몸통",
-        "en": "Torso"
-      },
-      {
-        "ko": "무게",
-        "en": "Weight"
       },
       {
         "ko": "무게 개조",
@@ -2886,10 +2697,6 @@
         "en": "RELOAD"
       },
       {
-        "ko": "무릎",
-        "en": "Knees"
-      },
-      {
         "ko": "무선 호출기",
         "en": "Pager"
       },
@@ -2910,16 +2717,8 @@
         "en": "Randomized"
       },
       {
-        "ko": "묶기",
-        "en": "Stack"
-      },
-      {
         "ko": "묶음 절반 나누기",
         "en": "Split Stack in Half"
-      },
-      {
-        "ko": "문",
-        "en": "Door"
       },
       {
         "ko": "문서 보관 금고",
@@ -2975,10 +2774,6 @@
         "en": "Jac Anatomy"
       },
       {
-        "ko": "물고기",
-        "en": "Fish"
-      },
-      {
         "ko": "물고기 가져가기",
         "en": "Take fish"
       },
@@ -3023,14 +2818,6 @@
       {
         "ko": "민첩",
         "en": "Dexterity"
-      },
-      {
-        "ko": "밀기",
-        "en": "Push"
-      },
-      {
-        "ko": "바닥",
-        "en": "Floor"
       },
       {
         "ko": "바둑판",
@@ -3164,11 +2951,6 @@
         "en": "Invites Received"
       },
       {
-        "ko": "발",
-        "en": "Foot",
-        "note": "Also: Feet"
-      },
-      {
         "ko": "발굴",
         "en": "Groundbreaking"
       },
@@ -3188,10 +2970,6 @@
       {
         "ko": "발라클라바",
         "en": "Balaclava"
-      },
-      {
-        "ko": "발사",
-        "en": "Launch"
       },
       {
         "ko": "발사 속도",
@@ -3302,11 +3080,6 @@
         "en": "Record the white noise"
       },
       {
-        "ko": "버그",
-        "en": "Bug",
-        "note": "Also: Bugs"
-      },
-      {
         "ko": "버그 100마리 처치",
         "en": "Kill 100 Bugs"
       },
@@ -3346,10 +3119,6 @@
       {
         "ko": "버그 해부학",
         "en": "Bug Anatomy"
-      },
-      {
-        "ko": "버리기",
-        "en": "Discard"
       },
       {
         "ko": "번호 입력",
@@ -3411,11 +3180,6 @@
         "en": "Bench Press"
       },
       {
-        "ko": "벽",
-        "en": "Wall",
-        "note": "Also: Walls"
-      },
-      {
         "ko": "벽/바닥",
         "en": "Wall/Floor"
       },
@@ -3432,10 +3196,6 @@
         "en": "Mutated Mezcal"
       },
       {
-        "ko": "보급",
-        "en": "Supply"
-      },
-      {
         "ko": "보급 상자",
         "en": "Supply Box",
         "note": "Also: Supply Crate"
@@ -3443,10 +3203,6 @@
       {
         "ko": "보급품",
         "en": "Supplies"
-      },
-      {
-        "ko": "보낸 사람",
-        "en": "Sender"
       },
       {
         "ko": "보드카",
@@ -3523,10 +3279,6 @@
         "en": "No Effective Protection"
       },
       {
-        "ko": "복부",
-        "en": "Stomach"
-      },
-      {
         "ko": "복합 플라스틱",
         "en": "Comp. Plastic",
         "note": "Also: Composite Plastic"
@@ -3576,16 +3328,8 @@
         "en": "Perform autopsy"
       },
       {
-        "ko": "부정적",
-        "en": "Negative"
-      },
-      {
         "ko": "부즈 크루즈",
         "en": "Booze Cruise"
-      },
-      {
-        "ko": "부착",
-        "en": "Attach"
       },
       {
         "ko": "부착물",
@@ -3627,10 +3371,6 @@
       {
         "ko": "분당 수입:",
         "en": "Value per minute:"
-      },
-      {
-        "ko": "분리",
-        "en": "Detach"
       },
       {
         "ko": "분석기",
@@ -3762,33 +3502,12 @@
         "en": "Secret Agent"
       },
       {
-        "ko": "비어있음",
-        "en": "EMPTY"
-      },
-      {
-        "ko": "비용",
-        "en": "Cost"
-      },
-      {
-        "ko": "비우기",
-        "en": "Empty"
-      },
-      {
         "ko": "비우기 (길게 누름)",
         "en": "Empty (Hold)"
       },
       {
         "ko": "비콘",
         "en": "Beacon"
-      },
-      {
-        "ko": "비활성화",
-        "en": "Disable",
-        "note": "Also: INACTIVE"
-      },
-      {
-        "ko": "비활성화됨",
-        "en": "DISABLED"
       },
       {
         "ko": "빈 공간",
@@ -3894,10 +3613,6 @@
         "en": "Locker"
       },
       {
-        "ko": "사용",
-        "en": "Use"
-      },
-      {
         "ko": "사용 (더블 클릭)",
         "en": "Use (Double-Click)"
       },
@@ -3916,10 +3631,6 @@
       {
         "ko": "사용자 지정",
         "en": "Custom"
-      },
-      {
-        "ko": "사용하기",
-        "en": "Use"
       },
       {
         "ko": "사용한 소모품",
@@ -3966,10 +3677,6 @@
         "en": "Private Line"
       },
       {
-        "ko": "삭제",
-        "en": "Delete"
-      },
-      {
         "ko": "산성 샘",
         "en": "Acid Gland"
       },
@@ -3985,10 +3692,6 @@
         "ko": "산소 공급 필터 (방독면)",
         "en": "Oxy. Filt. (GM)",
         "note": "Also: Oxygenating Filter (Gas Mask)"
-      },
-      {
-        "ko": "살펴보기",
-        "en": "Inspect"
       },
       {
         "ko": "삼각대 플러드라이트",
@@ -4044,10 +3747,6 @@
         "en": "Upper Rail"
       },
       {
-        "ko": "상세 내용",
-        "en": "Detail"
-      },
-      {
         "ko": "상세 정보 보기",
         "en": "Show Details"
       },
@@ -4066,10 +3765,6 @@
       {
         "ko": "상체",
         "en": "Upper Body"
-      },
-      {
-        "ko": "상태",
-        "en": "Status"
       },
       {
         "ko": "상호 작용",
@@ -4207,10 +3902,6 @@
         "en": "Waiting for server"
       },
       {
-        "ko": "서재",
-        "en": "Study"
-      },
-      {
         "ko": "서재 설치",
         "en": "Install Study"
       },
@@ -4239,20 +3930,12 @@
         "en": "Cactus"
       },
       {
-        "ko": "선택",
-        "en": "Select"
-      },
-      {
         "ko": "선택 중",
         "en": "Selecting"
       },
       {
         "ko": "선택 확인",
         "en": "Confirm Selection"
-      },
-      {
-        "ko": "선택됨",
-        "en": "Selected"
       },
       {
         "ko": "선형 조명",
@@ -4312,10 +3995,6 @@
         "en": "Ceramic"
       },
       {
-        "ko": "세부 정보",
-        "en": "Details"
-      },
-      {
         "ko": "세열수류탄",
         "en": "Frag Grenade"
       },
@@ -4349,10 +4028,6 @@
         "en": "Reviving"
       },
       {
-        "ko": "소음",
-        "en": "Noise"
-      },
-      {
         "ko": "소음 녹음",
         "en": "Record the noise"
       },
@@ -4378,11 +4053,6 @@
         "en": "Speedy-Regen-BH"
       },
       {
-        "ko": "손",
-        "en": "Hand",
-        "note": "Also: Hands"
-      },
-      {
         "ko": "솔로",
         "en": "Solo"
       },
@@ -4391,20 +4061,12 @@
         "en": "Storage Cabinet"
       },
       {
-        "ko": "수동",
-        "en": "Manual"
-      },
-      {
         "ko": "수락함",
         "en": "Received"
       },
       {
         "ko": "수량",
         "en": "Quantity"
-      },
-      {
-        "ko": "수령",
-        "en": "Collect"
       },
       {
         "ko": "수령 가능",
@@ -4428,10 +4090,6 @@
         "en": "Frag G++"
       },
       {
-        "ko": "수리",
-        "en": "Repair"
-      },
-      {
         "ko": "수리 가능 여부",
         "en": "Repairability"
       },
@@ -4450,10 +4108,6 @@
       {
         "ko": "수리용 테이프",
         "en": "Repair Tape"
-      },
-      {
-        "ko": "수면 시설",
-        "en": "Bed"
       },
       {
         "ko": "수색하세요",
@@ -4536,10 +4190,6 @@
         "en": "COMPILING SHADERS"
       },
       {
-        "ko": "쉬움",
-        "en": "Easy"
-      },
-      {
         "ko": "슈퍼 90",
         "en": "Super 90"
       },
@@ -4562,10 +4212,6 @@
       {
         "ko": "스캔을 이미 회수했습니다",
         "en": "Scans already taken"
-      },
-      {
-        "ko": "스크롤",
-        "en": "Scroll"
       },
       {
         "ko": "스킬",
@@ -4679,10 +4325,6 @@
       {
         "ko": "스피어 3-XC 7.62 구경",
         "en": "Spear 3-XC 7.62 Cal"
-      },
-      {
-        "ko": "슬라이드",
-        "en": "Slide"
       },
       {
         "ko": "슬라이드 가져가기",
@@ -4808,10 +4450,6 @@
         "en": "No facility selected"
       },
       {
-        "ko": "시스템",
-        "en": "System"
-      },
-      {
         "ko": "시스템 메뉴",
         "en": "SYSTEM MENU"
       },
@@ -4862,14 +4500,6 @@
         "en": "Neurology"
       },
       {
-        "ko": "신규",
-        "en": "New"
-      },
-      {
-        "ko": "신체",
-        "en": "Body"
-      },
-      {
         "ko": "신체 경화 I",
         "en": "Body Hardening I"
       },
@@ -4880,10 +4510,6 @@
       {
         "ko": "실렉사이트-C",
         "en": "Silexite-C"
-      },
-      {
-        "ko": "실패",
-        "en": "Failed"
       },
       {
         "ko": "실험체",
@@ -4951,10 +4577,6 @@
       {
         "ko": "아노말리 활동 감지됨",
         "en": "Anomaly activity detected"
-      },
-      {
-        "ko": "아니오",
-        "en": "No"
       },
       {
         "ko": "아드레날 분비",
@@ -5066,20 +4688,12 @@
         "en": "Unknown Item"
       },
       {
-        "ko": "알 수 없음",
-        "en": "Unknown"
-      },
-      {
         "ko": "알람",
         "en": "Alarm"
       },
       {
         "ko": "알람이 이미 비활성화되었습니다",
         "en": "Alarm already disabled"
-      },
-      {
-        "ko": "알림",
-        "en": "NOTICE"
       },
       {
         "ko": "알파 DBAL",
@@ -5186,10 +4800,6 @@
         "note": "Also: Quantum Processor"
       },
       {
-        "ko": "어려움",
-        "en": "Hard"
-      },
-      {
         "ko": "어서 정신 차려.",
         "en": "Wake the fuck up."
       },
@@ -5202,24 +4812,12 @@
         "en": "Assault Shirt"
       },
       {
-        "ko": "언어",
-        "en": "Language"
-      },
-      {
         "ko": "얻은 XP",
         "en": "XP Gained"
       },
       {
-        "ko": "얼굴",
-        "en": "Face"
-      },
-      {
         "ko": "얼어붙은 시간 속에서",
         "en": "Frozen in Time"
-      },
-      {
-        "ko": "업그레이드",
-        "en": "Upgrade"
       },
       {
         "ko": "업그레이드 모듈",
@@ -5245,10 +4843,6 @@
       {
         "ko": "업스케일링",
         "en": "Upscaling"
-      },
-      {
-        "ko": "에너지",
-        "en": "Energy"
       },
       {
         "ko": "에어락",
@@ -5323,10 +4917,6 @@
         "en": "Reverse engineer"
       },
       {
-        "ko": "연결",
-        "en": "Connect"
-      },
-      {
         "ko": "연결 끊김",
         "en": "Disconnected"
       },
@@ -5398,10 +4988,6 @@
         "note": "Also: Thermal Regulation"
       },
       {
-        "ko": "열기",
-        "en": "Open"
-      },
-      {
         "ko": "열기 (더블 클릭)",
         "en": "Open (Double-Click)"
       },
@@ -5428,10 +5014,6 @@
         "en": "Side Mount"
       },
       {
-        "ko": "예",
-        "en": "Yes"
-      },
-      {
         "ko": "예정 시간",
         "en": "ETA"
       },
@@ -5446,10 +5028,6 @@
       {
         "ko": "옐로우 라인 하부",
         "en": "Lower Yellow Line"
-      },
-      {
-        "ko": "오디오",
-        "en": "Audio"
       },
       {
         "ko": "오디오 장치",
@@ -5521,10 +5099,6 @@
         "en": "Operation Hellgate"
       },
       {
-        "ko": "오프라인",
-        "en": "Offline"
-      },
-      {
         "ko": "온 스크린 핑",
         "en": "On-Screen Ping"
       },
@@ -5532,14 +5106,6 @@
         "ko": "온도 제어 텐트",
         "en": "Clim.-Ctrl Tent",
         "note": "Also: Climate-Controlled Tent"
-      },
-      {
-        "ko": "온라인",
-        "en": "Online"
-      },
-      {
-        "ko": "올라가기",
-        "en": "Climb"
       },
       {
         "ko": "옷장",
@@ -5557,11 +5123,6 @@
       {
         "ko": "와인",
         "en": "Wine"
-      },
-      {
-        "ko": "완료",
-        "en": "COMPLETE",
-        "note": "Also: Completed, Completions"
       },
       {
         "ko": "완료한 목표:",
@@ -5624,10 +5185,6 @@
         "en": "Strafe Left"
       },
       {
-        "ko": "요약",
-        "en": "Summary"
-      },
-      {
         "ko": "용기",
         "en": "Canister"
       },
@@ -5665,10 +5222,6 @@
         "en": "Depression Override"
       },
       {
-        "ko": "우호적",
-        "en": "Friendly"
-      },
-      {
         "ko": "운동 능력 강화제 I",
         "en": "Athletic Enhancers I"
       },
@@ -5683,11 +5236,6 @@
       {
         "ko": "울프 그레이",
         "en": "Wolf Grey"
-      },
-      {
-        "ko": "웅크리기",
-        "en": "Crouch",
-        "note": "Also: Crouching"
       },
       {
         "ko": "워든 페이스 실드",
@@ -5801,10 +5349,6 @@
         "en": "Vantage Points"
       },
       {
-        "ko": "유실",
-        "en": "Lost"
-      },
-      {
         "ko": "유압",
         "en": "Hydraulics"
       },
@@ -5844,10 +5388,6 @@
         "en": "Utility/Utility Wheel"
       },
       {
-        "ko": "유형",
-        "en": "Type"
-      },
-      {
         "ko": "유효하지 않은 위치입니다",
         "en": "Invalid position"
       },
@@ -5870,10 +5410,6 @@
       {
         "ko": "은화",
         "en": "Obol"
-      },
-      {
-        "ko": "음량",
-        "en": "Volume"
       },
       {
         "ko": "음성 녹음기",
@@ -5929,11 +5465,6 @@
         "en": "eNigma"
       },
       {
-        "ko": "이동",
-        "en": "Move",
-        "note": "Also: Movement"
-      },
-      {
         "ko": "이동 소음",
         "en": "Movement Noise"
       },
@@ -5954,20 +5485,12 @@
         "en": "Distance Traveled"
       },
       {
-        "ko": "이름",
-        "en": "Name"
-      },
-      {
         "ko": "이미 탐색한 위치입니다",
         "en": "Spot already searched"
       },
       {
         "ko": "이용 중인 시설은 제거할 수 없습니다",
         "en": "Cannot delete active facility"
-      },
-      {
-        "ko": "이전",
-        "en": "Previous"
       },
       {
         "ko": "이전 단계를 완료하세요",
@@ -6068,11 +5591,6 @@
         "note": "Also: Top Secret Documents"
       },
       {
-        "ko": "일반",
-        "en": "Common",
-        "note": "Also: General"
-      },
-      {
         "ko": "일반 기록",
         "en": "General Log"
       },
@@ -6083,14 +5601,6 @@
       {
         "ko": "일어나, 거의 다 왔어.",
         "en": "Get up, we're almost there."
-      },
-      {
-        "ko": "일일",
-        "en": "Daily"
-      },
-      {
-        "ko": "일자",
-        "en": "Date"
       },
       {
         "ko": "임상화학",
@@ -6165,11 +5675,6 @@
         "en": "Invalid Key"
       },
       {
-        "ko": "잠금 해제",
-        "en": "Unlock",
-        "note": "Also: Unlocks"
-      },
-      {
         "ko": "잠금 해제 중...",
         "en": "Unlocking..."
       },
@@ -6184,10 +5689,6 @@
       {
         "ko": "잠긴 아이템 숨기기",
         "en": "Hide Locked Items"
-      },
-      {
-        "ko": "잠김",
-        "en": "Locked"
       },
       {
         "ko": "잠시만 기다려주세요",
@@ -6457,10 +5958,6 @@
         "note": "Also: Expert Repair Kit"
       },
       {
-        "ko": "전방",
-        "en": "Forward"
-      },
-      {
         "ko": "전술",
         "en": "Tactical"
       },
@@ -6494,10 +5991,6 @@
         "en": "Electronics"
       },
       {
-        "ko": "전체",
-        "en": "All"
-      },
-      {
         "ko": "전투",
         "en": "Combat",
         "note": "Also: FROM COMBAT"
@@ -6507,20 +6000,8 @@
         "en": "Combat Log"
       },
       {
-        "ko": "전화",
-        "en": "Phone"
-      },
-      {
         "ko": "절단된 팔",
         "en": "Severed Arm"
-      },
-      {
-        "ko": "점수",
-        "en": "Score"
-      },
-      {
-        "ko": "점프",
-        "en": "Jump"
       },
       {
         "ko": "점프/장애물 넘기",
@@ -6601,17 +6082,8 @@
         "en": "Water Treatment Plant"
       },
       {
-        "ko": "정원",
-        "en": "Garden"
-      },
-      {
         "ko": "정확도",
         "en": "Accuracy"
-      },
-      {
-        "ko": "제거",
-        "en": "Remove",
-        "note": "Also: Uninstall"
       },
       {
         "ko": "제거 완료.",
@@ -6620,10 +6092,6 @@
       {
         "ko": "제거자",
         "en": "Eliminator"
-      },
-      {
-        "ko": "제목",
-        "en": "Title"
       },
       {
         "ko": "제어",
@@ -6656,11 +6124,6 @@
       {
         "ko": "조류-균류 공생",
         "en": "Algal-Fungal Symbiosis"
-      },
-      {
-        "ko": "조명",
-        "en": "Light",
-        "note": "Also: Lights"
       },
       {
         "ko": "조심해!",
@@ -6735,10 +6198,6 @@
         "en": "Harmonizer"
       },
       {
-        "ko": "종료",
-        "en": "End"
-      },
-      {
         "ko": "종착역",
         "en": "End of the Line"
       },
@@ -6750,10 +6209,6 @@
         "ko": "주 무기",
         "en": "Primary",
         "note": "Also: Primary Weapon"
-      },
-      {
-        "ko": "주간",
-        "en": "Weekly"
       },
       {
         "ko": "주머니+ (프로텍터 몸통 보호구)",
@@ -6792,14 +6247,6 @@
         "en": "Relay"
       },
       {
-        "ko": "중단",
-        "en": "Abort"
-      },
-      {
-        "ko": "중립적",
-        "en": "Neutral"
-      },
-      {
         "ko": "중복된 키바인드",
         "en": "Duplicate Keybind"
       },
@@ -6814,10 +6261,6 @@
       {
         "ko": "지구력 의류 업그레이드",
         "en": "Endurance Clothing Upgrade"
-      },
-      {
-        "ko": "지도",
-        "en": "Map"
       },
       {
         "ko": "지도 회전",
@@ -6889,11 +6332,6 @@
         "en": "Now that's where the real secrets lie."
       },
       {
-        "ko": "진행",
-        "en": "Play",
-        "note": "Also: Proceed"
-      },
-      {
         "ko": "진행 중",
         "en": "In Progress"
       },
@@ -6926,10 +6364,6 @@
         "en": "Pick Up"
       },
       {
-        "ko": "차고",
-        "en": "Garage"
-      },
-      {
         "ko": "차량 정비소",
         "en": "Vehicle Maintenance"
       },
@@ -6942,20 +6376,12 @@
         "en": "Checkpoint Charlie"
       },
       {
-        "ko": "참여",
-        "en": "Join"
-      },
-      {
         "ko": "참여 중",
         "en": "Joining"
       },
       {
         "ko": "참여자",
         "en": "Participants"
-      },
-      {
-        "ko": "창 모드",
-        "en": "Windowed"
       },
       {
         "ko": "창 모드 수",
@@ -6968,10 +6394,6 @@
       {
         "ko": "채우기/늘리기",
         "en": "Fill/Stretch"
-      },
-      {
-        "ko": "책",
-        "en": "Book"
       },
       {
         "ko": "책 가로 배열",
@@ -7043,10 +6465,6 @@
         "en": "Tentacle"
       },
       {
-        "ko": "최대",
-        "en": "Max"
-      },
-      {
         "ko": "최대 비행고도 I",
         "en": "Service Ceiling I"
       },
@@ -7078,10 +6496,6 @@
       {
         "ko": "최초 접촉",
         "en": "First Contact"
-      },
-      {
-        "ko": "추가",
-        "en": "ADD"
       },
       {
         "ko": "추가 로더",
@@ -7160,10 +6574,6 @@
         "en": "Falling"
       },
       {
-        "ko": "추방",
-        "en": "Kick"
-      },
-      {
         "ko": "추적",
         "en": "Track Record"
       },
@@ -7211,10 +6621,6 @@
       {
         "ko": "카고 바지",
         "en": "Cargo Pants"
-      },
-      {
-        "ko": "카메라",
-        "en": "Camera"
       },
       {
         "ko": "카메라 초기화",
@@ -7333,10 +6739,6 @@
         "en": "Context Menu"
       },
       {
-        "ko": "컨트랙트를",
-        "en": "COMPLETE"
-      },
-      {
         "ko": "컨트롤",
         "en": "Control",
         "note": "Also: Controls"
@@ -7361,10 +6763,6 @@
       {
         "ko": "컴팩트 빔 캐논",
         "en": "Compact Beam Cannon"
-      },
-      {
-        "ko": "컴퓨터",
-        "en": "Computer"
       },
       {
         "ko": "케블라",
@@ -7698,10 +7096,6 @@
         "en": "AWOL"
       },
       {
-        "ko": "탐색",
-        "en": "Search"
-      },
-      {
         "ko": "탐험",
         "en": "Exploration"
       },
@@ -7740,10 +7134,6 @@
       {
         "ko": "테크프레임 천장",
         "en": "Techframe Ceiling"
-      },
-      {
-        "ko": "토글",
-        "en": "Toggle"
       },
       {
         "ko": "토글형 레이저 포인터.",
@@ -7941,10 +7331,6 @@
         "en": "Fragmentation"
       },
       {
-        "ko": "판매",
-        "en": "Sell"
-      },
-      {
         "ko": "팔 상부",
         "en": "Upper Arm"
       },
@@ -8007,14 +7393,6 @@
         "en": "Paper Lantern"
       },
       {
-        "ko": "펜",
-        "en": "Pen"
-      },
-      {
-        "ko": "편집",
-        "en": "Edit"
-      },
-      {
         "ko": "포메이션 북",
         "en": "Formation Books"
       },
@@ -8069,10 +7447,6 @@
       {
         "ko": "품절",
         "en": "Sold Out"
-      },
-      {
-        "ko": "프레임",
-        "en": "Frame"
       },
       {
         "ko": "프레임 튜닝",
@@ -8408,10 +7782,6 @@
         "en": "Hyperclotting II"
       },
       {
-        "ko": "학교",
-        "en": "School"
-      },
-      {
         "ko": "합계",
         "en": "Total"
       },
@@ -8488,10 +7858,6 @@
         "en": "Headset"
       },
       {
-        "ko": "헤어스타일",
-        "en": "Hair"
-      },
-      {
         "ko": "헥사나이트",
         "en": "Hexanight"
       },
@@ -8519,10 +7885,6 @@
       {
         "ko": "현장 매뉴얼",
         "en": "Field Manual"
-      },
-      {
-        "ko": "현재",
-        "en": "Current"
       },
       {
         "ko": "현재 아이템:",
@@ -8630,21 +7992,8 @@
         "en": "Noted. Background?"
       },
       {
-        "ko": "확장",
-        "en": "Expand"
-      },
-      {
-        "ko": "환영합니다",
-        "en": "Welcome"
-      },
-      {
         "ko": "환자 특권",
         "en": "Patient Privilege"
-      },
-      {
-        "ko": "활성화",
-        "en": "Active",
-        "note": "Also: Activate"
       },
       {
         "ko": "활성화 한도",
@@ -8673,10 +8022,6 @@
       {
         "ko": "효율 슬롯",
         "en": "Efficiency Slot"
-      },
-      {
-        "ko": "후방",
-        "en": "Backward"
       },
       {
         "ko": "훈련",
@@ -8715,20 +8060,8 @@
         "en": "Termites"
       },
       {
-        "ko": "흰색",
-        "en": "White"
-      },
-      {
-        "ko": "히스토리",
-        "en": "History"
-      },
-      {
         "ko": "히트브루 커피메이커",
         "en": "HeatBrew CoffeeMaker"
-      },
-      {
-        "ko": "힌트",
-        "en": "Hint"
       }
     ],
     "Armor/Equipment": [
@@ -13350,10 +12683,6 @@
         "note": "Also: Install an Outfitting Station"
       },
       {
-        "ko": "이용 가능",
-        "en": "Available"
-      },
-      {
         "ko": "이용 가능 주제",
         "en": "Available Topics"
       },
@@ -13876,20 +13205,8 @@
         "note": "Also: Leave"
       },
       {
-        "ko": "넣기",
-        "en": "Load"
-      },
-      {
-        "ko": "닫기",
-        "en": "Close"
-      },
-      {
         "ko": "대기열",
         "en": "Queue"
-      },
-      {
-        "ko": "뒤로",
-        "en": "Back"
       },
       {
         "ko": "설정",
@@ -13899,14 +13216,6 @@
         "ko": "수락",
         "en": "ACCEPT",
         "note": "Also: Submit, Accepted"
-      },
-      {
-        "ko": "저장",
-        "en": "Save"
-      },
-      {
-        "ko": "적용",
-        "en": "Apply"
       },
       {
         "ko": "준비",
@@ -13922,15 +13231,6 @@
         "ko": "초대",
         "en": "Invite",
         "note": "Also: Invites, Invited"
-      },
-      {
-        "ko": "취소",
-        "en": "Cancel",
-        "note": "Also: Canceled"
-      },
-      {
-        "ko": "확인",
-        "en": "Confirm"
       }
     ],
     "Weapon/Attachment": [

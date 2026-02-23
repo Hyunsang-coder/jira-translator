@@ -172,7 +172,11 @@ class TranslationEngine:
     def _build_filtered_glossary_instruction(self, texts: list[str]) -> str:
         """후보 추출 + LLM 필터링 + 프롬프트 instruction 생성."""
         candidates = self.prompt_builder.get_candidate_terms(texts)
+        total = len(self.prompt_builder.glossary_terms)
+        print(f"📚 Glossary filter: {total} total → {len(candidates)} after string match (1st stage)")
         filtered = self._filter_glossary_by_llm(candidates, texts)
+        if len(candidates) > GLOSSARY_FILTER_THRESHOLD:
+            print(f"📚 Glossary filter: {len(candidates)} → {len(filtered)} after LLM filter (2nd stage)")
         original_terms = self.prompt_builder.glossary_terms
         try:
             self.prompt_builder.glossary_terms = filtered
