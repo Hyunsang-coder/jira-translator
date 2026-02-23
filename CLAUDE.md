@@ -89,7 +89,9 @@ modules/
 2. **Language Detection** → `language.detect()` determines if text is Korean or English
 3. **Translation** → `TranslationEngine.translate_text()` calls OpenAI while preserving markup
 4. **Markup Preservation** → `formatting.extract_markup_blocks()` extracts/reinserts images, code blocks, links before/after translation
-5. **Glossary Injection** → Project-specific terms (PUBG, HeistRoyale, PBB) from `glossaries/` are injected into prompts
+5. **Glossary Injection** → Project-specific terms from `glossaries/` go through a 2-stage filter before prompt injection:
+   - Stage 1: `PromptBuilder.get_candidate_terms()` — string match to extract candidates
+   - Stage 2: `TranslationEngine._filter_glossary_by_llm()` — LLM refines to only relevant terms (skipped if candidates ≤ `GLOSSARY_FILTER_THRESHOLD=30`)
 6. **Jira Update** → `JiraClient.update_issue_fields()` sends `{"fields": {...}}` payload back to Jira
 
 ### Project-Specific Field Mapping
@@ -144,6 +146,7 @@ OPENAI_MODEL=gpt-4o  # or gpt-5.2
 - `test_batch_translation.py` - Multi-field translation
 - `test_refined_logic.py` - Edge cases
 - `test_ticket_type_logic.py` - Project-specific field mapping
+- `test_glossary_filter.py` - 2-stage glossary filter (new format parsing, candidate extraction, LLM filter)
 
 **External API Error Handling**: Wrap Jira/OpenAI calls in try-catch blocks. Distinguish between:
 - **Timeout errors** (retry logic)
@@ -191,7 +194,46 @@ base_dir = Path(__file__).resolve().parent.parent  # jira-translator/
 glossary_path = base_dir / "glossaries" / filename
 ```
 
-Glossaries are JSON with structure: `{"terms": {"korean": "english", ...}}`
+Two JSON schemas are supported:
+
+**Flat format** (legacy):
+```json
+{
+  "terms": {
+    "Ultimate": "궁극기",
+    "Gadget": "가젯"
+  }
+}
+```
+
+**Category format** (current — supports `note` for disambiguation):
+```json
+{
+  "project": "Heist Royale",
+  "glossary": {
+    "Class/Skill": [
+      { "ko": "궁극기", "en": "Ultimate" },
+      { "ko": "완전 무장", "en": "Locked & Loaded", "note": "스킬명. \"킬 리로드\"와 동일 영문" }
+    ],
+    "Map": [
+      { "ko": "환전소", "en": "The Exchange" }
+    ]
+  }
+}
+```
+
+Both formats are converted to an internal `{en_key: ko}` flat dict. `note` is appended to the Korean value as `"ko (note)"` for LLM disambiguation.
+
+**Duplicate `en` keys** (same English → multiple Korean): handled by suffix (`Locked & Loaded__2`). The suffix is stripped before prompt output, so the LLM sees both mappings and picks by context.
+
+### 2-Stage Glossary Filter
+
+Pipeline: `_load_glossary_terms` → `get_candidate_terms` (string match) → `_filter_glossary_by_llm` (LLM, skipped if ≤ 30 candidates) → `build_glossary_instruction`
+
+- `GLOSSARY_FILTER_THRESHOLD = 30` defined in `models.py`
+- `GlossarySelection(BaseModel)` in `models.py` — Structured Output schema for the LLM filter (`selected_keys: list[str]`)
+- LLM filter uses the same model as translation (`gpt-5.2`). On error, falls back to all candidates.
+- Tests: `tests/test_glossary_filter.py`
 
 ### Pydantic Availability
 
@@ -225,7 +267,8 @@ The code conditionally uses Pydantic v2+ if available but falls back to dict-bas
 
 - **Broken Markup**: Changes to `formatting.py` can silently break image/code preservation. Always run `test_formatting.py`.
 - **Field Mapping Errors**: Project detection relies on issue key prefix. Test with multiple project keys (PUBG-, PAYDAY-, P2-, etc.).
-- **Glossary Not Loaded**: If custom glossary isn't used, check that the filename matches the project mapping and JSON structure is valid.
+- **Glossary Not Loaded**: If custom glossary isn't used, check that the filename matches the project mapping and JSON structure is valid (flat `"terms"` dict or category `"glossary"` object).
+- **Glossary Duplicate en Keys**: Same English term mapped to multiple Korean values (e.g. `Locked & Loaded`) is stored with `__2` suffix internally. Do NOT use `__` in real term names as it conflicts with this convention.
 - **API Rate Limits**: OpenAI API can be rate-limited. Errors should be caught and reported clearly; SAM local tests may fail if quota is exhausted.
 - **Jira Auth Failures**: Verify `.env` credentials match the Jira instance URL. API token expiry is a common issue.
 

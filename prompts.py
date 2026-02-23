@@ -15,26 +15,56 @@ class PromptBuilder:
         self.glossary_terms: dict[str, str] = glossary_terms or {}
         self.glossary_name: str = glossary_name or ""
 
+    @staticmethod
+    def _base_eng(eng: str) -> str:
+        """충돌 방지용 suffix(__2, __3 ...) 제거 후 실제 영문 반환."""
+        return re.sub(r"__\d+$", "", eng)
+
+    def get_candidate_terms(self, texts: Sequence[str]) -> dict[str, str]:
+        """
+        1단계: string match로 용어집에서 후보 용어만 추출 (관대하게).
+        양방향 매칭 — eng→kor, kor→eng 모두 검사.
+        반환: {eng_key: kor} flat dict (후보만, suffix 키 그대로 보존)
+        """
+        terms = self.glossary_terms
+        if not terms:
+            return {}
+
+        combined_text = "\n".join(texts).lower()
+        candidates: dict[str, str] = {}
+
+        for eng_key, kor in terms.items():
+            eng = self._base_eng(eng_key)
+            eng_pattern = r"\b" + re.escape(eng.lower()) + r"\b"
+            if eng and re.search(eng_pattern, combined_text):
+                candidates[eng_key] = kor
+                continue
+
+            if kor and (kor.lower() in combined_text):
+                candidates[eng_key] = kor
+
+        return candidates
+
     def build_glossary_instruction(self, texts: Sequence[str]) -> str:
         """
         양방향 용어집 지원: 영어→한국어, 한국어→영어 모두 포함.
         단어 경계 매칭(\\b)을 사용하여 정확히 일치하는 용어만 찾습니다.
         예: 'key' 검색 시 'monkey'는 무시함.
+        suffix 키(Locked & Loaded__2)는 출력 시 base 이름으로 복원.
         """
-        terms = self.glossary_terms
-        if not terms:
+        candidates = self.get_candidate_terms(texts)
+        if not candidates:
             return ""
 
         combined_text = "\n".join(texts).lower()
         glossary_lines: list[str] = []
 
-        for eng, kor in terms.items():
-            eng_pattern = r"\b" + re.escape((eng or "").lower()) + r"\b"
+        for eng_key, kor in candidates.items():
+            eng = self._base_eng(eng_key)
+            eng_pattern = r"\b" + re.escape(eng.lower()) + r"\b"
             if eng and re.search(eng_pattern, combined_text):
                 glossary_lines.append(f"- {eng} <-> {kor}")
-                continue
-
-            if kor and (kor.lower() in combined_text):
+            elif kor and (kor.lower() in combined_text):
                 glossary_lines.append(f"- {kor} <-> {eng}")
 
         if not glossary_lines:

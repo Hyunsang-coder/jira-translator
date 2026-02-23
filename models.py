@@ -45,3 +45,10 @@ class FieldTranslationJob:
     mode: str = "default"
 
 
+class GlossarySelection(BaseModel):
+    selected_keys: list[str]
+
+
+GLOSSARY_FILTER_THRESHOLD = 30
+
+

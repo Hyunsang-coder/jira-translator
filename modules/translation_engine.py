@@ -10,6 +10,8 @@ from models import (
     PYDANTIC_AVAILABLE,
     TranslationChunk,
     TranslationResponse,
+    GlossarySelection,
+    GLOSSARY_FILTER_THRESHOLD,
 )
 from modules import formatting, language
 
@@ -28,13 +30,13 @@ class TranslationEngine:
         self.prompt_builder.glossary_name = self.glossary_name
 
     def _load_glossary_terms(self, filename: str) -> dict[str, str]:
-        """지정된 용어집 파일에서 terms 딕셔너리를 로드."""
+        """지정된 용어집 파일에서 terms 딕셔너리를 로드.
+
+        두 가지 포맷 지원:
+        - flat 포맷: {"terms": {"en": "ko", ...}}
+        - 카테고리 포맷: {"glossary": {"Category": [{"ko": "...", "en": "...", "note": "..."}, ...]}}
+        """
         try:
-            # Note: This assumes the glossary files are in the parent directory of this module's package
-            # i.e. jira-translator/ directory.
-            # __file__ is modules/translation_engine.py
-            # parent is modules/
-            # parent.parent is jira-translator/
             base_dir = Path(__file__).resolve().parent.parent
             glossary_path = base_dir / "glossaries" / filename
             if not glossary_path.exists():
@@ -43,13 +45,89 @@ class TranslationEngine:
             with glossary_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            terms = data.get("terms") or {}
-            if not isinstance(terms, dict):
-                return {}
-            return terms
-        except Exception:
-            # 용어집이 없어도 번역은 동작해야 하므로 조용히 무시
+            # flat 포맷 우선
+            terms = data.get("terms")
+            if isinstance(terms, dict):
+                return terms
+
+            # 카테고리 포맷: {"glossary": {"Category": [{"ko": ..., "en": ..., "note": ...}]}}
+            glossary = data.get("glossary")
+            if isinstance(glossary, dict):
+                flat: dict[str, str] = {}
+                for entries in glossary.values():
+                    if not isinstance(entries, list):
+                        continue
+                    for entry in entries:
+                        en = (entry.get("en") or "").strip()
+                        ko = (entry.get("ko") or "").strip()
+                        note = (entry.get("note") or "").strip()
+                        if not (en and ko):
+                            continue
+                        value = f"{ko} ({note})" if note else ko
+                        # en 키 충돌 시 __2, __3 ... suffix로 모두 보존
+                        if en not in flat:
+                            flat[en] = value
+                        else:
+                            i = 2
+                            while f"{en}__{i}" in flat:
+                                i += 1
+                            flat[f"{en}__{i}"] = value
+                return flat
+
             return {}
+        except Exception:
+            return {}
+
+    def _filter_glossary_by_llm(
+        self,
+        candidates: dict[str, str],
+        texts: list[str],
+    ) -> dict[str, str]:
+        """2단계: LLM으로 실제 번역에 필요한 용어만 정제.
+
+        candidates 수가 GLOSSARY_FILTER_THRESHOLD 이하면 스킵 (불필요한 API 호출 방지).
+        반환: 필터링된 {eng: kor} dict
+        """
+        if not candidates or len(candidates) <= GLOSSARY_FILTER_THRESHOLD:
+            return candidates
+
+        combined_text = "\n".join(texts)
+        term_list = "\n".join(f"{i}. {en} <-> {ko}" for i, (en, ko) in enumerate(candidates.items()))
+
+        prompt = (
+            "You are a glossary selector. Given the following text and a list of glossary terms, "
+            "select ONLY the terms that are actually relevant to translating this specific text. "
+            "Return a JSON object with a 'selected_keys' field containing the list of English terms to keep.\n\n"
+            f"TEXT:\n{combined_text}\n\n"
+            f"GLOSSARY TERMS (English <-> Korean):\n{term_list}"
+        )
+
+        try:
+            if (
+                PYDANTIC_AVAILABLE
+                and hasattr(self.openai, "beta")
+                and hasattr(self.openai.beta.chat.completions, "parse")
+            ):
+                completion = self.openai.beta.chat.completions.parse(
+                    model=self.openai_model,
+                    messages=[{"role": "user", "content": prompt}],
+                    response_format=GlossarySelection,
+                )
+                parsed = completion.choices[0].message.parsed
+                selected_keys = getattr(parsed, "selected_keys", []) if parsed else []
+            else:
+                completion = self.openai.chat.completions.create(
+                    model=self.openai_model,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                content = (completion.choices[0].message.content or "").strip()
+                parsed_json = json.loads(content)
+                selected_keys = parsed_json.get("selected_keys", [])
+
+            return {k: v for k, v in candidates.items() if k in selected_keys}
+        except Exception as e:
+            print(f"⚠️ Glossary LLM filter failed, using all candidates: {e}")
+            return candidates
 
     def translate_text(self, text: str, target_language: Optional[str] = None) -> str:
         """
@@ -73,7 +151,12 @@ class TranslationEngine:
                 forced = "en"
         direction_lang = forced or detected_lang
 
+        candidates = self.prompt_builder.get_candidate_terms([text])
+        filtered = self._filter_glossary_by_llm(candidates, [text])
+        original_terms = self.prompt_builder.glossary_terms
+        self.prompt_builder.glossary_terms = filtered
         glossary_instruction = self.prompt_builder.build_glossary_instruction([text])
+        self.prompt_builder.glossary_terms = original_terms
         system_msg = self.prompt_builder.build_system_message(
             detected_lang=direction_lang,
             glossary_instruction=glossary_instruction,
@@ -205,9 +288,13 @@ class TranslationEngine:
         if not translatable_chunks:
             return {}
 
-        glossary_instruction = self.prompt_builder.build_glossary_instruction(
-            [chunk.clean_text for chunk in translatable_chunks],
-        )
+        chunk_texts = [chunk.clean_text for chunk in translatable_chunks]
+        candidates = self.prompt_builder.get_candidate_terms(chunk_texts)
+        filtered = self._filter_glossary_by_llm(candidates, chunk_texts)
+        original_terms = self.prompt_builder.glossary_terms
+        self.prompt_builder.glossary_terms = filtered
+        glossary_instruction = self.prompt_builder.build_glossary_instruction(chunk_texts)
+        self.prompt_builder.glossary_terms = original_terms
 
         combined_text = "\n".join(chunk.clean_text for chunk in translatable_chunks)
         detected_lang = language.detect_text_language(combined_text, extract_text_func=language.extract_detectable_text)

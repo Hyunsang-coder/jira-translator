@@ -1,76 +1,662 @@
 {
-    "description": "HeistRoyale 용어집",
-    "terms": {
-        "Ultimate": "궁극기",
-        "Gadget": "가젯",
-        "The Exchange": "환전소",
-        "Diamond District": "다이아몬드 디스트릭트",
-        "Nightclub": "나이트클럽",
-        "Road Rage": "무장 수송차량",
-        "STEALTH": "스텔스",
-        "ALARM": "경보",
-        "REGROUPING": "재집결",
-        "Suspicion Score": "의심 수치",
-        "Assault": "돌격병 (플레이어 롤/클래스)",
-        "Support": "의료병 (플레이어 롤/클래스)",
-        "Tank": "방어병 (플레이어 롤/클래스)",
-        "Marksman": "저격수 (플레이어 롤/클래스)",
-        "Ghost": "잠입자",
-        "Impact Grenade": "충격 수류탄",
-        "Impervious": "무적",
-        "Field Treatment": "아군 전체 부활",
-        "Heavy Hitter": "모든 공격 치명타",
-        "Dozer!": "도저!",
-        "Cloaker!": "클로커!",
-        "Sniper!": "저격수!",
-        "Throwable damage": "투척 무기 피해 강화",
-        "Increased throwable damage.": "투척 무기의 피해가 증가합니다.",
-        "Ultimate Duration": "궁극기 지속 시간",
-        "Extended Ultimate duration.": "궁극기의 지속 시간이 늘어납니다.",
-        "Gadget Duration.": "가젯 지속 시간",
-        "Slightly extended Gadget duration.": "가젯 효과 지속 시간이 소폭 증가합니다.",
-        "Loot Bag": "전리품 슬롯 확장",
-        "Extra loot slot.": "전리품 슬롯이 하나 추가됩니다.",
-        "Base Stats": "기초 체력 강화",
-        "Gain extra health.": "최대 체력이 소폭 증가합니다.",
-        "Throwable": "투척 범위 확대",
-        "Increased throwable effect radius.": "투척 무기의 효과 범위가 넓어집니다.",
-        "Movement Speed Penalty Reduction": "전리품 이동 페널티 감소",
-        "Reduced speed penalty for carrying loot.": "전리품을 들고 있을 때 이동 속도 페널티가 줄어듭니다.",
-        "Armor Increase": "방어력 강화",
-        "Increased maximum armor.": "최대 방어력이 증가합니다.",
-        "Increased ultimate effect": "궁극기 효과 강화",
-        "Slightly extended Ultimate duration.": "궁극기 효과 지속 시간이 소폭 늘어납니다.",
-        "Underdog": "언더독",
-        "Increased damage when enemies are nearby.": "주변 적이 많을 수록 공격력이 상승합니다.",
-        "Regenerate armor while taking damage.": "탄피 방패",
-        "Overdog": "오버독",
-        "Nearby enemies deal less damage.": "팀원과 가까이 있으면 근처 적이 주는 피해가 감소합니다.",
-        "Huddle Up": "집결 공격",
-        "Nearby teammates deal more damage.": "가까이 있는 팀원 수에 따라 공격력이 상승합니다.",
-        "Tactician": "전술가",
-        "Nearby teammates regenerate armor faster.": "인접한 팀원들과 함께 있을 때 방어구 재생 속도가 증가합니다.",
-        "Combat Medic": "전투 메딕",
-        "Briefly take less damage after reviving teammates.": "아군을 부활시킨 후 일정 시간 받는 피해가 감소합니다.",
-        "Flanker": "측면 사수",
-        "Increased damage when attacking from behind.": "적의 후방에서 공격 시 치명적인 헤드샷 피해를 줍니다.",
-        "Covert Ops": "비밀 작전",
-        "Enemies are less likely to target you.": "은신 중 적의 경계 반응을 줄입니다.",
-        "Dead Focus": "데드 포커스",
-        "Increased damage when armor is over half full.": "방어구가 유지된 상태에서 공격력이 증가합니다.",
-        "Collateral Mastery": "관통 숙련",
-        "Headshot kills deal splash damage to nearby enemies.": "헤드샷으로 적을 처치하면 주변 적에게 부수 피해를 입힙니다.",
-        "Marksman Training": "명사수 훈련",
-        "Headshots deal extra damage.": "헤드샷 피해가 증가합니다.",
-        "Killshot": "킬샷",
-        "Increased damage against injured enemies.": "부상당한 적에게 추가 피해를 입힙니다.",
-        "Throwable Duration": "투척 지속 시간",
-        "Extended throwable duration.": "투척 무기의 효과 시간이 늘어납니다.",
-        "Health Regen": "체력 재생",
-        "Slowly regenerate health.": "시간이 지나면 체력이 서서히 회복됩니다.",
-        "Locked & Loaded": "완전 무장",
-        "Reduced speed penalty for carrying loot (Locked & Loaded).": "전리품 운반 시 이동 속도 감소 효과가 줄어듭니다.",
-        "Increased armor and health for revived crewmates.": "부활한 팀원의 방어력과 체력이 상승합니다.",
-        "Extended Gadget duration.": "가젯 효과 지속 시간이 늘어납니다."
-    }
+  "project": "Heist Royale",
+  "version": "2025-12-05",
+  "description": "Korean-English glossary for in-game translation",
+  "total_terms": 132,
+  "glossary": {
+    "Class/Skill": [
+      {
+        "ko": "가젯",
+        "en": "Gadget"
+      },
+      {
+        "ko": "궁극기",
+        "en": "Ultimate"
+      },
+      {
+        "ko": "궁극기 지속 시간",
+        "en": "Ultimate Duration"
+      },
+      {
+        "ko": "궁극기 효과 강화",
+        "en": "Increased ultimate effect"
+      },
+      {
+        "ko": "사용한 궁극기 수:",
+        "en": "Ultimates used:"
+      },
+      {
+        "ko": "완전 무장",
+        "en": "Locked & Loaded",
+        "note": "스킬명. \"킬 리로드\"와 동일 영문"
+      },
+      {
+        "ko": "저격수 (플레이어 롤/클래스)",
+        "en": "Marksman"
+      },
+      {
+        "ko": "중무장",
+        "en": "Heavy"
+      },
+      {
+        "ko": "클래스 마스크 비활성화",
+        "en": "Disable Class Mask"
+      },
+      {
+        "ko": "클래스 패시브 스킬",
+        "en": "CLASS PASSIVE SKILLS"
+      },
+      {
+        "ko": "클래스를 선택하세요",
+        "en": "CHOOSE YOUR CLASS"
+      },
+      {
+        "ko": "킬 리로드",
+        "en": "Locked & Loaded",
+        "note": "스킬명. \"완전 무장\"과 동일 영문"
+      }
+    ],
+    "Detection": [
+      {
+        "ko": "C4 발견!",
+        "en": "Found some C4!"
+      },
+      {
+        "ko": "깨진 유리 발견",
+        "en": "Broken Glass Spotted"
+      },
+      {
+        "ko": "반짝이는 보석 발견!",
+        "en": "Found some sweet bling!"
+      },
+      {
+        "ko": "발각됨",
+        "en": "Detected"
+      },
+      {
+        "ko": "연로 탱크 발견!",
+        "en": "Found a fuel tank!"
+      },
+      {
+        "ko": "용병에게 발견됨",
+        "en": "Spotted by Mercenary"
+      },
+      {
+        "ko": "의심 수치",
+        "en": "Suspicion Score"
+      },
+      {
+        "ko": "의심 최고치에 도달",
+        "en": "Max Suspicion Reached"
+      },
+      {
+        "ko": "증거 발견",
+        "en": "Evidence Found"
+      },
+      {
+        "ko": "지게차 열쇠 찾았다!",
+        "en": "Found the forklift key!"
+      },
+      {
+        "ko": "총격 감지",
+        "en": "Fire Detected"
+      },
+      {
+        "ko": "총소리 감지",
+        "en": "Gunshots Detected"
+      },
+      {
+        "ko": "침입 도구 감지",
+        "en": "Breaching Tool Detected"
+      },
+      {
+        "ko": "카메라에 감지됨",
+        "en": "Detected by Camera"
+      },
+      {
+        "ko": "키카드 발견!",
+        "en": "Spotted a keycard!"
+      },
+      {
+        "ko": "파괴된 카메라 발견",
+        "en": "Broken Camera Spotted"
+      },
+      {
+        "ko": "폭발음 감지",
+        "en": "Explosion Heard"
+      }
+    ],
+    "Game State": [
+      {
+        "ko": "경보",
+        "en": "ALARM"
+      },
+      {
+        "ko": "교전 시작",
+        "en": "ASSAULT"
+      },
+      {
+        "ko": "스텔스",
+        "en": "STEALTH"
+      },
+      {
+        "ko": "작전 결과",
+        "en": "HEIST RESULTS"
+      },
+      {
+        "ko": "작전 계획",
+        "en": "HEIST PLANNING",
+        "note": "작전 기획 단계. HEIST SELECTION은 별도 UI 문구로 사용"
+      },
+      {
+        "ko": "작전 선택 단계",
+        "en": "HEIST SELECTION STAGE"
+      },
+      {
+        "ko": "작전 성공",
+        "en": "HEIST SUCCESSFUL"
+      },
+      {
+        "ko": "작전 시작까지",
+        "en": "HEIST STARTS IN"
+      },
+      {
+        "ko": "작전 실패",
+        "en": "HEIST FAILED"
+      },
+      {
+        "ko": "재집결",
+        "en": "REGROUPING"
+      },
+      {
+        "ko": "클래스 선택",
+        "en": "CLASS SELECTION"
+      },
+      {
+        "ko": "클래스 선택 단계",
+        "en": "CLASS SELECTION STAGE"
+      },
+      {
+        "ko": "클래스 진행도",
+        "en": "CLASS PROGRESSION"
+      }
+    ],
+    "Gameplay": [
+      {
+        "ko": "경장갑",
+        "en": "Light"
+      },
+      {
+        "ko": "관통 숙련",
+        "en": "Collateral Mastery"
+      },
+      {
+        "ko": "기초 체력 강화",
+        "en": "Base Stats"
+      },
+      {
+        "ko": "난이도 보너스:",
+        "en": "Difficulty bonus:"
+      },
+      {
+        "ko": "데드 포커스",
+        "en": "Dead Focus"
+      },
+      {
+        "ko": "도저!",
+        "en": "Dozer!"
+      },
+      {
+        "ko": "돌격병",
+        "en": "Assault"
+      },
+      {
+        "ko": "드릴이 여기 있다!",
+        "en": "Here’s the thermal lance!"
+      },
+      {
+        "ko": "명사수 훈련",
+        "en": "Marksman Training"
+      },
+      {
+        "ko": "모든 공격 치명타",
+        "en": "Heavy Hitter"
+      },
+      {
+        "ko": "무적",
+        "en": "Impervious"
+      },
+      {
+        "ko": "무한 탄약",
+        "en": "Bullet Storm"
+      },
+      {
+        "ko": "발각되지 않음",
+        "en": "Undetected"
+      },
+      {
+        "ko": "발사한 탄환 수:",
+        "en": "Shots fired:"
+      },
+      {
+        "ko": "방어구 재생",
+        "en": "Armor Regen"
+      },
+      {
+        "ko": "방어구 키트",
+        "en": "Armor Kit"
+      },
+      {
+        "ko": "방어력 강화",
+        "en": "Armor Increase"
+      },
+      {
+        "ko": "방어병",
+        "en": "Tank"
+      },
+      {
+        "ko": "병기 전문가",
+        "en": "Munitions Expert"
+      },
+      {
+        "ko": "보안 가방 보너스:",
+        "en": "Secured bag bonus:"
+      },
+      {
+        "ko": "블랙아웃 키트",
+        "en": "Blackout Kit"
+      },
+      {
+        "ko": "비밀 작전",
+        "en": "Covert Ops"
+      },
+      {
+        "ko": "소다 캔 여기 있어!",
+        "en": "Can of soda here!"
+      },
+      {
+        "ko": "속도 증가 키트",
+        "en": "Adrenaline Kit"
+      },
+      {
+        "ko": "쇠지렛대 필요해?",
+        "en": "You want this crowbar?"
+      },
+      {
+        "ko": "쓰러진 팀원 없음",
+        "en": "No downed teammates"
+      },
+      {
+        "ko": "쓰러진 횟수:",
+        "en": "Times downed:"
+      },
+      {
+        "ko": "아군 전체 부활",
+        "en": "Field Treatment"
+      },
+      {
+        "ko": "어려움",
+        "en": "Hard"
+      },
+      {
+        "ko": "언더독",
+        "en": "Underdog"
+      },
+      {
+        "ko": "여기 금더미!",
+        "en": "Pile of gold here!"
+      },
+      {
+        "ko": "여기 동전이 있다!",
+        "en": "There’s a coin here!"
+      },
+      {
+        "ko": "여기, 탄약상자!",
+        "en": "Ammo box, right here!"
+      },
+      {
+        "ko": "연속 사격 강화",
+        "en": "Kill Momentum"
+      },
+      {
+        "ko": "오버독",
+        "en": "Overdog"
+      },
+      {
+        "ko": "은신",
+        "en": "Vanisher"
+      },
+      {
+        "ko": "은신 보너스:",
+        "en": "Stealth bonus:"
+      },
+      {
+        "ko": "의료병",
+        "en": "Support"
+      },
+      {
+        "ko": "일반",
+        "en": "Normal"
+      },
+      {
+        "ko": "작전",
+        "en": "HEIST"
+      },
+      {
+        "ko": "작전 소요 시간:",
+        "en": "Heist duration:"
+      },
+      {
+        "ko": "잠금 해제",
+        "en": "Unlocked"
+      },
+      {
+        "ko": "잠김",
+        "en": "Locked"
+      },
+      {
+        "ko": "잠입자",
+        "en": "Ghost"
+      },
+      {
+        "ko": "저격수!",
+        "en": "Sniper!"
+      },
+      {
+        "ko": "저기! 증거물!",
+        "en": "Over there! Evidence!"
+      },
+      {
+        "ko": "적!",
+        "en": "Enemy!"
+      },
+      {
+        "ko": "전리품 슬롯 확장",
+        "en": "Loot Bag"
+      },
+      {
+        "ko": "전리품 이동 페널티 감소",
+        "en": "Movement Speed Penalty Reduction"
+      },
+      {
+        "ko": "전술가",
+        "en": "Tactician"
+      },
+      {
+        "ko": "전투 메딕",
+        "en": "Combat Medic"
+      },
+      {
+        "ko": "조심, 카메라!",
+        "en": "Careful, camera!"
+      },
+      {
+        "ko": "중장갑",
+        "en": "Medium"
+      },
+      {
+        "ko": "즉시 전리품:",
+        "en": "Instant loot:"
+      },
+      {
+        "ko": "집결 공격",
+        "en": "Huddle Up"
+      },
+      {
+        "ko": "처치 수:",
+        "en": "Kills:"
+      },
+      {
+        "ko": "체력 재생",
+        "en": "Health Regen"
+      },
+      {
+        "ko": "충격 수류탄",
+        "en": "Impact Grenade"
+      },
+      {
+        "ko": "측면 사수",
+        "en": "Flanker"
+      },
+      {
+        "ko": "클로커!",
+        "en": "Cloaker!"
+      },
+      {
+        "ko": "킬샷",
+        "en": "Killshot"
+      },
+      {
+        "ko": "탄약 키트",
+        "en": "Ammo Kit"
+      },
+      {
+        "ko": "투척 무기 피해 강화",
+        "en": "Throwable damage"
+      },
+      {
+        "ko": "투척 범위 확대",
+        "en": "Throwable"
+      },
+      {
+        "ko": "투척 지속 시간",
+        "en": "Throwable Duration"
+      },
+      {
+        "ko": "특수 처치:",
+        "en": "Special kills:"
+      },
+      {
+        "ko": "팀원이 쓰러졌다!",
+        "en": "Downed Teammate!"
+      },
+      {
+        "ko": "파편 수류탄",
+        "en": "Fragmentation Grenade"
+      },
+      {
+        "ko": "피해량 증가",
+        "en": "Impact Ammo"
+      },
+      {
+        "ko": "하이스트 백",
+        "en": "Heist Bag"
+      },
+      {
+        "ko": "헤드샷 수:",
+        "en": "Headshots:"
+      },
+      {
+        "ko": "화염병",
+        "en": "Molotov Cocktail"
+      },
+      {
+        "ko": "확보한 전리품 가방:",
+        "en": "Loot bags secured:"
+      },
+      {
+        "ko": "확보한 전리품:",
+        "en": "Instant loot secured:"
+      }
+    ],
+    "Map": [
+      {
+        "ko": "나이트클럽",
+        "en": "Nightclub"
+      },
+      {
+        "ko": "다이아몬드 디스트릭트",
+        "en": "Diamond District"
+      },
+      {
+        "ko": "무장 수송차량",
+        "en": "Road Rage"
+      },
+      {
+        "ko": "환전소",
+        "en": "The Exchange"
+      }
+    ],
+    "UI": [
+      {
+        "ko": "난이도 선택",
+        "en": "SELECT DIFFICULTY"
+      },
+      {
+        "ko": "다음",
+        "en": "NEXT"
+      },
+      {
+        "ko": "닫기",
+        "en": "CLOSE"
+      },
+      {
+        "ko": "리스폰까지:",
+        "en": "Respawning In:"
+      },
+      {
+        "ko": "알겠어",
+        "en": "GOT IT"
+      },
+      {
+        "ko": "이전",
+        "en": "PREVIOUS"
+      },
+      {
+        "ko": "작전을 선택하세요",
+        "en": "CHOOSE HEIST"
+      },
+      {
+        "ko": "장비를 선택하세요",
+        "en": "PICK YOUR LOADOUT"
+      },
+      {
+        "ko": "주무기 선택",
+        "en": "SELECT PRIMARY WEAPON"
+      },
+      {
+        "ko": "투표 확인",
+        "en": "Confirm Vote"
+      },
+      {
+        "ko": "플레이 방법",
+        "en": "HOW TO PLAY"
+      },
+      {
+        "ko": "확인",
+        "en": "CONFIRM"
+      }
+    ],
+    "Skill Description": [
+      {
+        "ko": "아군을 부활시킨 후 일정 시간 받는 피해가 감소합니다.",
+        "en": "Briefly take less damage after reviving teammates."
+      },
+      {
+        "ko": "은신 중 적의 경계 반응을 줄입니다.",
+        "en": "Enemies are less likely to target you."
+      },
+      {
+        "ko": "가젯 효과 지속 시간이 늘어납니다.",
+        "en": "Extended Gadget duration."
+      },
+      {
+        "ko": "궁극기의 지속 시간이 늘어납니다.",
+        "en": "Extended Ultimate duration."
+      },
+      {
+        "ko": "투척 무기의 효과 시간이 늘어납니다.",
+        "en": "Extended throwable duration."
+      },
+      {
+        "ko": "전리품 슬롯이 하나 추가됩니다.",
+        "en": "Extra loot slot."
+      },
+      {
+        "ko": "가젯 지속 시간",
+        "en": "Gadget Duration."
+      },
+      {
+        "ko": "최대 체력이 소폭 증가합니다.",
+        "en": "Gain extra health."
+      },
+      {
+        "ko": "헤드샷으로 적을 처치하면 주변 적에게 부수 피해를 입힙니다.",
+        "en": "Headshot kills deal splash damage to nearby enemies."
+      },
+      {
+        "ko": "헤드샷 피해가 증가합니다.",
+        "en": "Headshots deal extra damage."
+      },
+      {
+        "ko": "부활한 팀원의 방어력과 체력이 상승합니다.",
+        "en": "Increased armor and health for revived crewmates."
+      },
+      {
+        "ko": "부상당한 적에게 추가 피해를 입힙니다.",
+        "en": "Increased damage against injured enemies."
+      },
+      {
+        "ko": "방어구가 유지된 상태에서 공격력이 증가합니다.",
+        "en": "Increased damage when armor is over half full."
+      },
+      {
+        "ko": "적의 후방에서 공격 시 치명적인 헤드샷 피해를 줍니다.",
+        "en": "Increased damage when attacking from behind."
+      },
+      {
+        "ko": "주변 적이 많을 수록 공격력이 상승합니다.",
+        "en": "Increased damage when enemies are nearby."
+      },
+      {
+        "ko": "최대 방어력이 증가합니다.",
+        "en": "Increased maximum armor."
+      },
+      {
+        "ko": "투척 무기의 피해가 증가합니다.",
+        "en": "Increased throwable damage."
+      },
+      {
+        "ko": "투척 무기의 효과 범위가 넓어집니다.",
+        "en": "Increased throwable effect radius."
+      },
+      {
+        "ko": "팀원과 가까이 있으면 근처 적이 주는 피해가 감소합니다.",
+        "en": "Nearby enemies deal less damage."
+      },
+      {
+        "ko": "가까이 있는 팀원 수에 따라 공격력이 상승합니다.",
+        "en": "Nearby teammates deal more damage."
+      },
+      {
+        "ko": "인접한 팀원들과 함께 있을 때 방어구 재생 속도가 증가합니다.",
+        "en": "Nearby teammates regenerate armor faster."
+      },
+      {
+        "ko": "전리품 운반 시 이동 속도 감소 효과가 줄어듭니다.",
+        "en": "Reduced speed penalty for carrying loot (Locked & Loaded).",
+        "note": "Locked & Loaded 스킬의 설명 문구"
+      },
+      {
+        "ko": "전리품을 들고 있을 때 이동 속도 페널티가 줄어듭니다.",
+        "en": "Reduced speed penalty for carrying loot."
+      },
+      {
+        "ko": "탄피 방패",
+        "en": "Regenerate armor while taking damage."
+      },
+      {
+        "ko": "가젯 효과 지속 시간이 소폭 증가합니다.",
+        "en": "Slightly extended Gadget duration."
+      },
+      {
+        "ko": "궁극기 효과 지속 시간이 소폭 늘어납니다.",
+        "en": "Slightly extended Ultimate duration."
+      },
+      {
+        "ko": "시간이 지나면 체력이 서서히 회복됩니다.",
+        "en": "Slowly regenerate health."
+      }
+    ]
+  }
 }
