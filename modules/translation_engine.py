@@ -1,7 +1,8 @@
 import os
 import json
 from pathlib import Path
-from typing import Optional, Sequence
+from collections.abc import Callable, Sequence
+from typing import Optional
 
 from openai import OpenAI
 from prompts import PromptBuilder
@@ -14,6 +15,45 @@ from models import (
     GLOSSARY_FILTER_THRESHOLD,
 )
 from modules import formatting, language
+
+
+def run_batch_translation_orchestration(
+    chunks: Sequence[TranslationChunk],
+    *,
+    target_language: Optional[str],
+    retries: int,
+    batch_once: Callable[[Sequence[TranslationChunk], Optional[str]], dict[str, str]],
+    fallback_chunk_list: Callable[[Sequence[TranslationChunk], Optional[str]], dict[str, str]],
+) -> dict[str, str]:
+    if not chunks:
+        return {}
+
+    attempt = 0
+    last_error: Optional[Exception] = None
+    batch_result: dict[str, str] = {}
+
+    while attempt <= retries:
+        attempt += 1
+        try:
+            batch_result = batch_once(chunks, target_language)
+            break
+        except Exception as exc:
+            last_error = exc
+            if attempt > retries:
+                break
+            print(f"⚠️ Batch translation failed (attempt {attempt}/{retries + 1}): {exc}")
+
+    if not batch_result and last_error:
+        raise last_error
+
+    missing_ids = [chunk.id for chunk in chunks if chunk.id not in batch_result]
+    if missing_ids:
+        print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
+        missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
+        fallback = fallback_chunk_list(missing_chunks, target_language)
+        batch_result.update(fallback)
+
+    return batch_result
 
 class TranslationEngine:
     def __init__(self, openai_api_key: str, model: str = "gpt-5.2"):
@@ -246,35 +286,13 @@ class TranslationEngine:
         target_language: Optional[str] = None,
         retries: int = 2,
     ) -> dict[str, str]:
-        if not chunks:
-            return {}
-
-        attempt = 0
-        last_error: Optional[Exception] = None
-        batch_result: dict[str, str] = {}
-
-        while attempt <= retries:
-            attempt += 1
-            try:
-                batch_result = self._call_openai_batch_once(chunks, target_language)
-                break
-            except Exception as exc:
-                last_error = exc
-                if attempt > retries:
-                    break
-                print(f"⚠️ Batch translation failed (attempt {attempt}/{retries + 1}): {exc}")
-
-        if not batch_result and last_error:
-            raise last_error
-
-        missing_ids = [chunk.id for chunk in chunks if chunk.id not in batch_result]
-        if missing_ids:
-            print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
-            missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
-            fallback = self._translate_chunk_list(missing_chunks, target_language)
-            batch_result.update(fallback)
-
-        return batch_result
+        return run_batch_translation_orchestration(
+            chunks,
+            target_language=target_language,
+            retries=retries,
+            batch_once=self._call_openai_batch_once,
+            fallback_chunk_list=self._translate_chunk_list,
+        )
 
     def _call_openai_batch_once(
         self,

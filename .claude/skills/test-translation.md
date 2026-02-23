@@ -1,39 +1,45 @@
 # test-translation
 
-Test translation style and quality using P2-70735 test ticket.
+Generate a read-only translation quality report for any Jira issue.
 
 ## Usage
 
-```
-/test-translation SOURCE_TICKET
+```bash
+/test-translation ISSUE_OR_URL
 ```
 
 ## Arguments
 
-- `SOURCE_TICKET`: Source Jira ticket key or URL to copy content from (e.g., `P2-12345` or full URL)
+- `ISSUE_OR_URL`: Jira issue key or URL (e.g., `PAYDAY-104` or full Jira browse URL)
 
 ## What it does
 
-1. **Reset**: Copies source ticket content to test ticket (P2-70735), removing any existing translations
-2. **Translate**: Runs full translation pipeline on the test ticket
-3. **Verify**: Outputs translation results with style checks (e.g., '습니다'체 for EN→KO)
-
-## Example
-
-```
-/test-translation P2-72155
-/test-translation https://cloud.jira.krafton.com/browse/P2-72155
-```
+1. Fetches issue fields in read-only mode (`summary`, `description`, detected steps field)
+2. Strips existing translation artifacts (blue color block / bilingual summary / bilingual steps)
+3. Re-runs translation with the same engine rules used by production flow
+4. Builds an HTML report with 3 panes per field:
+   - source (extracted)
+   - translated (raw assembly)
+   - bilingual (final ticket-format output)
+5. Opens the report locally
 
 ## Instructions
 
-Run the test translation script:
+Run:
 
 ```bash
-python test_translation_style.py $ARGS
+python translation_style_report.py $ARGS
 ```
 
-After execution, provide a summary:
-- Whether the translation completed successfully
-- Key style observations (습니다체 usage for EN→KO, symptom-first titles for KO→EN)
-- Link to the test ticket for manual verification
+Optional examples:
+
+```bash
+python translation_style_report.py PAYDAY-104 --target-language Korean
+python translation_style_report.py https://cloud.jira.krafton.com/browse/P2-70735 --output /tmp/p2-70735-preview.html
+```
+
+After execution, summarize:
+- whether report generation succeeded
+- key style observations
+- generated report path
+- confirm no Jira update was performed

@@ -474,6 +474,126 @@ def _extract_translation_source_lines(translated: str) -> list[str]:
     return lines
 
 
+def _consume_next_translation_line(
+    translation_source_lines: list[str],
+    translation_index: int,
+) -> tuple[str, int]:
+    if translation_index < len(translation_source_lines):
+        return translation_source_lines[translation_index], translation_index + 1
+    return "", translation_index
+
+
+def _flush_text_buffer_with_translations(
+    lines: list[str],
+    text_buffer: list[str],
+    translation_source_lines: list[str],
+    translation_index: int,
+) -> tuple[list[str], int]:
+    if not text_buffer:
+        return text_buffer, translation_index
+
+    # 1. 원문 텍스트 출력
+    lines.extend(text_buffer)
+
+    # 2. 번역문 텍스트 출력 (원문 바로 아래)
+    # 원문 라인 수만큼 번역문을 가져와서 포맷팅
+    translated_block: list[str] = []
+    for org_line in text_buffer:
+        stripped = org_line.strip()
+        if not stripped:
+            continue
+
+        translated_line, translation_index = _consume_next_translation_line(
+            translation_source_lines,
+            translation_index,
+        )
+        translated_line = translated_line.strip()
+        if translated_line:
+            formatted = match_translated_line_format(org_line, translated_line)
+            if formatted:
+                translated_block.append(formatted)
+
+    if translated_block:
+        # 원문과 번역 블록 사이에 빈 줄 추가
+        lines.append("")
+        lines.extend(translated_block)
+
+    return [], translation_index
+
+
+def _format_header_table_row(line: str, translated_table_line: str) -> str:
+    orig_cells = line.split("||")
+    trans_cells = translated_table_line.split("||") if translated_table_line else []
+
+    new_cells: list[str] = []
+    for i, orig_cell in enumerate(orig_cells):
+        # split 결과의 첫번째와 마지막은 빈 문자열
+        if i == 0 or i == len(orig_cells) - 1:
+            new_cells.append(orig_cell)
+            continue
+
+        # 원문 셀에서 별표 제거하여 실제 내용 추출
+        orig_content = orig_cell.strip().strip("*").strip()
+        if not orig_content:
+            new_cells.append(orig_cell)
+            continue
+
+        # 대응하는 번역 셀 가져오기
+        if trans_cells and i < len(trans_cells):
+            trans_content = trans_cells[i].strip().strip("*").strip()
+            if trans_content:
+                # 포맷: "*원문/번역*"
+                new_cells.append(f"*{orig_content}/{trans_content}*")
+            else:
+                new_cells.append(orig_cell)
+        else:
+            new_cells.append(orig_cell)
+
+    return "||".join(new_cells)
+
+
+def _format_data_table_row(line: str, translated_table_line: str) -> str:
+    orig_cells = line.split("|")
+    trans_cells = translated_table_line.split("|") if translated_table_line else []
+
+    new_cells: list[str] = []
+    for i, orig_cell in enumerate(orig_cells):
+        # split 결과의 첫번째와 마지막은 빈 문자열
+        if i == 0 or i == len(orig_cells) - 1:
+            new_cells.append(orig_cell)
+            continue
+
+        orig_content = orig_cell.strip()
+        if not orig_content:
+            new_cells.append(orig_cell)
+            continue
+
+        # 셀 내용이 미디어인 경우 번역 스킵
+        if is_media_line(orig_content):
+            new_cells.append(orig_cell)
+            continue
+
+        # 대응하는 번역 셀 가져오기
+        if trans_cells and i < len(trans_cells):
+            trans_content = trans_cells[i].strip()
+            if trans_content and not is_media_line(trans_content):
+                # 포맷: "원문/번역"
+                new_cells.append(f"{orig_content}/{trans_content}")
+            else:
+                new_cells.append(orig_cell)
+        else:
+            new_cells.append(orig_cell)
+
+    return "|".join(new_cells)
+
+
+def _format_table_row_with_translation(line: str, translated_table_line: str) -> str:
+    is_header_row = line.strip().startswith("||")
+    if is_header_row:
+        return _format_header_table_row(line, translated_table_line)
+    return _format_data_table_row(line, translated_table_line)
+
+
 def format_bilingual_block(original: str, translated: str, header: Optional[str] = None) -> str:
     original = (original or "").strip("\n")
     translated = (translated or "").strip()
@@ -489,48 +609,10 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
 
     # 번역문에서 매칭 가능한 라인만 추출
     translation_source_lines = _extract_translation_source_lines(translated)
-        
     translation_index = 0
-
-    def next_translation_line() -> str:
-        nonlocal translation_index
-        if translation_index < len(translation_source_lines):
-            line = translation_source_lines[translation_index]
-            translation_index += 1
-            return line
-        return ""
 
     # 텍스트 버퍼 (미디어 나오기 전까지의 텍스트를 모아둠)
     text_buffer: list[str] = []
-    
-    def flush_text_buffer():
-        nonlocal text_buffer
-        if not text_buffer:
-            return
-        
-        # 1. 원문 텍스트 출력
-        lines.extend(text_buffer)
-        
-        # 2. 번역문 텍스트 출력 (원문 바로 아래)
-        # 원문 라인 수만큼 번역문을 가져와서 포맷팅
-        translated_block = []
-        for org_line in text_buffer:
-            stripped = org_line.strip()
-            if not stripped:
-                continue
-            
-            translated_line = next_translation_line().strip()
-            if translated_line:
-                formatted = match_translated_line_format(org_line, translated_line)
-                if formatted:
-                    translated_block.append(formatted)
-        
-        if translated_block:
-            # 원문과 번역 블록 사이에 빈 줄 추가
-            lines.append("")
-            lines.extend(translated_block)
-        
-        text_buffer = []
 
     original_lines = original.splitlines()
     in_code_block = False
@@ -543,109 +625,76 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
         
         # 코드블럭 내부 또는 코드블럭 태그 라인은 스킵
         if is_code_line or in_code_block:
-            flush_text_buffer()  # 코드블럭 나오기 전 텍스트 처리
+            text_buffer, translation_index = _flush_text_buffer_with_translations(
+                lines,
+                text_buffer,
+                translation_source_lines,
+                translation_index,
+            )  # 코드블럭 나오기 전 텍스트 처리
             lines.append(line)  # 코드블럭 라인 출력
             continue
         
         # 테이블 라인 처리 (|로 시작하고 |로 끝나는 경우)
         if stripped.startswith("|") and stripped.endswith("|"):
-            flush_text_buffer() # 테이블 나오기 전 텍스트 처리
+            text_buffer, translation_index = _flush_text_buffer_with_translations(
+                lines,
+                text_buffer,
+                translation_source_lines,
+                translation_index,
+            ) # 테이블 나오기 전 텍스트 처리
             # Jira가 표를 제대로 렌더링하려면 앞에 빈 줄이 필요
             lines.append("")
             
             # 번역된 표 라인 가져오기 (LLM이 표 전체를 하나의 라인으로 번역)
-            translated_table_line = next_translation_line()
-            
-            # 헤더 셀 (||)과 데이터 셀 (|) 구분
-            is_header_row = line.strip().startswith("||")
-            
-            if is_header_row:
-                # 헤더 행 처리
-                orig_cells = line.split("||")
-                trans_cells = translated_table_line.split("||") if translated_table_line else []
-                
-                new_cells = []
-                for i, orig_cell in enumerate(orig_cells):
-                    # split 결과의 첫번째와 마지막은 빈 문자열
-                    if i == 0 or i == len(orig_cells) - 1:
-                        new_cells.append(orig_cell)
-                        continue
-                    
-                    # 원문 셀에서 별표 제거하여 실제 내용 추출
-                    orig_content = orig_cell.strip().strip("*").strip()
-                    if not orig_content:
-                        new_cells.append(orig_cell)
-                        continue
-                    
-                    # 대응하는 번역 셀 가져오기
-                    if trans_cells and i < len(trans_cells):
-                        trans_content = trans_cells[i].strip().strip("*").strip()
-                        if trans_content:
-                            # 포맷: "*원문/번역*"
-                            new_cells.append(f"*{orig_content}/{trans_content}*")
-                        else:
-                            new_cells.append(orig_cell)
-                    else:
-                        new_cells.append(orig_cell)
-                
-                lines.append("||".join(new_cells))
-            else:
-                # 데이터 행 처리
-                orig_cells = line.split("|")
-                trans_cells = translated_table_line.split("|") if translated_table_line else []
-                
-                new_cells = []
-                for i, orig_cell in enumerate(orig_cells):
-                    # split 결과의 첫번째와 마지막은 빈 문자열
-                    if i == 0 or i == len(orig_cells) - 1:
-                        new_cells.append(orig_cell)
-                        continue
-                    
-                    orig_content = orig_cell.strip()
-                    if not orig_content:
-                        new_cells.append(orig_cell)
-                        continue
-                    
-                    # 셀 내용이 미디어인 경우 번역 스킵
-                    if is_media_line(orig_content):
-                        new_cells.append(orig_cell)
-                        continue
-                    
-                    # 대응하는 번역 셀 가져오기
-                    if trans_cells and i < len(trans_cells):
-                        trans_content = trans_cells[i].strip()
-                        if trans_content and not is_media_line(trans_content):
-                            # 포맷: "원문/번역"
-                            new_cells.append(f"{orig_content}/{trans_content}")
-                        else:
-                            new_cells.append(orig_cell)
-                    else:
-                        new_cells.append(orig_cell)
-                
-                lines.append("|".join(new_cells))
+            translated_table_line, translation_index = _consume_next_translation_line(
+                translation_source_lines,
+                translation_index,
+            )
+
+            lines.append(_format_table_row_with_translation(line, translated_table_line))
             continue
 
         # 순수 미디어 라인 처리 (미디어만 있는 라인은 번역 스킵)
         if is_media_only_line(stripped):
-            flush_text_buffer() # 미디어 나오기 전 텍스트 처리
+            text_buffer, translation_index = _flush_text_buffer_with_translations(
+                lines,
+                text_buffer,
+                translation_source_lines,
+                translation_index,
+            ) # 미디어 나오기 전 텍스트 처리
             lines.append(line) # 미디어 라인 출력
             continue
         
         # 헤더 라인 처리
         if is_header_line(stripped):
-            flush_text_buffer()
+            text_buffer, translation_index = _flush_text_buffer_with_translations(
+                lines,
+                text_buffer,
+                translation_source_lines,
+                translation_index,
+            )
             lines.append(line)
             continue
 
         # 빈 줄 처리: 문단 구분자로 사용하여 번역 블록 위치 정확도 향상
         if not stripped:
-            flush_text_buffer()
+            text_buffer, translation_index = _flush_text_buffer_with_translations(
+                lines,
+                text_buffer,
+                translation_source_lines,
+                translation_index,
+            )
             lines.append(line)
             continue
 
         # 일반 텍스트는 버퍼에 추가
         text_buffer.append(line)
 
-    flush_text_buffer() # 남은 텍스트 처리
+    text_buffer, translation_index = _flush_text_buffer_with_translations(
+        lines,
+        text_buffer,
+        translation_source_lines,
+        translation_index,
+    ) # 남은 텍스트 처리
         
     return "\n".join(lines).strip()

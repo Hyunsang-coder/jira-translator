@@ -125,7 +125,7 @@ JIRA_URL=https://cloud.jira.krafton.com
 JIRA_EMAIL=your-email@example.com
 JIRA_API_TOKEN=your-jira-api-token
 OPENAI_API_KEY=your-openai-api-key
-OPENAI_MODEL=gpt-4o  # or gpt-5.2
+OPENAI_MODEL=gpt-5.2
 ```
 
 **Lambda Deployment (via template.yaml parameters)**
@@ -171,9 +171,13 @@ Use the `/test-translation` skill to validate translation quality:
 ```
 
 - 이슈 키 또는 Jira URL을 받아 **읽기 전용**으로 원문을 가져옴 (Jira 티켓 수정 없음)
-- 바이링구얼 포맷 티켓이면 `{color:#4c9aff}` 번역 블록을 제거해 원문만 추출
+- 바이링구얼 포맷 티켓이면 `{color:#4c9aff}` 번역 블록 등을 제거해 원문만 추출
 - 프로젝트 prefix로 glossary 자동 선택 (PAYDAY- → heist, PUBG- → pubg, P2- → pbb)
-- 번역 결과를 **원문 vs 번역 2컬럼 HTML 리포트**로 생성 후 브라우저로 자동 오픈
+- 번역 결과를 **3컬럼 HTML 리포트**로 생성 후 브라우저로 자동 오픈:
+  - Source (Extracted)
+  - Translated (Raw Assembly)
+  - Bilingual (Final Ticket Format)
+- 모델 기본값은 `gpt-5.2` (`OPENAI_MODEL` 미설정 시)
 - 리포트 경로: `/tmp/{issue_key}_translation.html`
 
 ### Git Workflow
