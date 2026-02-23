@@ -312,15 +312,25 @@ class TranslationEngine:
             batch=True,
         )
 
-        # Structured Outputs용 페이로드 구성
+        # Structured Outputs용 페이로드 구성 (field 정보 포함으로 일관성 향상)
+        def _field_hint(chunk_id: str) -> str:
+            if chunk_id == "summary":
+                return "summary"
+            if chunk_id.startswith("description"):
+                return "description"
+            if chunk_id.startswith("customfield_"):
+                return "steps"
+            return "other"
+
         payload = {
             "items": [
-                {"id": chunk.id, "text": chunk.clean_text}
+                {"id": chunk.id, "field": _field_hint(chunk.id), "text": chunk.clean_text}
                 for chunk in translatable_chunks
             ]
         }
         user_msg = (
-            f"Translate the text fields in the following JSON data. Keep 'id' unchanged.\n"
+            f"Translate the 'text' fields in the following JSON data. "
+            f"Keep 'id' and 'field' unchanged. Use 'field' as context hint for tone/style.\n"
             f"{json.dumps(payload, ensure_ascii=False)}"
         )
 

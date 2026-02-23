@@ -89,60 +89,66 @@ class PromptBuilder:
           - "ko": 한국어 → 영어
           - 기타: 영어 → 한국어 (기존 로직과 동일하게 보수적으로 처리)
         """
+        _markup_rule = (
+            "Markup safety: NEVER move, drop, or duplicate placeholder tokens "
+            "(e.g. __IMAGE_PLACEHOLDER__, __ATTACHMENT_0__) or Jira markup "
+            "(*bold*, _italic_, {code}...{code}, [text|URL], !image!, [^attach]). "
+            "Keep every token in its original relative position. "
+        )
+
         if detected_lang == "ko":
+            _ko_en_common = (
+                "You are a professional translator for Jira QA tickets "
+                "(bug reports, reproduction steps, expected/observed results). "
+                "Prioritize natural-sounding English over literal translation — "
+                "restructure sentences when needed, but preserve the original meaning. "
+                "The output MUST be 100% in English - do NOT leave any Korean words. "
+                "Rewrite rule: Korean passive/causal chains (되다, ~해서 ~이/가) should become "
+                "active English constructions. "
+                "e.g., '버튼을 클릭 시 에러가 발생되는 것을 확인' → 'Clicking the button triggers an error' "
+                "(not 'It is confirmed that an error occurs'). "
+                "Title rule: Start with the symptom directly. "
+                "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
+                "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
+                "Observation rule: When translating '확인하다' in reproduction steps, "
+                "prefer 'observe' or 'notice' over 'confirm' "
+                "(e.g., '에러가 발생하는 것을 확인' → 'Observe that the error occurs'). "
+                + _markup_rule
+            )
             if batch:
                 system_msg = (
-                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
-                    "Translate each provided Korean text to English. "
-                    "The output MUST be 100% in English - do NOT leave any Korean words. "
-                    "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
-                    "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
-                    "IMPORTANT: Keep the exact same number of lines as the source text. "
-                    "Do not add commentary. " 
-                    "Title rule: When translating titles/summaries, start with the symptom directly. "
-                    "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
-                    "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
-                    "Observation rule: When translating '확인하다' in reproduction steps, "
-                    "prefer 'observe' or 'notice' over 'confirm' "
-                    "(e.g., '에러가 발생하는 것을 확인' → 'Observe that the error occurs'). "
-                )
-            else:
-                system_msg = (
-                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
-                    "Translate the following Korean text to English. "
-                    "The output MUST be 100% in English - do NOT leave any Korean words. "
-                    "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.)."
-                    "Title rule: When translating titles/summaries, start with the symptom directly. "
-                    "Do NOT start with 'There is an issue where...', 'An issue where...', or 'This is an issue...'. "
-                    "Prefer patterns like 'Error occurs when ...', 'Crash when ...', 'UI does not ...', 'Cannot ...'. "
-                    "Observation rule: When translating '확인하다' in reproduction steps, "
-                    "prefer 'observe' or 'notice' over 'confirm' "
-                    "(e.g., '에러가 발생하는 것을 확인' → 'Observe that the error occurs'). "
-                )
-        else:
-            if batch:
-                system_msg = (
-                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
-                    "Translate each provided English text to Korean. "
-                    "Keep proper nouns and game-specific terms in English. "
-                    "Concise noun phrases for titles/summaries. "
-                    "Use formal '습니다' style for description body text "
-                    "(e.g., '발생합니다', '확인됩니다', '필요합니다'). "
-                    "Preserve Jira markup (*bold*, _italic_, {{code}}, etc.), bullet indentation, "
-                    "and placeholder tokens like __IMAGE_PLACEHOLDER__. "
+                    _ko_en_common
+                    + "Field context: items may be 'summary' (one-line title), 'description' (detailed body), "
+                    "or 'steps' (numbered reproduction steps). Use consistent terminology across all fields. "
                     "IMPORTANT: Keep the exact same number of lines as the source text. "
                     "Do not add commentary. "
                 )
             else:
+                system_msg = _ko_en_common
+        else:
+            _en_ko_common = (
+                "You are a professional translator for Jira QA tickets "
+                "(bug reports, reproduction steps, expected/observed results). "
+                "Prioritize natural-sounding Korean over literal translation — "
+                "restructure sentences when needed, but preserve the original meaning. "
+                "Keep proper nouns and game-specific terms in English. "
+                "Title rule: Use concise noun phrases matching the description tone. "
+                "e.g., if description uses '발생합니다' style, title should read '오류 발생' "
+                "(not '오류가 발생하는 중입니다'). "
+                "Use formal '습니다' style for description body text "
+                "(e.g., '발생합니다', '확인됩니다', '필요합니다'). "
+                + _markup_rule
+            )
+            if batch:
                 system_msg = (
-                    "You are a professional translator for Jira QA tickets (bug reports, reproduction steps, expected/observed results). "
-                    "Translate the following English text to Korean. "
-                    "Keep proper nouns and game-specific terms in English. "
-                    "favor noun phrases like '하이드아웃 진입', '이슈 확인'. "
-                    "Use formal '습니다' style for description body text "
-                    "(e.g., '발생합니다', '확인됩니다', '필요합니다'). "
-                    "Preserve Jira markup (*bold*, _italic*, {{code}}, etc.)."
+                    _en_ko_common
+                    + "Field context: items may be 'summary' (one-line title), 'description' (detailed body), "
+                    "or 'steps' (numbered reproduction steps). Use consistent terminology across all fields. "
+                    "IMPORTANT: Keep the exact same number of lines as the source text. "
+                    "Do not add commentary. "
                 )
+            else:
+                system_msg = _en_ko_common
 
         if glossary_instruction:
             system_msg = f"{system_msg} {glossary_instruction}"
