@@ -166,12 +166,15 @@ Return meaningful error messages to the user in Lambda responses.
 
 Use the `/test-translation` skill to validate translation quality:
 ```bash
-/test-translation P2-12345
+/test-translation PAYDAY-104
+/test-translation https://cloud.jira.krafton.com/browse/P2-70735
 ```
 
-This resets the test ticket (P2-70735) with source content, runs translation, and verifies style:
-- **EN→KO**: '습니다'체 사용 확인
-- **KO→EN**: Symptom-first titles, 'observe' over 'confirm'
+- 이슈 키 또는 Jira URL을 받아 **읽기 전용**으로 원문을 가져옴 (Jira 티켓 수정 없음)
+- 바이링구얼 포맷 티켓이면 `{color:#4c9aff}` 번역 블록을 제거해 원문만 추출
+- 프로젝트 prefix로 glossary 자동 선택 (PAYDAY- → heist, PUBG- → pubg, P2- → pbb)
+- 번역 결과를 **원문 vs 번역 2컬럼 HTML 리포트**로 생성 후 브라우저로 자동 오픈
+- 리포트 경로: `/tmp/{issue_key}_translation.html`
 
 ### Git Workflow
 
