@@ -169,14 +169,6 @@
         "en": "\"Nickname is not found\""
       },
       {
-        "ko": "#ERROR!",
-        "en": "#ERROR!"
-      },
-      {
-        "ko": "%",
-        "en": "%"
-      },
-      {
         "ko": "(대략)",
         "en": "(approx.)"
       },
@@ -187,26 +179,6 @@
       {
         "ko": "*** 암호화됨 ***",
         "en": "*** ENCRYPTED ***"
-      },
-      {
-        "ko": ".300BLK",
-        "en": ".300BLK"
-      },
-      {
-        "ko": ".45 ACP",
-        "en": ".45 ACP"
-      },
-      {
-        "ko": ".45 ACP AP",
-        "en": ".45 ACP AP"
-      },
-      {
-        "ko": ".45 ACP FMJ",
-        "en": ".45 ACP FMJ"
-      },
-      {
-        "ko": ".45 ACP HP",
-        "en": ".45 ACP HP"
       },
       {
         "ko": ".45 ACP 예광",
@@ -231,18 +203,6 @@
       {
         "ko": "/시간",
         "en": "/Hour"
-      },
-      {
-        "ko": "0",
-        "en": "0"
-      },
-      {
-        "ko": "1",
-        "en": "1"
-      },
-      {
-        "ko": "10m",
-        "en": "10m"
       },
       {
         "ko": "10월",
@@ -285,10 +245,6 @@
         "en": "December"
       },
       {
-        "ko": "14.9x76",
-        "en": "14.9x76"
-      },
-      {
         "ko": "1시간 미만",
         "en": "Less than 1 hour"
       },
@@ -297,20 +253,8 @@
         "en": "January"
       },
       {
-        "ko": "2",
-        "en": "2"
-      },
-      {
         "ko": "2002년까지 말이야.",
         "en": "Until 2002."
-      },
-      {
-        "ko": "20m",
-        "en": "20m"
-      },
-      {
-        "ko": "20mm",
-        "en": "20mm"
       },
       {
         "ko": "20mm 슬러그",
@@ -329,24 +273,8 @@
         "en": "February"
       },
       {
-        "ko": "3",
-        "en": "3"
-      },
-      {
-        "ko": "30m",
-        "en": "30m"
-      },
-      {
         "ko": "3월",
         "en": "March"
-      },
-      {
-        "ko": "4",
-        "en": "4"
-      },
-      {
-        "ko": "4.6x30",
-        "en": "4.6x30"
       },
       {
         "ko": "4ga 드래곤브레스",
@@ -381,120 +309,24 @@
         "en": "April"
       },
       {
-        "ko": "5",
-        "en": "5"
-      },
-      {
-        "ko": "5.45x39",
-        "en": "5.45x39"
-      },
-      {
-        "ko": "5.56x45",
-        "en": "5.56x45"
-      },
-      {
-        "ko": "5.7x28",
-        "en": "5.7x28"
-      },
-      {
-        "ko": "5m",
-        "en": "5m"
-      },
-      {
         "ko": "5월",
         "en": "May"
-      },
-      {
-        "ko": "6",
-        "en": "6"
-      },
-      {
-        "ko": "6.2x25",
-        "en": "6.2x25"
-      },
-      {
-        "ko": "6.5x39",
-        "en": "6.5x39"
-      },
-      {
-        "ko": "6.8x51",
-        "en": "6.8x51"
       },
       {
         "ko": "6월",
         "en": "June"
       },
       {
-        "ko": "7",
-        "en": "7"
-      },
-      {
-        "ko": "7.62x51",
-        "en": "7.62x51"
-      },
-      {
         "ko": "7월",
         "en": "July"
-      },
-      {
-        "ko": "8",
-        "en": "8"
-      },
-      {
-        "ko": "8.6x70",
-        "en": "8.6x70"
       },
       {
         "ko": "8월",
         "en": "August"
       },
       {
-        "ko": "9",
-        "en": "9"
-      },
-      {
-        "ko": "9x19",
-        "en": "9x19"
-      },
-      {
         "ko": "9월",
         "en": "September"
-      },
-      {
-        "ko": "ACE",
-        "en": "ACE"
-      },
-      {
-        "ko": "ACP-A",
-        "en": "ACP-A"
-      },
-      {
-        "ko": "ACP-B",
-        "en": "ACP-B"
-      },
-      {
-        "ko": "ACP-C",
-        "en": "ACP-C"
-      },
-      {
-        "ko": "ACP-D",
-        "en": "ACP-D"
-      },
-      {
-        "ko": "ACP-E",
-        "en": "ACP-E"
-      },
-      {
-        "ko": "ACP-F",
-        "en": "ACP-F"
-      },
-      {
-        "ko": "ADS",
-        "en": "ADS"
-      },
-      {
-        "ko": "AKN-12",
-        "en": "AKN-12"
       },
       {
         "ko": "AKN-12 5.45 구경",
@@ -509,10 +341,6 @@
         "en": "AKN-12 6.5 Drum"
       },
       {
-        "ko": "AKN-32-GS",
-        "en": "AKN-32-GS"
-      },
-      {
         "ko": "AKN-32-GS 5.45 구경",
         "en": "AKN-32-GS 5.45 Cal"
       },
@@ -525,20 +353,12 @@
         "en": "AKN-32-GS 6.5 Cal"
       },
       {
-        "ko": "AP",
-        "en": "AP"
-      },
-      {
         "ko": "APS 센트리",
         "en": "APS Sentry"
       },
       {
         "ko": "AR 헤드셋",
         "en": "AR Headset"
-      },
-      {
-        "ko": "ARC",
-        "en": "ARC"
       },
       {
         "ko": "ARC 곤충학 부서 방문",
@@ -562,16 +382,8 @@
         "en": "ARC: PET/CT Key"
       },
       {
-        "ko": "ATMOS",
-        "en": "ATMOS"
-      },
-      {
         "ko": "ATMOS 부서",
         "en": "ATMOS Division"
-      },
-      {
-        "ko": "AUV",
-        "en": "AUV"
       },
       {
         "ko": "AUV 감지",
@@ -586,14 +398,6 @@
         "en": "Synchronized with AUV…"
       },
       {
-        "ko": "Alt",
-        "en": "Alt"
-      },
-      {
-        "ko": "BRED",
-        "en": "BRED"
-      },
-      {
         "ko": "BRED 디렉터 키",
         "en": "BRED Dir. Key",
         "note": "Also: BRED Director's Key"
@@ -602,26 +406,6 @@
         "ko": "BRED: 식물 통제 키",
         "en": "BRED: Plant Ctrl Key",
         "note": "Also: BRED: Plant Control Key"
-      },
-      {
-        "ko": "BTP",
-        "en": "BTP"
-      },
-      {
-        "ko": "Baekho",
-        "en": "Baekho"
-      },
-      {
-        "ko": "Baekho DBAL",
-        "en": "Baekho DBAL"
-      },
-      {
-        "ko": "Baekho DCU",
-        "en": "Baekho DCU"
-      },
-      {
-        "ko": "Baekho WASP2",
-        "en": "Baekho WASP2"
       },
       {
         "ko": "Baekho 근접전 재생",
@@ -645,14 +429,6 @@
         "en": "HoloFrame for Baekho"
       },
       {
-        "ko": "Bangtan TG2",
-        "en": "Bangtan TG2"
-      },
-      {
-        "ko": "Bangtan TG2-BH",
-        "en": "Bangtan TG2-BH"
-      },
-      {
         "ko": "Brute 종양",
         "en": "Brute Tumor"
       },
@@ -665,48 +441,8 @@
         "en": "C4 Charge"
       },
       {
-        "ko": "CAT",
-        "en": "CAT"
-      },
-      {
-        "ko": "CC",
-        "en": "CC"
-      },
-      {
         "ko": "CEO의 금붕어",
         "en": "CEO's Goldfish"
-      },
-      {
-        "ko": "CLC",
-        "en": "CLC"
-      },
-      {
-        "ko": "CMP",
-        "en": "CMP"
-      },
-      {
-        "ko": "CON",
-        "en": "CON"
-      },
-      {
-        "ko": "CP-G",
-        "en": "CP-G"
-      },
-      {
-        "ko": "CSS",
-        "en": "CSS"
-      },
-      {
-        "ko": "CSVTools Plugin",
-        "en": "CSVTools Plugin"
-      },
-      {
-        "ko": "Cage",
-        "en": "Cage"
-      },
-      {
-        "ko": "Coli Island",
-        "en": "Coli Island"
       },
       {
         "ko": "ComTec 헤드셋",
@@ -716,18 +452,6 @@
       {
         "ko": "D-DPM 타입 3",
         "en": "D-DPM Type 3"
-      },
-      {
-        "ko": "DAT",
-        "en": "DAT"
-      },
-      {
-        "ko": "DB",
-        "en": "DB"
-      },
-      {
-        "ko": "DBX-M",
-        "en": "DBX-M"
       },
       {
         "ko": "DBX-M 6.2x25 구경",
@@ -743,18 +467,6 @@
         "en": "DBX-M Subsonic Fire"
       },
       {
-        "ko": "DIST",
-        "en": "DIST"
-      },
-      {
-        "ko": "DLAA",
-        "en": "DLAA"
-      },
-      {
-        "ko": "DMT",
-        "en": "DMT"
-      },
-      {
         "ko": "DNA 데이터 업로드 준비 완료.",
         "en": "DNA data is ready to be uploaded."
       },
@@ -767,28 +479,12 @@
         "en": "DNA will be sequenced in:"
       },
       {
-        "ko": "DPV",
-        "en": "DPV"
-      },
-      {
-        "ko": "E-Q",
-        "en": "E-Q"
-      },
-      {
-        "ko": "ECH (G)",
-        "en": "ECH (G)"
-      },
-      {
         "ko": "ECH 3세대 (업그레이드)",
         "en": "ECH Gen3 (Upgraded)"
       },
       {
         "ko": "ECH 3세대-BH",
         "en": "ECH Gen3-BH"
-      },
-      {
-        "ko": "ECH-BH",
-        "en": "ECH-BH"
       },
       {
         "ko": "EMP 교란기",
@@ -830,48 +526,8 @@
         "en": "ESC Protocols+ Upg"
       },
       {
-        "ko": "EXC",
-        "en": "EXC"
-      },
-      {
-        "ko": "EXP",
-        "en": "EXP"
-      },
-      {
-        "ko": "FAR",
-        "en": "FAR"
-      },
-      {
-        "ko": "FCH",
-        "en": "FCH"
-      },
-      {
         "ko": "FHD에 맞추기",
         "en": "Adjust to FHD"
-      },
-      {
-        "ko": "FLR",
-        "en": "FLR"
-      },
-      {
-        "ko": "FMJ",
-        "en": "FMJ"
-      },
-      {
-        "ko": "FPP",
-        "en": "FPP"
-      },
-      {
-        "ko": "FPP/TPP",
-        "en": "FPP/TPP"
-      },
-      {
-        "ko": "FUND",
-        "en": "FUND"
-      },
-      {
-        "ko": "FX2000",
-        "en": "FX2000"
       },
       {
         "ko": "FX2000 5.56 드럼",
@@ -889,10 +545,6 @@
       {
         "ko": "Fast-Tac 셔츠",
         "en": "Fast-Tac Shirt"
-      },
-      {
-        "ko": "G19",
-        "en": "G19"
       },
       {
         "ko": "G19 디히터",
@@ -914,32 +566,12 @@
         "note": "Also: G95 Respirator"
       },
       {
-        "ko": "GEN",
-        "en": "GEN"
-      },
-      {
         "ko": "GGG 결정",
         "en": "GGG Crystal"
       },
       {
-        "ko": "GM",
-        "en": "GM"
-      },
-      {
         "ko": "GM (업그레이드)",
         "en": "GM (Upg)"
-      },
-      {
-        "ko": "Get CSV",
-        "en": "Get CSV"
-      },
-      {
-        "ko": "Gnosys",
-        "en": "Gnosys"
-      },
-      {
-        "ko": "Gnosys AT-FG",
-        "en": "Gnosys AT-FG"
       },
       {
         "ko": "Gnosys KTK-맨드레이크",
@@ -963,28 +595,8 @@
         "note": "Also: HALO TICKETS"
       },
       {
-        "ko": "HDD",
-        "en": "HDD"
-      },
-      {
-        "ko": "HEL",
-        "en": "HEL"
-      },
-      {
         "ko": "HEL 계획서",
         "en": "HEL Plans"
-      },
-      {
-        "ko": "HG",
-        "en": "HG"
-      },
-      {
-        "ko": "HP",
-        "en": "HP"
-      },
-      {
-        "ko": "HQ",
-        "en": "HQ"
       },
       {
         "ko": "HQ: CEO 키",
@@ -995,16 +607,8 @@
         "en": "HQ: SPA Key"
       },
       {
-        "ko": "HUD",
-        "en": "HUD"
-      },
-      {
         "ko": "HUD UI 확장",
         "en": "Expand HUD UI"
-      },
-      {
-        "ko": "INC",
-        "en": "INC"
       },
       {
         "ko": "INFTec 발라클라바",
@@ -1028,22 +632,6 @@
         "en": "KO Revival"
       },
       {
-        "ko": "L",
-        "en": "L"
-      },
-      {
-        "ko": "LAPS",
-        "en": "LAPS"
-      },
-      {
-        "ko": "LAlt",
-        "en": "LAlt"
-      },
-      {
-        "ko": "LCtrl",
-        "en": "LCtrl"
-      },
-      {
         "ko": "LED 패널 1",
         "en": "LED Panel 1"
       },
@@ -1056,29 +644,13 @@
         "en": "LED Panel 3"
       },
       {
-        "ko": "LMB",
-        "en": "LMB"
-      },
-      {
-        "ko": "LShift",
-        "en": "LShift"
-      },
-      {
         "ko": "LTec AR 글래스",
         "en": "LTec AR Glasses"
-      },
-      {
-        "ko": "M24",
-        "en": "M24"
       },
       {
         "ko": "M24 피카티니 레일",
         "en": "M24 Pic. Rail",
         "note": "Also: M24 Picatinny Rail"
-      },
-      {
-        "ko": "M277-A",
-        "en": "M277-A"
       },
       {
         "ko": "M277-A 6.8 구경",
@@ -1102,53 +674,13 @@
         "note": "Also: M277-A Picatinny Rail"
       },
       {
-        "ko": "M433",
-        "en": "M433"
-      },
-      {
         "ko": "M433 7.62 구경",
         "en": "M433 7.62 Cal"
-      },
-      {
-        "ko": "M870",
-        "en": "M870"
-      },
-      {
-        "ko": "MAP_COLI ISLAND",
-        "en": "MAP_COLI ISLAND"
-      },
-      {
-        "ko": "MAR-IV",
-        "en": "MAR-IV"
-      },
-      {
-        "ko": "MAR-V",
-        "en": "MAR-V"
-      },
-      {
-        "ko": "MAR-VI",
-        "en": "MAR-VI"
-      },
-      {
-        "ko": "MCW",
-        "en": "MCW"
-      },
-      {
-        "ko": "MICH2000",
-        "en": "MICH2000"
       },
       {
         "ko": "MICH2000 (업그레이드)",
         "en": "MICH2000 (Upg)",
         "note": "Also: MICH2000 (Upgraded)"
-      },
-      {
-        "ko": "MMB",
-        "en": "MMB"
-      },
-      {
-        "ko": "MP5",
-        "en": "MP5"
       },
       {
         "ko": "MP5 드럼",
@@ -1160,24 +692,8 @@
         "note": "Also: MP5 Picatinny Rail"
       },
       {
-        "ko": "MP7A5",
-        "en": "MP7A5"
-      },
-      {
         "ko": "MP7A5 슈라우드",
         "en": "MP7A5 Shroud"
-      },
-      {
-        "ko": "MPX9",
-        "en": "MPX9"
-      },
-      {
-        "ko": "N-Q",
-        "en": "N-Q"
-      },
-      {
-        "ko": "NPC",
-        "en": "NPC"
       },
       {
         "ko": "NPC 킬",
@@ -1188,44 +704,16 @@
         "en": "NPC Kill Log"
       },
       {
-        "ko": "NRG",
-        "en": "NRG"
-      },
-      {
-        "ko": "NVG-28",
-        "en": "NVG-28"
-      },
-      {
         "ko": "NWU 타입 6",
         "en": "NWU Type 6"
-      },
-      {
-        "ko": "NativeAA",
-        "en": "NativeAA"
-      },
-      {
-        "ko": "OCP",
-        "en": "OCP"
-      },
-      {
-        "ko": "OP",
-        "en": "OP"
       },
       {
         "ko": "OSS를 통한 로그인",
         "en": "Login via OSS"
       },
       {
-        "ko": "PDA",
-        "en": "PDA"
-      },
-      {
         "ko": "PET/CT 스캔",
         "en": "PET/CT Scans"
-      },
-      {
-        "ko": "PLSD",
-        "en": "PLSD"
       },
       {
         "ko": "PLSD 열기",
@@ -1238,10 +726,6 @@
       {
         "ko": "PLSD/지도",
         "en": "PLSD/Map"
-      },
-      {
-        "ko": "PSI",
-        "en": "PSI"
       },
       {
         "ko": "PSI 디렉터",
@@ -1271,14 +755,6 @@
         "note": "Also: PSI: Neurology Key"
       },
       {
-        "ko": "PvP",
-        "en": "PvP"
-      },
-      {
-        "ko": "QS7",
-        "en": "QS7"
-      },
-      {
         "ko": "QS7 반자동",
         "en": "QS7 Semi-Auto"
       },
@@ -1291,40 +767,12 @@
         "en": "QS7 Choke"
       },
       {
-        "ko": "R",
-        "en": "R"
-      },
-      {
-        "ko": "R5D",
-        "en": "R5D"
-      },
-      {
-        "ko": "RA19",
-        "en": "RA19"
-      },
-      {
-        "ko": "RAlt",
-        "en": "RAlt"
-      },
-      {
-        "ko": "RCtrl",
-        "en": "RCtrl"
-      },
-      {
-        "ko": "RD1",
-        "en": "RD1"
-      },
-      {
         "ko": "RD1 스켈레톤 슬라이드",
         "en": "RD1 Skel. Slide"
       },
       {
         "ko": "RD1 커스텀 트리거",
         "en": "RD1 Cust. Trigger"
-      },
-      {
-        "ko": "RD1-BH",
-        "en": "RD1-BH"
       },
       {
         "ko": "RD1-BH 6.2 구경",
@@ -1335,16 +783,8 @@
         "en": "RD1-BH Conv. Kit"
       },
       {
-        "ko": "RDB",
-        "en": "RDB"
-      },
-      {
         "ko": "RDB 5.56 구경",
         "en": "RDB 5.56 Cal"
-      },
-      {
-        "ko": "RDB-XC",
-        "en": "RDB-XC"
       },
       {
         "ko": "RDB-XC 5.56 구경",
@@ -1359,72 +799,8 @@
         "en": "RDB-XC Shroud"
       },
       {
-        "ko": "RL1",
-        "en": "RL1"
-      },
-      {
-        "ko": "RMB",
-        "en": "RMB"
-      },
-      {
-        "ko": "RShift",
-        "en": "RShift"
-      },
-      {
-        "ko": "Rho-5-Delta",
-        "en": "Rho-5-Delta"
-      },
-      {
-        "ko": "S-Q",
-        "en": "S-Q"
-      },
-      {
-        "ko": "S1",
-        "en": "S1"
-      },
-      {
-        "ko": "S2",
-        "en": "S2"
-      },
-      {
-        "ko": "S3",
-        "en": "S3"
-      },
-      {
-        "ko": "S4",
-        "en": "S4"
-      },
-      {
-        "ko": "S5",
-        "en": "S5"
-      },
-      {
-        "ko": "S6",
-        "en": "S6"
-      },
-      {
-        "ko": "S8",
-        "en": "S8"
-      },
-      {
-        "ko": "S90",
-        "en": "S90"
-      },
-      {
         "ko": "S90 초크",
         "en": "S90 Choke"
-      },
-      {
-        "ko": "SLG",
-        "en": "SLG"
-      },
-      {
-        "ko": "SLR",
-        "en": "SLR"
-      },
-      {
-        "ko": "SPEC",
-        "en": "SPEC"
       },
       {
         "ko": "SPEC: 기록 보관소 키",
@@ -1435,32 +811,8 @@
         "en": "SQUID Device"
       },
       {
-        "ko": "SSG",
-        "en": "SSG"
-      },
-      {
-        "ko": "SUS",
-        "en": "SUS"
-      },
-      {
-        "ko": "SameReplaceTarget",
-        "en": "SameReplaceTarget"
-      },
-      {
         "ko": "Spec24 바지",
         "en": "Spec24 Pants"
-      },
-      {
-        "ko": "Stygian",
-        "en": "Stygian"
-      },
-      {
-        "ko": "T",
-        "en": "T"
-      },
-      {
-        "ko": "T-Rex",
-        "en": "T-Rex"
       },
       {
         "ko": "T-Rex 14.9 구경",
@@ -1478,38 +830,6 @@
       {
         "ko": "TAC-타일 바닥재",
         "en": "TAC-Tile Flooring"
-      },
-      {
-        "ko": "TG2",
-        "en": "TG2"
-      },
-      {
-        "ko": "TG2 (G)",
-        "en": "TG2 (G)"
-      },
-      {
-        "ko": "TG2-BH",
-        "en": "TG2-BH"
-      },
-      {
-        "ko": "TRK",
-        "en": "TRK"
-      },
-      {
-        "ko": "TV",
-        "en": "TV"
-      },
-      {
-        "ko": "UMP45",
-        "en": "UMP45"
-      },
-      {
-        "ko": "USD",
-        "en": "USD"
-      },
-      {
-        "ko": "V9A1",
-        "en": "V9A1"
       },
       {
         "ko": "V9A1 .45 ACP 구경",
@@ -1537,37 +857,13 @@
         "note": "Also: V9A1 Conversion Kit"
       },
       {
-        "ko": "VLT III",
-        "en": "VLT III"
-      },
-      {
-        "ko": "VM",
-        "en": "VM"
-      },
-      {
-        "ko": "VOIP",
-        "en": "VOIP"
-      },
-      {
         "ko": "VR 시뮬레이션",
         "en": "VR Simulation"
-      },
-      {
-        "ko": "W-Q",
-        "en": "W-Q"
-      },
-      {
-        "ko": "WTP",
-        "en": "WTP"
       },
       {
         "ko": "XCal 지구력 재생",
         "en": "End.-Regen-XC",
         "note": "Also: XCal Endurance-Regen"
-      },
-      {
-        "ko": "XClaws",
-        "en": "XClaws"
       },
       {
         "ko": "XP 획득",
@@ -1610,14 +906,6 @@
         "en": "[Outfitting]"
       },
       {
-        "ko": "cm",
-        "en": "cm"
-      },
-      {
-        "ko": "contact@baekho.co.kr",
-        "en": "contact@baekho.co.kr"
-      },
-      {
         "ko": "eDNA 보고서",
         "en": "eDNA Rep.",
         "note": "Also: eDNA Report"
@@ -1637,48 +925,12 @@
         "note": "Also: eDNA Sequencer"
       },
       {
-        "ko": "g",
-        "en": "g"
-      },
-      {
-        "ko": "kg",
-        "en": "kg"
-      },
-      {
-        "ko": "m",
-        "en": "m"
-      },
-      {
-        "ko": "m/s",
-        "en": "m/s"
-      },
-      {
-        "ko": "mm",
-        "en": "mm"
-      },
-      {
         "ko": "pH 미터",
         "en": "pH Meter"
       },
       {
-        "ko": "rpm",
-        "en": "rpm"
-      },
-      {
-        "ko": "s",
-        "en": "s"
-      },
-      {
         "ko": "~1시간",
         "en": "~1 hour"
-      },
-      {
-        "ko": "°C/s",
-        "en": "°C/s"
-      },
-      {
-        "ko": "∞",
-        "en": "∞"
       },
       {
         "ko": "가격",
@@ -11784,10 +11036,6 @@
         "en": "Gnosys Universal Heal"
       },
       {
-        "ko": "MED",
-        "en": "MED"
-      },
-      {
         "ko": "MED: 수술실 키",
         "en": "MED: Surgery Key"
       },
@@ -13606,10 +12854,6 @@
         "en": "FSR Quality"
       },
       {
-        "ko": "VSync",
-        "en": "VSync"
-      },
-      {
         "ko": "감마",
         "en": "Gamma"
       },
@@ -13722,18 +12966,6 @@
       {
         "ko": "V9A1 스킨 XCal",
         "en": "V9A1 Skin XCal"
-      },
-      {
-        "ko": "XCAL AT-AU",
-        "en": "XCAL AT-AU"
-      },
-      {
-        "ko": "XCAL KTK-Highlander",
-        "en": "XCAL KTK-Highlander"
-      },
-      {
-        "ko": "XCal",
-        "en": "XCal"
       },
       {
         "ko": "XCal 디히터",
@@ -13851,10 +13083,6 @@
       {
         "ko": "[상점]",
         "en": "[Store]"
-      },
-      {
-        "ko": "contact@xcal.com",
-        "en": "contact@xcal.com"
       },
       {
         "ko": "거래 불가",

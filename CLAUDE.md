@@ -265,6 +265,8 @@ The code conditionally uses Pydantic v2+ if available but falls back to dict-bas
 
 ## Common Pitfalls
 
+- **Bilingual Output Format (Intentional)**: The translated description contains both the original English text and the Korean translation appended below each section in `{color:#4c9aff}...{color}` markup. List items (coordinates, asset names, etc.) also appear duplicated — original + translated. This is **intentional bilingual format**, not a bug. Do NOT attempt to deduplicate or remove the original text.
+
 - **Broken Markup**: Changes to `formatting.py` can silently break image/code preservation. Always run `test_formatting.py`.
 - **Field Mapping Errors**: Project detection relies on issue key prefix. Test with multiple project keys (PUBG-, PAYDAY-, P2-, etc.).
 - **Glossary Not Loaded**: If custom glossary isn't used, check that the filename matches the project mapping and JSON structure is valid (flat `"terms"` dict or category `"glossary"` object).
