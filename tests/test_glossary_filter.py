@@ -1,4 +1,5 @@
 """Tests for 2-stage glossary filter: new format parsing + LLM filter."""
+import json
 import sys
 import types
 from pathlib import Path
@@ -31,78 +32,77 @@ class TestLoadGlossaryTerms:
         engine.prompt_builder = PromptBuilder({}, "")
         return engine
 
-    def test_flat_format(self, tmp_path):
-        engine = self._make_engine()
-        f = tmp_path / "test.json"
-        f.write_text('{"terms": {"Ultimate": "궁극기", "Gadget": "가젯"}}', encoding="utf-8")
-        with patch.object(
-            type(Path()), "parent",
-            new_callable=lambda: property(lambda self: tmp_path),
-        ):
-            pass  # use direct path instead
-
-        # Patch base_dir resolution
+    def _mock_engine_base_dir(self, monkeypatch, tmp_path):
         import modules.translation_engine as te_mod
-        with patch.object(Path, "resolve", return_value=tmp_path / "modules" / "translation_engine.py"):
-            terms = engine._load_glossary_terms.__func__(engine, "test.json") if False else None
 
-        # Direct test via tmp_path workaround
-        import json
-        data = json.loads(f.read_text())
-        terms = data.get("terms")
-        assert isinstance(terms, dict)
-        assert terms["Ultimate"] == "궁극기"
+        # _load_glossary_terms 내부의 base_dir 계산을 tmp_path로 고정
+        monkeypatch.setattr(
+            te_mod.Path,
+            "resolve",
+            lambda self: tmp_path / "modules" / "translation_engine.py",
+        )
 
-    def test_category_format_flat_conversion(self, tmp_path):
+    def test_flat_format(self, tmp_path, monkeypatch):
+        engine = self._make_engine()
+        self._mock_engine_base_dir(monkeypatch, tmp_path)
+        glossary_dir = tmp_path / "glossaries"
+        glossary_dir.mkdir(parents=True, exist_ok=True)
+        (glossary_dir / "test.json").write_text(
+            json.dumps({"terms": {"Ultimate": "궁극기", "Gadget": "가젯"}}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+        terms = engine._load_glossary_terms("test.json")
+        assert terms == {"Ultimate": "궁극기", "Gadget": "가젯"}
+
+    def test_category_format_flat_conversion(self, tmp_path, monkeypatch):
         """Category format (new) should be flattened to {en: ko}."""
-        import json
+        engine = self._make_engine()
+        self._mock_engine_base_dir(monkeypatch, tmp_path)
+
+        glossary_dir = tmp_path / "glossaries"
+        glossary_dir.mkdir(parents=True, exist_ok=True)
         data = {
             "glossary": {
                 "Class/Skill": [
                     {"ko": "궁극기", "en": "Ultimate"},
                     {"ko": "가젯", "en": "Gadget"},
                     {"ko": "완전 무장", "en": "Locked & Loaded", "note": "스킬명"},
+                    {"ko": "락앤로드", "en": "Locked & Loaded", "note": "대체 번역"},
                 ],
                 "Map": [
                     {"ko": "환전소", "en": "The Exchange"},
                 ],
             }
         }
-        f = tmp_path / "cat.json"
-        f.write_text(json.dumps(data), encoding="utf-8")
+        (glossary_dir / "cat.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
-        # Simulate _load_glossary_terms category parsing directly
-        glossary = data.get("glossary")
-        flat = {}
-        for entries in glossary.values():
-            for entry in entries:
-                en = (entry.get("en") or "").strip()
-                ko = (entry.get("ko") or "").strip()
-                note = (entry.get("note") or "").strip()
-                if en and ko:
-                    flat[en] = f"{ko} ({note})" if note else ko
+        terms = engine._load_glossary_terms("cat.json")
 
-        assert flat["Ultimate"] == "궁극기"
-        assert flat["Gadget"] == "가젯"
-        assert flat["Locked & Loaded"] == "완전 무장 (스킬명)"
-        assert flat["The Exchange"] == "환전소"
+        assert terms["Ultimate"] == "궁극기"
+        assert terms["Gadget"] == "가젯"
+        assert terms["Locked & Loaded"] == "완전 무장 (스킬명)"
+        assert terms["Locked & Loaded__2"] == "락앤로드 (대체 번역)"
+        assert terms["The Exchange"] == "환전소"
 
-    def test_missing_file_returns_empty(self):
+    def test_missing_file_returns_empty(self, tmp_path, monkeypatch):
         engine = self._make_engine()
+        self._mock_engine_base_dir(monkeypatch, tmp_path)
+        (tmp_path / "glossaries").mkdir(parents=True, exist_ok=True)
         result = engine._load_glossary_terms("__nonexistent_file__.json")
         assert result == {}
 
     def test_empty_glossary_key_returns_empty(self, tmp_path, monkeypatch):
-        import json
-        f = tmp_path / "empty.json"
-        f.write_text(json.dumps({"glossary": {}}), encoding="utf-8")
         engine = self._make_engine()
+        self._mock_engine_base_dir(monkeypatch, tmp_path)
 
-        import modules.translation_engine as te_mod
-        monkeypatch.setattr(
-            te_mod.Path, "resolve",
-            lambda self: tmp_path / "modules" / "translation_engine.py",
+        glossary_dir = tmp_path / "glossaries"
+        glossary_dir.mkdir(parents=True, exist_ok=True)
+        (glossary_dir / "empty.json").write_text(
+            json.dumps({"glossary": {}}, ensure_ascii=False),
+            encoding="utf-8",
         )
+
         result = engine._load_glossary_terms("empty.json")
         assert result == {}
 

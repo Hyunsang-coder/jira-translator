@@ -449,6 +449,31 @@ def match_translated_line_format(original_line: str, translated_line: str) -> st
     else:
         return translation
 
+
+def _extract_translation_source_lines(translated: str) -> list[str]:
+    """번역문에서 매칭 가능한 라인만 추출한다(코드/순수미디어/헤더 제외)."""
+    lines: list[str] = []
+    in_code_block = False
+
+    for trans_line in translated.splitlines():
+        is_code_line, in_code_block = is_inside_code_block(trans_line, in_code_block)
+        if is_code_line or in_code_block:
+            continue
+
+        trans_stripped = trans_line.strip()
+        if not trans_stripped:
+            continue
+
+        # 순수 미디어 라인, 헤더 라인은 번역 매칭에서 제외
+        # 미디어+텍스트 혼합 라인은 포함
+        if is_media_only_line(trans_stripped) or is_header_line(trans_stripped):
+            continue
+
+        lines.append(trans_line)
+
+    return lines
+
+
 def format_bilingual_block(original: str, translated: str, header: Optional[str] = None) -> str:
     original = (original or "").strip("\n")
     translated = (translated or "").strip()
@@ -462,48 +487,8 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
             lines.append(f"{{color:#4c9aff}}{translated}{{color}}")
         return "\n".join(lines).strip()
 
-    # 번역문 라인 준비
-    # 원문의 코드블럭 상태를 추적하여 번역문에서도 동일하게 처리
-    translation_source_lines = []
-    in_code_block_trans = False
-    
-    # 원문을 먼저 스캔하여 번역 가능한 라인만 추출
-    original_lines_for_scan = original.splitlines()
-    translatable_original_lines = []
-    in_code_block_orig = False
-    
-    for orig_line in original_lines_for_scan:
-        is_code_line, in_code_block_orig = is_inside_code_block(orig_line, in_code_block_orig)
-        if is_code_line or in_code_block_orig:
-            continue  # 코드블럭 라인은 제외
-        
-        stripped_orig = orig_line.strip()
-        if not stripped_orig:
-            continue
-        
-        # 순수 미디어 라인, 헤더 라인은 번역 매칭에서 제외 (표는 포함)
-        # 미디어+텍스트 혼합 라인은 포함 (텍스트 부분 번역 필요)
-        if is_media_only_line(stripped_orig) or is_header_line(stripped_orig):
-            continue
-
-        translatable_original_lines.append(orig_line)
-
-    # 번역문에서도 코드블럭 라인 제외하고 번역 가능한 라인만 추출
-    for trans_line in translated.splitlines():
-        is_code_line, in_code_block_trans = is_inside_code_block(trans_line, in_code_block_trans)
-        if is_code_line or in_code_block_trans:
-            continue  # 코드블럭 라인은 제외
-
-        trans_stripped = trans_line.strip()
-        if not trans_stripped:
-            continue
-
-        # 순수 미디어 라인, 헤더 라인은 번역 매칭에서 제외
-        # 미디어+텍스트 혼합 라인은 포함
-        if is_media_only_line(trans_stripped) or is_header_line(trans_stripped):
-            continue
-        
-        translation_source_lines.append(trans_line)
+    # 번역문에서 매칭 가능한 라인만 추출
+    translation_source_lines = _extract_translation_source_lines(translated)
         
     translation_index = 0
 
@@ -664,4 +649,3 @@ def format_bilingual_block(original: str, translated: str, header: Optional[str]
     flush_text_buffer() # 남은 텍스트 처리
         
     return "\n".join(lines).strip()
-

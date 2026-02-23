@@ -129,6 +129,17 @@ class TranslationEngine:
             print(f"⚠️ Glossary LLM filter failed, using all candidates: {e}")
             return candidates
 
+    def _build_filtered_glossary_instruction(self, texts: list[str]) -> str:
+        """후보 추출 + LLM 필터링 + 프롬프트 instruction 생성."""
+        candidates = self.prompt_builder.get_candidate_terms(texts)
+        filtered = self._filter_glossary_by_llm(candidates, texts)
+        original_terms = self.prompt_builder.glossary_terms
+        try:
+            self.prompt_builder.glossary_terms = filtered
+            return self.prompt_builder.build_glossary_instruction(texts)
+        finally:
+            self.prompt_builder.glossary_terms = original_terms
+
     def translate_text(self, text: str, target_language: Optional[str] = None) -> str:
         """
         텍스트를 번역 (마크업 제외)
@@ -151,12 +162,7 @@ class TranslationEngine:
                 forced = "en"
         direction_lang = forced or detected_lang
 
-        candidates = self.prompt_builder.get_candidate_terms([text])
-        filtered = self._filter_glossary_by_llm(candidates, [text])
-        original_terms = self.prompt_builder.glossary_terms
-        self.prompt_builder.glossary_terms = filtered
-        glossary_instruction = self.prompt_builder.build_glossary_instruction([text])
-        self.prompt_builder.glossary_terms = original_terms
+        glossary_instruction = self._build_filtered_glossary_instruction([text])
         system_msg = self.prompt_builder.build_system_message(
             detected_lang=direction_lang,
             glossary_instruction=glossary_instruction,
@@ -289,12 +295,7 @@ class TranslationEngine:
             return {}
 
         chunk_texts = [chunk.clean_text for chunk in translatable_chunks]
-        candidates = self.prompt_builder.get_candidate_terms(chunk_texts)
-        filtered = self._filter_glossary_by_llm(candidates, chunk_texts)
-        original_terms = self.prompt_builder.glossary_terms
-        self.prompt_builder.glossary_terms = filtered
-        glossary_instruction = self.prompt_builder.build_glossary_instruction(chunk_texts)
-        self.prompt_builder.glossary_terms = original_terms
+        glossary_instruction = self._build_filtered_glossary_instruction(chunk_texts)
 
         combined_text = "\n".join(chunk.clean_text for chunk in translatable_chunks)
         detected_lang = language.detect_text_language(combined_text, extract_text_func=language.extract_detectable_text)
@@ -501,4 +502,3 @@ class TranslationEngine:
                 payload[field] = formatted
 
         return payload
-

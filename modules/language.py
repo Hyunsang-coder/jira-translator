@@ -21,9 +21,9 @@ def detect_text_language(text: str, extract_text_func=None) -> str:
     original_text = text
     
     # 마크업 제거된 텍스트
-    # extract_text_func가 제공되면 사용, 아니면 내부 구현(순환 참조 방지 위해 인자로 받을 수도 있음, 
-    # 하지만 여기선 extract_detectable_text가 같은 모듈에 있으므로 직접 호출)
-    sanitized = extract_detectable_text(text)
+    # extract_text_func가 제공되면 우선 사용하고, 아니면 기본 구현을 사용한다.
+    sanitizer = extract_text_func if callable(extract_text_func) else extract_detectable_text
+    sanitized = sanitizer(text)
     if not sanitized:
         return "unknown"
     
@@ -183,4 +183,3 @@ def is_steps_bilingual(value: str) -> bool:
     if first_lang == "unknown" or second_lang == "unknown":
         return False
     return first_lang != second_lang
-
