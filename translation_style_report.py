@@ -68,6 +68,8 @@ def _strip_translation_color_blocks(text: str) -> str:
         text,
         flags=re.DOTALL | re.IGNORECASE,
     )
+    # color 블록 제거 후 "* " 처럼 불릿만 남은 빈 줄 제거
+    cleaned = re.sub(r"^[ \t]*\*[ \t]*$", "", cleaned, flags=re.MULTILINE)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
 
@@ -78,10 +80,13 @@ def extract_source_summary(text: str) -> str:
         return ""
 
     prefix, core = formatting.split_bracket_prefix(cleaned)
-    if " / " not in core:
+    # " / " 또는 " /" (공백 없이 붙은 경우) 모두 처리
+    sep_match = re.search(r" /\s*", core)
+    if not sep_match:
         return cleaned
 
-    left, right = core.split(" / ", 1)
+    left = core[:sep_match.start()]
+    right = core[sep_match.end():]
     left_lang = language.detect_text_language(left)
     right_lang = language.detect_text_language(right)
     if left_lang != "unknown" and right_lang != "unknown" and left_lang != right_lang:
@@ -235,9 +240,8 @@ def build_html_report(
     sections: list[str] = []
     for field in fields_order:
         source_text = source_fields.get(field, "")
-        translated_text = translation_results.get(field, {}).get("translated", "")
         bilingual_text = update_payload.get(field, "")
-        if not source_text and not translated_text and not bilingual_text:
+        if not source_text and not bilingual_text:
             continue
 
         field_label = f"{field} (steps)" if field == steps_field else field
@@ -247,12 +251,8 @@ def build_html_report(
               <h2>{html.escape(field_label)}</h2>
               <div class="compare">
                 <div class="col source">
-                  <div class="label">Source (Extracted)</div>
+                  <div class="label">Source (Original)</div>
                   {_html_pre(source_text)}
-                </div>
-                <div class="col translated">
-                  <div class="label">Translated (Raw Assembly)</div>
-                  {_html_pre(translated_text)}
                 </div>
                 <div class="col bilingual">
                   <div class="label">Bilingual (Final Ticket Format)</div>
@@ -324,7 +324,7 @@ def build_html_report(
     }}
     .compare {{
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }}
     .col {{

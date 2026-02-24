@@ -235,18 +235,8 @@ class JiraTicketTranslator:
         if steps_field is None:
             steps_field = self._fallback_steps_field(project_key)
 
-        # 용어집 로드
-        # Load locally to support mocking self._load_glossary_terms
-        terms = self._load_glossary_terms(glossary_file)
-        self.glossary_terms = terms
-        self.glossary_name = glossary_name
-        
-        # Sync with engine
-        # self.glossary_terms setter updates engine.glossary_terms
-        # self.glossary_name setter updates engine.glossary_name
-        # We also need to update engine's prompt_builder
-        self.translation_engine.prompt_builder.glossary_terms = terms
-        self.translation_engine.prompt_builder.glossary_name = glossary_name
+        # 용어집 로드 (legacy + structured entry 동시 지원)
+        self.translation_engine.load_glossary(glossary_file, glossary_name)
 
         if fields_to_translate is None:
             fields_to_translate = ['summary', 'description', steps_field]

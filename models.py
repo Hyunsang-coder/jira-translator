@@ -45,10 +45,22 @@ class FieldTranslationJob:
     mode: str = "default"
 
 
+@dataclass(frozen=True)
+class GlossaryEntry:
+    id: str
+    en: str
+    ko: str
+    note: str = ""
+    category: str = ""
+    aliases_en: tuple[str, ...] = ()
+    aliases_ko: tuple[str, ...] = ()
+
+
 class GlossarySelection(BaseModel):
-    selected_keys: list[str]
+    selected_ids: list[str] = []
+    # Backward compatibility for older prompt shape.
+    selected_keys: list[str] = []
 
 
 GLOSSARY_FILTER_THRESHOLD = 30
-
 

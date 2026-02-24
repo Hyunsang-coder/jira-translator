@@ -60,6 +60,7 @@ def restore_attachments_markup(text: str, attachments: list[str]) -> str:
 
     return text
 
+
 def format_summary_value(original: str, translated: str) -> str:
     """
     Summary는 한 줄이어야 하고 Jira 필드 제한이 255자이므로
