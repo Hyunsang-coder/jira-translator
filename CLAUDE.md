@@ -272,7 +272,9 @@ The code conditionally uses Pydantic v2+ if available but falls back to dict-bas
 
 ## Common Pitfalls
 
-- **Bilingual Output Format (Intentional)**: The translated description contains both the original English text and the Korean translation appended below each section in `{color:#4c9aff}...{color}` markup. List items (coordinates, asset names, etc.) also appear duplicated — original + translated. This is **intentional bilingual format**, not a bug. Do NOT attempt to deduplicate or remove the original text.
+- **Bilingual Output Format (Intentional)**: Fields behave differently by type:
+  - **Summary**: Translated only (no bilingual). Korean → English or English → Korean as a single string. The original prefix tags like `[v2605][Heist]` may be dropped — this is expected.
+  - **Description / Steps**: Bilingual format. The original text is kept, and the Korean translation is appended below each section in `{color:#4c9aff}...{color}` markup. List items also appear duplicated (original + translated). Do NOT attempt to deduplicate or remove the original text.
 
 - **Broken Markup**: Changes to `formatting.py` can silently break image/code preservation. Always run `test_formatting.py`.
 - **Field Mapping Errors**: Project detection relies on issue key prefix. Test with multiple project keys (PUBG-, PAYDAY-, P2-, etc.).

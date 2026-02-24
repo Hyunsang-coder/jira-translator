@@ -8,6 +8,7 @@ from openai import OpenAI
 from prompts import PromptBuilder
 from models import (
     FieldTranslationJob,
+    GlossaryEntry,
     PYDANTIC_AVAILABLE,
     TranslationChunk,
     TranslationResponse,
@@ -46,7 +47,7 @@ def run_batch_translation_orchestration(
     if not batch_result and last_error:
         raise last_error
 
-    missing_ids = [chunk.id for chunk in chunks if chunk.id not in batch_result]
+    missing_ids = [chunk.id for chunk in chunks if not chunk.skip_translation and chunk.id not in batch_result]
     if missing_ids:
         print(f"⚠️ Batch translation missing {len(missing_ids)} chunk(s); retrying individually.")
         missing_chunks = [chunk for chunk in chunks if chunk.id in missing_ids]
@@ -60,86 +61,200 @@ class TranslationEngine:
         self.openai = OpenAI(api_key=openai_api_key)
         self.openai_model = model or os.getenv("OPENAI_MODEL", "gpt-5.2")
         self.glossary_terms: dict[str, str] = {}
+        self.glossary_entries: list[GlossaryEntry] = []
         self.glossary_name: str = ""
-        self.prompt_builder = PromptBuilder(self.glossary_terms, self.glossary_name)
+        self.prompt_builder = PromptBuilder(self.glossary_terms, self.glossary_name, self.glossary_entries)
+        self._last_loaded_glossary_entries: list[GlossaryEntry] = []
 
     def load_glossary(self, filename: str, glossary_name: str):
-        self.glossary_terms = self._load_glossary_terms(filename)
+        # Keep compatibility with tests/mocks that intercept _load_glossary_terms.
+        self._last_loaded_glossary_entries = []
+        legacy_terms = self._load_glossary_terms(filename)
+        entries = list(self._last_loaded_glossary_entries)
+
+        if entries:
+            self.prompt_builder.set_glossary(glossary_entries=entries)
+        else:
+            self.prompt_builder.set_glossary(glossary_terms=legacy_terms)
+
+        self.glossary_entries = self.prompt_builder.glossary_entries
+        self.glossary_terms = self.prompt_builder.glossary_terms
         self.glossary_name = glossary_name
-        self.prompt_builder.glossary_terms = self.glossary_terms
         self.prompt_builder.glossary_name = self.glossary_name
 
-    def _load_glossary_terms(self, filename: str) -> dict[str, str]:
-        """지정된 용어집 파일에서 terms 딕셔너리를 로드.
+    @staticmethod
+    def _unique_id(base_id: str, used_ids: set[str]) -> str:
+        candidate = base_id
+        if candidate not in used_ids:
+            used_ids.add(candidate)
+            return candidate
 
-        두 가지 포맷 지원:
+        suffix = 2
+        while f"{base_id}__{suffix}" in used_ids:
+            suffix += 1
+        candidate = f"{base_id}__{suffix}"
+        used_ids.add(candidate)
+        return candidate
+
+    @staticmethod
+    def _normalize_alias_list(values: object) -> tuple[str, ...]:
+        if not isinstance(values, list):
+            return ()
+
+        normalized: list[str] = []
+        seen: set[str] = set()
+        for raw in values:
+            alias = str(raw or "").strip()
+            if not alias:
+                continue
+            key = alias.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            normalized.append(alias)
+        return tuple(normalized)
+
+    @classmethod
+    def _entry_value_to_ko_and_note(cls, raw_value: str) -> tuple[str, str]:
+        return PromptBuilder._split_ko_and_note(raw_value)
+
+    @classmethod
+    def _entries_to_terms(cls, entries: Sequence[GlossaryEntry]) -> dict[str, str]:
+        return PromptBuilder.terms_from_entries(entries)
+
+    def _load_glossary_entries(self, filename: str) -> list[GlossaryEntry]:
+        """지정된 용어집 파일에서 구조화된 glossary entry 목록을 로드.
+
+        지원 포맷:
         - flat 포맷: {"terms": {"en": "ko", ...}}
-        - 카테고리 포맷: {"glossary": {"Category": [{"ko": "...", "en": "...", "note": "..."}, ...]}}
+        - 카테고리 포맷: {"glossary": {"Category": [{"ko": "...", "en": "...", "note": "..."}]}}
+        - entry 포맷: {"entries": [{"id": "...", "en": "...", "ko": "...", "note": "...", ...}]}
         """
         try:
             base_dir = Path(__file__).resolve().parent.parent
             glossary_path = base_dir / "glossaries" / filename
             if not glossary_path.exists():
-                return {}
+                return []
 
             with glossary_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
-            # flat 포맷 우선
+            entries: list[GlossaryEntry] = []
+            used_ids: set[str] = set()
+
+            raw_entries = data.get("entries")
+            if isinstance(raw_entries, list):
+                for raw in raw_entries:
+                    if not isinstance(raw, dict):
+                        continue
+                    en = str(raw.get("en") or "").strip()
+                    ko = str(raw.get("ko") or "").strip()
+                    if not (en and ko):
+                        continue
+                    base_id = str(raw.get("id") or en).strip() or en
+                    entry_id = self._unique_id(base_id, used_ids)
+                    entries.append(
+                        GlossaryEntry(
+                            id=entry_id,
+                            en=en,
+                            ko=ko,
+                            note=str(raw.get("note") or "").strip(),
+                            category=str(raw.get("category") or "").strip(),
+                            aliases_en=self._normalize_alias_list(raw.get("aliases_en")),
+                            aliases_ko=self._normalize_alias_list(raw.get("aliases_ko")),
+                        )
+                    )
+                return entries
+
+            # flat 포맷
             terms = data.get("terms")
             if isinstance(terms, dict):
-                return terms
+                for raw_key, raw_value in terms.items():
+                    raw_id = str(raw_key or "").strip()
+                    if not raw_id:
+                        continue
+                    en = PromptBuilder._base_eng(raw_id)
+                    ko, note = self._entry_value_to_ko_and_note(str(raw_value or ""))
+                    if not (en and ko):
+                        continue
+                    entry_id = self._unique_id(raw_id, used_ids)
+                    entries.append(
+                        GlossaryEntry(
+                            id=entry_id,
+                            en=en,
+                            ko=ko,
+                            note=note,
+                        )
+                    )
+                return entries
 
-            # 카테고리 포맷: {"glossary": {"Category": [{"ko": ..., "en": ..., "note": ...}]}}
+            # 카테고리 포맷
             glossary = data.get("glossary")
             if isinstance(glossary, dict):
-                flat: dict[str, str] = {}
-                for entries in glossary.values():
-                    if not isinstance(entries, list):
+                for category, raw_list in glossary.items():
+                    if not isinstance(raw_list, list):
                         continue
-                    for entry in entries:
-                        en = (entry.get("en") or "").strip()
-                        ko = (entry.get("ko") or "").strip()
-                        note = (entry.get("note") or "").strip()
+                    for raw in raw_list:
+                        if not isinstance(raw, dict):
+                            continue
+                        en = str(raw.get("en") or "").strip()
+                        ko = str(raw.get("ko") or "").strip()
                         if not (en and ko):
                             continue
-                        value = f"{ko} ({note})" if note else ko
-                        # en 키 충돌 시 __2, __3 ... suffix로 모두 보존
-                        if en not in flat:
-                            flat[en] = value
-                        else:
-                            i = 2
-                            while f"{en}__{i}" in flat:
-                                i += 1
-                            flat[f"{en}__{i}"] = value
-                return flat
+                        entry_id = self._unique_id(en, used_ids)
+                        entries.append(
+                            GlossaryEntry(
+                                id=entry_id,
+                                en=en,
+                                ko=ko,
+                                note=str(raw.get("note") or "").strip(),
+                                category=str(category or "").strip(),
+                                aliases_en=self._normalize_alias_list(raw.get("aliases_en")),
+                                aliases_ko=self._normalize_alias_list(raw.get("aliases_ko")),
+                            )
+                        )
+                return entries
 
-            return {}
+            return []
         except Exception:
-            return {}
+            return []
+
+    def _load_glossary_terms(self, filename: str) -> dict[str, str]:
+        """지정된 용어집 파일에서 legacy terms dict를 로드."""
+        entries = self._load_glossary_entries(filename)
+        self._last_loaded_glossary_entries = list(entries)
+        return self._entries_to_terms(entries)
 
     def _filter_glossary_by_llm(
         self,
-        candidates: dict[str, str],
+        candidates: Sequence[GlossaryEntry],
         texts: list[str],
-    ) -> dict[str, str]:
+    ) -> list[GlossaryEntry]:
         """2단계: LLM으로 실제 번역에 필요한 용어만 정제.
 
         candidates 수가 GLOSSARY_FILTER_THRESHOLD 이하면 스킵 (불필요한 API 호출 방지).
-        반환: 필터링된 {eng: kor} dict
+        반환: 필터링된 GlossaryEntry 목록
         """
-        if not candidates or len(candidates) <= GLOSSARY_FILTER_THRESHOLD:
-            return candidates
+        candidate_list = list(candidates)
+        if not candidate_list or len(candidate_list) <= GLOSSARY_FILTER_THRESHOLD:
+            return candidate_list
 
         combined_text = "\n".join(texts)
-        term_list = "\n".join(f"{i}. {en} <-> {ko}" for i, (en, ko) in enumerate(candidates.items()))
+        term_list_lines: list[str] = []
+        for idx, entry in enumerate(candidate_list):
+            note_part = f" | note: {entry.note}" if entry.note else ""
+            category_part = f" | category: {entry.category}" if entry.category else ""
+            term_list_lines.append(
+                f"{idx}. id={entry.id} | en={entry.en} | ko={entry.ko}{note_part}{category_part}"
+            )
+        term_list = "\n".join(term_list_lines)
 
         prompt = (
             "You are a glossary selector. Given the following text and a list of glossary terms, "
             "select ONLY the terms that are actually relevant to translating this specific text. "
-            "Return a JSON object with a 'selected_keys' field containing the list of English terms to keep.\n\n"
+            "Return a JSON object with a 'selected_ids' field containing ONLY glossary ids to keep.\n\n"
             f"TEXT:\n{combined_text}\n\n"
-            f"GLOSSARY TERMS (English <-> Korean):\n{term_list}"
+            f"GLOSSARY TERMS:\n{term_list}"
         )
 
         try:
@@ -154,7 +269,9 @@ class TranslationEngine:
                     response_format=GlossarySelection,
                 )
                 parsed = completion.choices[0].message.parsed
-                selected_keys = getattr(parsed, "selected_keys", []) if parsed else []
+                selected_ids = getattr(parsed, "selected_ids", []) if parsed else []
+                if not selected_ids:
+                    selected_ids = getattr(parsed, "selected_keys", []) if parsed else []
             else:
                 completion = self.openai.chat.completions.create(
                     model=self.openai_model,
@@ -162,27 +279,33 @@ class TranslationEngine:
                 )
                 content = (completion.choices[0].message.content or "").strip()
                 parsed_json = json.loads(content)
-                selected_keys = parsed_json.get("selected_keys", [])
+                selected_ids = parsed_json.get("selected_ids", [])
+                if not selected_ids:
+                    selected_ids = parsed_json.get("selected_keys", [])
 
-            return {k: v for k, v in candidates.items() if k in selected_keys}
+            selected_id_set = {str(item) for item in selected_ids if item}
+            return [entry for entry in candidate_list if entry.id in selected_id_set]
         except Exception as e:
             print(f"⚠️ Glossary LLM filter failed, using all candidates: {e}")
-            return candidates
+            return candidate_list
 
-    def _build_filtered_glossary_instruction(self, texts: list[str]) -> str:
+    def _build_filtered_glossary_instruction(
+        self,
+        texts: list[str],
+        source_lang: Optional[str] = None,
+    ) -> str:
         """후보 추출 + LLM 필터링 + 프롬프트 instruction 생성."""
-        candidates = self.prompt_builder.get_candidate_terms(texts)
-        total = len(self.prompt_builder.glossary_terms)
+        candidates = self.prompt_builder.get_candidate_entries(texts, source_lang=source_lang)
+        total = len(self.prompt_builder.glossary_entries)
         print(f"📚 Glossary filter: {total} total → {len(candidates)} after string match (1st stage)")
         filtered = self._filter_glossary_by_llm(candidates, texts)
         if len(candidates) > GLOSSARY_FILTER_THRESHOLD:
             print(f"📚 Glossary filter: {len(candidates)} → {len(filtered)} after LLM filter (2nd stage)")
-        original_terms = self.prompt_builder.glossary_terms
-        try:
-            self.prompt_builder.glossary_terms = filtered
-            return self.prompt_builder.build_glossary_instruction(texts)
-        finally:
-            self.prompt_builder.glossary_terms = original_terms
+        return self.prompt_builder.build_glossary_instruction(
+            texts,
+            source_lang=source_lang,
+            candidate_entries=filtered,
+        )
 
     def translate_text(self, text: str, target_language: Optional[str] = None) -> str:
         """
@@ -206,7 +329,7 @@ class TranslationEngine:
                 forced = "en"
         direction_lang = forced or detected_lang
 
-        glossary_instruction = self._build_filtered_glossary_instruction([text])
+        glossary_instruction = self._build_filtered_glossary_instruction([text], source_lang=direction_lang)
         system_msg = self.prompt_builder.build_system_message(
             detected_lang=direction_lang,
             glossary_instruction=glossary_instruction,
@@ -316,9 +439,6 @@ class TranslationEngine:
         if not translatable_chunks:
             return {}
 
-        chunk_texts = [chunk.clean_text for chunk in translatable_chunks]
-        glossary_instruction = self._build_filtered_glossary_instruction(chunk_texts)
-
         combined_text = "\n".join(chunk.clean_text for chunk in translatable_chunks)
         detected_lang = language.detect_text_language(combined_text, extract_text_func=language.extract_detectable_text)
         forced = None
@@ -329,6 +449,11 @@ class TranslationEngine:
             elif tl in {"korean", "ko"}:
                 forced = "en"
         direction_lang = forced or detected_lang
+        chunk_texts = [chunk.clean_text for chunk in translatable_chunks]
+        glossary_instruction = self._build_filtered_glossary_instruction(
+            chunk_texts,
+            source_lang=direction_lang,
+        )
         system_msg = self.prompt_builder.build_system_message(
             detected_lang=direction_lang,
             glossary_instruction=glossary_instruction,

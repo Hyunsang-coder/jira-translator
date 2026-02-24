@@ -4,7 +4,39 @@
   "description": "Korean-English glossary for in-game translation",
   "total_terms": 132,
   "glossary": {
+    "Enemy": [
+      {
+        "ko": "도저",
+        "en": "Dozer"
+      },
+      {
+        "ko": "클로커",
+        "en": "Cloaker"
+      },
+      {
+        "ko": "저격수",
+        "en": "Sniper",
+        "note": "적 enemy 타입. 플레이어 클래스 저격수는 Marksman"
+      }
+    ],
     "Class/Skill": [
+      {
+        "ko": "돌격병",
+        "en": "Assault"
+      },
+      {
+        "ko": "의료병",
+        "en": "Support"
+      },
+      {
+        "ko": "방어병",
+        "en": "Tank"
+      },
+      {
+        "ko": "저격수",
+        "en": "Marksman",
+        "note": "플레이어 클래스. 적 enemy 타입 저격수는 Sniper"
+      },
       {
         "ko": "가젯",
         "en": "Gadget"
@@ -29,10 +61,6 @@
         "ko": "완전 무장",
         "en": "Locked & Loaded",
         "note": "스킬명. \"킬 리로드\"와 동일 영문"
-      },
-      {
-        "ko": "저격수 (플레이어 롤/클래스)",
-        "en": "Marksman"
       },
       {
         "ko": "중무장",
@@ -203,14 +231,6 @@
         "en": "Dead Focus"
       },
       {
-        "ko": "도저!",
-        "en": "Dozer!"
-      },
-      {
-        "ko": "돌격병",
-        "en": "Assault"
-      },
-      {
         "ko": "드릴이 여기 있다!",
         "en": "Here’s the thermal lance!"
       },
@@ -249,10 +269,6 @@
       {
         "ko": "방어력 강화",
         "en": "Armor Increase"
-      },
-      {
-        "ko": "방어병",
-        "en": "Tank"
       },
       {
         "ko": "병기 전문가",
@@ -331,10 +347,6 @@
         "en": "Stealth bonus:"
       },
       {
-        "ko": "의료병",
-        "en": "Support"
-      },
-      {
         "ko": "일반",
         "en": "Normal"
       },
@@ -357,10 +369,6 @@
       {
         "ko": "잠입자",
         "en": "Ghost"
-      },
-      {
-        "ko": "저격수!",
-        "en": "Sniper!"
       },
       {
         "ko": "저기! 증거물!",
@@ -417,10 +425,6 @@
       {
         "ko": "측면 사수",
         "en": "Flanker"
-      },
-      {
-        "ko": "클로커!",
-        "en": "Cloaker!"
       },
       {
         "ko": "킬샷",
