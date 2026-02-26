@@ -1,5 +1,6 @@
 import os
 import json
+import urllib.request
 from pathlib import Path
 from collections.abc import Callable, Sequence
 from typing import Optional
@@ -122,6 +123,22 @@ class TranslationEngine:
     def _entries_to_terms(cls, entries: Sequence[GlossaryEntry]) -> dict[str, str]:
         return PromptBuilder.terms_from_entries(entries)
 
+    def _fetch_glossary_data(self, filename: str) -> dict | None:
+        """로컬 파일 우선, 없으면 GitHub에서 fetch."""
+        base_dir = Path(__file__).resolve().parent.parent
+        glossary_path = base_dir / "glossaries" / filename
+        if glossary_path.exists():
+            with glossary_path.open("r", encoding="utf-8") as f:
+                return json.load(f)
+
+        base_url = os.getenv("GLOSSARY_BASE_URL", "").rstrip("/")
+        if base_url:
+            url = f"{base_url}/{filename}"
+            with urllib.request.urlopen(url, timeout=10) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+
+        return None
+
     def _load_glossary_entries(self, filename: str) -> list[GlossaryEntry]:
         """지정된 용어집 파일에서 구조화된 glossary entry 목록을 로드.
 
@@ -131,13 +148,9 @@ class TranslationEngine:
         - entry 포맷: {"entries": [{"id": "...", "en": "...", "ko": "...", "note": "...", ...}]}
         """
         try:
-            base_dir = Path(__file__).resolve().parent.parent
-            glossary_path = base_dir / "glossaries" / filename
-            if not glossary_path.exists():
+            data = self._fetch_glossary_data(filename)
+            if data is None:
                 return []
-
-            with glossary_path.open("r", encoding="utf-8") as f:
-                data = json.load(f)
 
             entries: list[GlossaryEntry] = []
             used_ids: set[str] = set()

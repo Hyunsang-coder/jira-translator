@@ -85,6 +85,7 @@ Resources:
           JIRA_API_TOKEN: !Ref JiraApiToken
           OPENAI_API_KEY: !Ref OpenAIApiKey
           OPENAI_MODEL: !Ref OpenAIModel
+          GLOSSARY_BASE_URL: https://raw.githubusercontent.com/Hyunsang-coder/jira-translator-glossaries/master
           PYTHONPATH: /var/task/package
       Events:
         TranslateApi:
