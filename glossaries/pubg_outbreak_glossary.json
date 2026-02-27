@@ -1,0 +1,148 @@
+{
+  "project": "PUBG Outbreak",
+  "glossary": {
+    "Enemy": [
+      {
+        "ko": "앰비언트 좀비",
+        "en": "Ambient Infected",
+        "note": "Enemy"
+      },
+      {
+        "ko": "기본 좀비",
+        "en": "Basic Infected",
+        "note": "Enemy"
+      },
+      {
+        "ko": "비히모스",
+        "en": "Behemoth",
+        "note": "Enemy"
+      },
+      {
+        "ko": "크롤러",
+        "en": "Crawler",
+        "note": "Enemy"
+      },
+      {
+        "ko": "데스 블룸",
+        "en": "Death Bloom",
+        "note": "Enemy"
+      },
+      {
+        "ko": "좀비",
+        "en": "Infected",
+        "note": "Enemy"
+      },
+      {
+        "ko": "페이션트 제로",
+        "en": "Patient Zero",
+        "note": "Enemy"
+      },
+      {
+        "ko": "스피터",
+        "en": "Spitter",
+        "note": "Enemy"
+      },
+      {
+        "ko": "특수 좀비",
+        "en": "Special Infected",
+        "note": "Enemy"
+      }
+    ],
+    "Item/Equipment": [
+      {
+        "ko": "오토 터렛",
+        "en": "Auto-Turret",
+        "note": "Item/Equipment"
+      },
+      {
+        "ko": "충격 지뢰",
+        "en": "Concussion Mine",
+        "note": "Item/Equipment"
+      },
+      {
+        "ko": "속성 총구 부착물",
+        "en": "Elemental Muzzle Attachment",
+        "note": "Item/Equipment"
+      },
+      {
+        "ko": "보관함",
+        "en": "storage container",
+        "note": "Item/Equipment"
+      }
+    ],
+    "Game Mechanic": [
+      {
+        "ko": "Abyssal Waste Attack",
+        "en": "Abyssal Waste Attack",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "감전",
+        "en": "Electrified",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "방어 시설",
+        "en": "fortifications",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "게임 배경",
+        "en": "game premise",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "호드 웨이브",
+        "en": "Horde Tide",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "충격",
+        "en": "Impact",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "화염",
+        "en": "Incendiary",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "피격 시 구토",
+        "en": "Regurgitate on Hit",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "틱마다 구토",
+        "en": "Regurgitate on Tick",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "스포닝 풀",
+        "en": "Spawning Pool",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "스톰 웨이브",
+        "en": "Storm Tide",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "도발",
+        "en": "taunt",
+        "note": "Game Mechanic"
+      },
+      {
+        "ko": "웨이브",
+        "en": "Tide",
+        "note": "Game Mechanic"
+      }
+    ],
+    "Environment": [
+      {
+        "ko": "유독성 붉은 안개",
+        "en": "toxic Red Fog",
+        "note": "Environment"
+      }
+    ]
+  }
+}

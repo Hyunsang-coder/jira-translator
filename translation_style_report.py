@@ -50,8 +50,9 @@ def normalize_issue_input(issue_input: str, default_jira_url: str) -> tuple[str,
         raise ValueError("Issue key or URL is required.")
 
     if raw.startswith("http://") or raw.startswith("https://"):
-        jira_url, issue_key = parse_issue_url(raw)
-        return jira_url.rstrip("/"), issue_key.upper()
+        _, issue_key = parse_issue_url(raw)
+        # URL에서 issue_key만 추출하고, Jira base URL은 .env의 JIRA_URL을 사용
+        return default_jira_url.rstrip("/"), issue_key.upper()
 
     issue_key = raw.upper()
     if not re.fullmatch(r"[A-Z][A-Z0-9]+-\d+", issue_key):
@@ -138,7 +139,15 @@ def extract_source_field(field: str, value: str, steps_field: str) -> str:
 
 def configure_glossary(translator: JiraTicketTranslator, issue_key: str) -> tuple[str, str, str]:
     project_key = issue_key.split("-", 1)[0].upper()
-    glossary_file, glossary_name = translator._determine_glossary(project_key)
+    # PUBG/PM 계열은 summary의 [BS] / [BS_...] 태그로 BinarySpot 여부 판단
+    summary_preview = ""
+    if project_key in ("PUBG", "PM"):
+        try:
+            preview = translator.fetch_issue_fields(issue_key, ["summary"])
+            summary_preview = (preview or {}).get("summary", "")
+        except Exception:
+            pass
+    glossary_file, glossary_name = translator._determine_glossary(project_key, summary_preview)
     translator.translation_engine.load_glossary(glossary_file, glossary_name)
     return project_key, glossary_file, glossary_name
 

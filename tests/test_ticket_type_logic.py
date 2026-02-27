@@ -77,14 +77,14 @@ class TestTicketTypeLogic(unittest.TestCase):
         self.assertIn("customfield_10399", fields_arg)
 
     def test_payday_ticket_logic(self):
-        """Test that PAYDAY tickets use customfield_10237 and heist_glossary.json"""
+        """Test that PAYDAY tickets use customfield_10237 and pubg_heist_glossary.json"""
         issue_key = "PAYDAY-7"
-        
+
         self.translator.translate_issue(issue_key)
-        
+
         # Verify glossary loading
-        self.translator._load_glossary_terms.assert_called_with("heist_glossary.json")
-        self.assertEqual(self.translator.glossary_name, "HeistRoyale")
+        self.translator._load_glossary_terms.assert_called_with("pubg_heist_glossary.json")
+        self.assertEqual(self.translator.glossary_name, "PUBG Heist Royale")
         
         # Verify fields fetched (should include customfield_10237)
         call_args = self.translator.fetch_issue_fields.call_args
@@ -94,14 +94,14 @@ class TestTicketTypeLogic(unittest.TestCase):
         self.assertNotIn("customfield_10399", fields_arg)
 
     def test_pubgxbsg_ticket_logic(self):
-        """Test that PUBGXBSG tickets use customfield_10237 and bsg_glossary.json"""
+        """Test that PUBGXBSG tickets use customfield_10237 and pubg_outbreak_glossary.json"""
         issue_key = "PUBGXBSG-3779"
-        
+
         self.translator.translate_issue(issue_key)
-        
+
         # Verify glossary loading
-        self.translator._load_glossary_terms.assert_called_with("bsg_glossary.json")
-        self.assertEqual(self.translator.glossary_name, "BSG")
+        self.translator._load_glossary_terms.assert_called_with("pubg_outbreak_glossary.json")
+        self.assertEqual(self.translator.glossary_name, "PUBG Outbreak")
         
         # Verify fields fetched (should include customfield_10237)
         call_args = self.translator.fetch_issue_fields.call_args
@@ -109,6 +109,48 @@ class TestTicketTypeLogic(unittest.TestCase):
         fields_arg = call_args[0][1]
         self.assertIn("customfield_10237", fields_arg)
         self.assertNotIn("customfield_10399", fields_arg)
+
+class TestDetermineGlossary(unittest.TestCase):
+    """_determine_glossary 정적 메서드 단위 테스트"""
+
+    def test_pubg_no_bs_tag(self):
+        f, n = JiraTicketTranslator._determine_glossary("PUBG", "[v2] Some bug")
+        self.assertEqual(f, "pubg_glossary.json")
+        self.assertEqual(n, "PUBG")
+
+    def test_pubg_bs_exact(self):
+        f, n = JiraTicketTranslator._determine_glossary("PUBG", "[BS] Some bug")
+        self.assertEqual(f, "pubg_binaryspot_glossary.json")
+        self.assertEqual(n, "PUBG BinarySpot")
+
+    def test_pubg_bs_underscore(self):
+        f, n = JiraTicketTranslator._determine_glossary("PUBG", "[BS_Signoff_3] Some bug")
+        self.assertEqual(f, "pubg_binaryspot_glossary.json")
+        self.assertEqual(n, "PUBG BinarySpot")
+
+    def test_pubg_bsg_not_matched(self):
+        """[BSG]는 BinarySpot으로 분류되지 않아야 함"""
+        f, n = JiraTicketTranslator._determine_glossary("PUBG", "[BSG] Some bug")
+        self.assertEqual(f, "pubg_glossary.json")
+
+    def test_pm_bs_underscore(self):
+        f, n = JiraTicketTranslator._determine_glossary("PM", "[BS_v2] Bug report")
+        self.assertEqual(f, "pubg_binaryspot_glossary.json")
+
+    def test_pubgxbsg_always_outbreak(self):
+        f, n = JiraTicketTranslator._determine_glossary("PUBGXBSG", "")
+        self.assertEqual(f, "pubg_outbreak_glossary.json")
+        self.assertEqual(n, "PUBG Outbreak")
+
+    def test_payday_always_heist(self):
+        f, n = JiraTicketTranslator._determine_glossary("PAYDAY", "")
+        self.assertEqual(f, "pubg_heist_glossary.json")
+        self.assertEqual(n, "PUBG Heist Royale")
+
+    def test_default_pbb(self):
+        f, n = JiraTicketTranslator._determine_glossary("P2", "")
+        self.assertEqual(f, "pbb_glossary.json")
+
 
 def _mock_createmeta_response(fields_dict):
     """createmeta API 응답을 모킹하는 헬퍼"""

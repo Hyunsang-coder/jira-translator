@@ -1,0 +1,177 @@
+{
+  "project": "PUBG BinarySpot",
+  "glossary": {
+    "UI/Stats": [
+      {
+        "ko": "전적",
+        "en": "Stats",
+        "note": "UI/Stats"
+      },
+      {
+        "ko": "네임플레이트",
+        "en": "Nameplate",
+        "note": "UI/Stats"
+      },
+      {
+        "ko": "우호도",
+        "en": "Reputation",
+        "note": "UI/Stats"
+      },
+      {
+        "ko": "컨텐더",
+        "en": "Contender",
+        "note": "UI/Stats"
+      },
+      {
+        "ko": "티어",
+        "en": "Tier",
+        "note": "UI/Stats"
+      },
+      {
+        "ko": "슈퍼",
+        "en": "Super",
+        "note": "UI/Stats"
+      }
+    ],
+    "Item": [
+      {
+        "ko": "탈 것",
+        "en": "Vehicle",
+        "note": "Item"
+      },
+      {
+        "ko": "무기 참",
+        "en": "Weapon Charm",
+        "note": "Item"
+      },
+      {
+        "ko": "은신처",
+        "en": "Hideout",
+        "note": "Item"
+      },
+      {
+        "ko": "상자",
+        "en": "Crate",
+        "note": "Item"
+      },
+      {
+        "ko": "도안",
+        "en": "Imprint",
+        "note": "Item"
+      },
+      {
+        "ko": "획득권",
+        "en": "Voucher",
+        "note": "Item"
+      },
+      {
+        "ko": "최고급 꾸러미",
+        "en": "Prime Parcel",
+        "note": "Item"
+      },
+      {
+        "ko": "전리품",
+        "en": "Loot Cache",
+        "note": "Item"
+      },
+      {
+        "ko": "밀수품",
+        "en": "Contraband",
+        "note": "Item"
+      },
+      {
+        "ko": "컬러 연막탄",
+        "en": "Colored Smoke Grenade",
+        "note": "Item"
+      },
+      {
+        "ko": "시그니처 무기",
+        "en": "Signature Weapon",
+        "note": "Item"
+      },
+      {
+        "ko": "유도탄",
+        "en": "Guided missiles",
+        "note": "Item"
+      },
+      {
+        "ko": "아티팩트",
+        "en": "Artifact",
+        "note": "Item"
+      },
+      {
+        "ko": "컴패니언",
+        "en": "Companion",
+        "note": "Item"
+      },
+      {
+        "ko": "크리터",
+        "en": "Critter",
+        "note": "Item"
+      }
+    ],
+    "Item/Ability": [
+      {
+        "ko": "에코 터렛",
+        "en": "Echo Turret",
+        "note": "Item/Ability"
+      },
+      {
+        "ko": "대미지 웨이브",
+        "en": "Damage Wave",
+        "note": "Item/Ability"
+      },
+      {
+        "ko": "테더 트랩",
+        "en": "Tether Trap",
+        "note": "Item/Ability"
+      },
+      {
+        "ko": "오버실드",
+        "en": "Overshield",
+        "note": "Item/Ability"
+      }
+    ],
+    "Enemy/AI": [
+      {
+        "ko": "어썰트 그런트",
+        "en": "Grunt Assault",
+        "note": "Enemy/AI"
+      },
+      {
+        "ko": "헤비 그런트",
+        "en": "Grunt Heavy",
+        "note": "Enemy/AI"
+      },
+      {
+        "ko": "미니 보스",
+        "en": "Mini Boss",
+        "note": "Enemy/AI"
+      }
+    ],
+    "Game Mode": [
+      {
+        "ko": "생존",
+        "en": "Survival",
+        "note": "Game Mode"
+      },
+      {
+        "ko": "섬멸",
+        "en": "Elimination",
+        "note": "Game Mode"
+      },
+      {
+        "ko": "디펜더",
+        "en": "Defender",
+        "note": "Game Mode"
+      }
+    ],
+    "Shop": [
+      {
+        "ko": "제작소",
+        "en": "Workshop",
+        "note": "Shop"
+      }
+    ]
+  }
+}

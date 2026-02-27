@@ -1,3 +1,4 @@
+import re
 from collections.abc import Sequence
 from typing import Optional
 
@@ -199,13 +200,23 @@ class JiraTicketTranslator:
         return formatting.extract_description_sections(text)
 
     @staticmethod
-    def _determine_glossary(project_key: str) -> tuple[str, str]:
-        """프로젝트 키로 glossary 파일명과 이름을 결정."""
+    def _determine_glossary(project_key: str, summary: str = "") -> tuple[str, str]:
+        """프로젝트 키(+ 선택적 summary)로 glossary 파일명과 이름을 결정.
+
+        PUBG-/PM- 티켓에서 summary에 '[BS]'가 있으면 BinarySpot glossary 사용.
+        PUBGXBSG- 티켓은 무조건 Outbreak glossary 사용.
+        PAYDAY- 티켓은 무조건 Heist Royale glossary 사용.
+        """
+        # PUBG/PM 계열: summary에 [BS] 또는 [BS_...] 태그 있으면 BinarySpot
+        # [BS] 또는 [BS_xxx] 매칭, [BSG] 등 다른 태그는 제외
+        if project_key in ("PUBG", "PM") and re.search(r"\[BS[\]_]", summary):
+            return ("pubg_binaryspot_glossary.json", "PUBG BinarySpot")
+
         mapping = {
             "PUBG": ("pubg_glossary.json", "PUBG"),
             "PM": ("pubg_glossary.json", "PUBG"),
-            "PUBGXBSG": ("bsg_glossary.json", "BSG"),
-            "PAYDAY": ("heist_glossary.json", "HeistRoyale"),
+            "PUBGXBSG": ("pubg_outbreak_glossary.json", "PUBG Outbreak"),
+            "PAYDAY": ("pubg_heist_glossary.json", "PUBG Heist Royale"),
         }
         return mapping.get(project_key, ("pbb_glossary.json", "PBB(Project Black Budget)"))
 
@@ -228,7 +239,15 @@ class JiraTicketTranslator:
         """
         # 1. 티켓 타입 판별 및 설정
         project_key = issue_key.split("-")[0].upper()
-        glossary_file, glossary_name = self._determine_glossary(project_key)
+        # summary를 미리 fetch해서 [BS] 태그 기반 glossary 분기에 활용
+        _summary_preview = ""
+        if project_key in ("PUBG", "PM"):
+            try:
+                _preview = self.fetch_issue_fields(issue_key, ["summary"])
+                _summary_preview = (_preview or {}).get("summary", "")
+            except Exception:
+                pass
+        glossary_file, glossary_name = self._determine_glossary(project_key, _summary_preview)
 
         # Steps 필드 자동 탐지 (createmeta API) → 실패 시 하드코딩 fallback
         steps_field = self.jira_client.detect_steps_field(project_key)

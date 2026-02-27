@@ -1,8 +1,5 @@
 {
-  "project": "Heist Royale",
-  "version": "2025-12-05",
-  "description": "Korean-English glossary for in-game translation",
-  "total_terms": 132,
+  "project": "PUBG Heist Royale",
   "glossary": {
     "Enemy": [
       {
@@ -501,7 +498,107 @@
         "en": "The Exchange"
       }
     ],
+    "Heist Description": [
+      {
+        "ko": "비자금과 세탁된 현금. 기업들이 감춰두는 돈이야. 이 환전소는 완벽한 표적이지. 기업의 금고를 손에 넣을 시간이야.",
+        "en": "Slush funds and laundered cash. The kind of things corporations tend to keep under wraps. This private money exchange is the perfect target—time to put your hand in the corporate cookie jar.",
+        "note": "환전소 작전 설명"
+      },
+      {
+        "ko": "다이아몬드 기업이 우리 연락책을 털어먹었어. 빚은 받아내야지, 이자까지 붙여서. 저 상점들 안에 반짝이는 물건들이 잔뜩 있으니까.",
+        "en": "The diamond conglomerate ripped off our contact. We're looking to settle the debt, and with interest. There are plenty of shiny stones in those stores to grab up.",
+        "note": "다이아몬드 디스트릭트 작전 설명"
+      },
+      {
+        "ko": "나이트클럽이 리모델링 중인 사이, 배후 파트너들이 그곳을 부정한 돈의 회수 장소로 쓰고 있어. 우리도 그 회수 작업을 조금 도와줘볼까?",
+        "en": "While the nightclub is undergoing renovations, the silent partners decided to use it as a pickup spot for their ill-gotten gains. Let's give them a hand with that pickup, shall we?",
+        "note": "나이트클럽 작전 설명"
+      },
+      {
+        "ko": "시간과 장소는 확보됐다. 이제 장갑차를 세워서 안에 있는 걸 싹 비우자. 총을 난사할 준비해!",
+        "en": "We got the time and place. Now, let's stop those armored trucks in their tracks and clean 'em out. And we're going in guns blazing!",
+        "note": "무장 수송차량 작전 설명"
+      },
+      {
+        "ko": "신규 플레이어와 낮은 레벨의 클래스에 맞춰진 기본 난이도 경험입니다.",
+        "en": "Baseline experience for new players and low-level classes.",
+        "note": "일반 난이도 설명"
+      },
+      {
+        "ko": "숙련된 플레이어를 위한 더 높은 난이도와 더 좋은 보상이 주어지는 경험입니다.",
+        "en": "A more punishing experience for skilled players with improved payout.",
+        "note": "어려움 난이도 설명"
+      }
+    ],
+    "Class Description": [
+      {
+        "ko": "자동사격과 고화력에 특화. 맞아도 버틸 방어구를 갖추게 됩니다.",
+        "en": "You focus on autofire and high damage output with enough armor to take some punishment.",
+        "note": "돌격병 클래스 설명"
+      },
+      {
+        "ko": "근접 교전에 능하고, 적의 시선을 끌어 피해를 흡수합니다. 공격은 느려도 한 방이 묵직합니다.",
+        "en": "You excel in close-range engagements, drawing enemy fire, and you wear enough armor to absorb the damage. Your damage output isn't the fastest, but your weapons pack a punch.",
+        "note": "방어병 클래스 설명"
+      },
+      {
+        "ko": "화력과 장갑은 가볍지만, 팀 지원 시스템의 중추입니다.",
+        "en": "You are the backbone of your team's support system, providing damage buffs, health regeneration, and improved defenses.",
+        "note": "의료병 클래스 설명"
+      },
+      {
+        "ko": "원거리에서 고화력 정밀 사격으로 적 전선을 얇게 만드는데 능숙합니다.",
+        "en": "You excel at precise high-damage shots and thinning enemy lines from a distance.",
+        "note": "저격수(Marksman) 클래스 설명"
+      },
+      {
+        "ko": "경장갑과 소구경 무기로 측면을 파고드는 기동전. 치고 빠져 팀이 틈을 놓치지 않게 만듭니다.",
+        "en": "Light armor and small-caliber weapons let you flank enemies for tactical engagements. Your hit-and-run methods keep your team agile and aware.",
+        "note": "잠입자(Ghost) 클래스 설명"
+      }
+    ],
+    "Armor Description": [
+      {
+        "ko": "빠르게 재생되나 낮은 방어력",
+        "en": "Low armor that regenerates quickly.",
+        "note": "경장갑 설명"
+      },
+      {
+        "ko": "중간 수준의 방어력과 재생 속도",
+        "en": "Moderate armor and regeneration speed.",
+        "note": "중장갑 설명"
+      },
+      {
+        "ko": "느리게 재생되나 높은 방어력",
+        "en": "High armor that regenerates slowly.",
+        "note": "중무장 설명"
+      }
+    ],
     "UI": [
+      {
+        "ko": "팀 탈출 {0}/{1}",
+        "en": "TEAM ESCAPE {0}/{1}"
+      },
+      {
+        "ko": "{0}초 후 탈출",
+        "en": "Escape in {0}"
+      },
+      {
+        "ko": "{Count}|plural(one=목표, other=목표들)",
+        "en": "{Count}|plural(one=OBJECTIVE, other=OBJECTIVES)"
+      },
+      {
+        "ko": "{TimeSeconds}초 후 로비로 돌아갑니다.",
+        "en": "You will return to the lobby in {TimeSeconds} seconds."
+      },
+      {
+        "ko": "{distance}미터",
+        "en": "{distance} {distance}|plural(one=meter,other=meters)"
+      },
+      {
+        "ko": "오프쇼어 계좌로 이체됨",
+        "en": "TRANSFERRED TO YOUR OFFSHORE ACCOUNT"
+      },
       {
         "ko": "난이도 선택",
         "en": "SELECT DIFFICULTY"
@@ -549,6 +646,46 @@
       {
         "ko": "확인",
         "en": "CONFIRM"
+      }
+    ],
+    "Gadget/Ultimate": [
+      {
+        "ko": "가젯: {GadgetName}",
+        "en": "Gadget: {GadgetName}"
+      },
+      {
+        "ko": "방어구: {ArmorName}",
+        "en": "Armor: {ArmorName}"
+      },
+      {
+        "ko": "궁극기: {UltimateName}",
+        "en": "Ultimate: {UltimateName}"
+      }
+    ],
+    "Voice Line": [
+      {
+        "ko": "여기 돈더미가 있다!",
+        "en": "Got a pile of cash here!"
+      },
+      {
+        "ko": "야, 돈뭉치가 엄청 많네!",
+        "en": "Yo! A fat stack of cash!"
+      },
+      {
+        "ko": "어이, 여기 돈이 흩어져 있네!",
+        "en": "Hey, scattered cash here!"
+      },
+      {
+        "ko": "돈가방 발견!",
+        "en": "Found a bag of money!"
+      },
+      {
+        "ko": "대형 원석이 있다!",
+        "en": "Check out this fat stone!"
+      },
+      {
+        "ko": "돈 뭉치가 여기 있어!",
+        "en": "Got a wad of cash here!"
       }
     ],
     "Skill Description": [
@@ -660,6 +797,84 @@
       {
         "ko": "시간이 지나면 체력이 서서히 회복됩니다.",
         "en": "Slowly regenerate health."
+      },
+      {
+        "ko": "탄창을 즉시 채우고, 짧은 시간 동안 탄약이 무제한이 됩니다.",
+        "en": "Refill your magazine and gain infinite ammo for a brief time."
+      },
+      {
+        "ko": "범위 내 모두의 탄약을 재보급합니다. (가젯은 근접한 팀원에게 효과 적용)",
+        "en": "Restocks ammo over time for all nearby teammates."
+      },
+      {
+        "ko": "충격 즉시 폭발하는 파편 수류탄.",
+        "en": "A frag grenade that detonates on impact."
+      },
+      {
+        "ko": "잠시 무적이 되며, 적이 당신을 표적으로 삼을 가능성이 높아집니다.",
+        "en": "Gain invincibility for a brief time. Enemies focus on you."
+      },
+      {
+        "ko": "자신과 근처 팀원의 방어구를 빠르게 회복한다. (가젯은 근접한 팀원에게 효과 적용)",
+        "en": "Regenerates armor for all nearby teammates."
+      },
+      {
+        "ko": "투척 후 짧은 지연 뒤 폭발합니다.",
+        "en": "A grenade that explodes after a short time delay."
+      },
+      {
+        "ko": "사용 시, 거리와 관계없이 모든 팀원을 부활시킵니다.",
+        "en": "Revive all downed teammates regardless of location."
+      },
+      {
+        "ko": "잠시 동안 아군 전원의 이동 속도가 증가한다. (가젯은 근접한 팀원에게 효과 적용)",
+        "en": "All nearby teammates regenerate health for a brief time.",
+        "note": "원본 ko/en 불일치 의심 — 원본 데이터 그대로 유지"
+      },
+      {
+        "ko": "충돌 지점에 강한 화염을 퍼뜨리는 소이탄.",
+        "en": "A firebomb that covers the impact area with intense flames."
+      },
+      {
+        "ko": "모든 사격이 헤드샷 판정으로 간주됩니다.",
+        "en": "All shots count as headshots."
+      },
+      {
+        "ko": "짧은 시간 동안 아군 전원의 무기 피해가 크게 상승합니다. (가젯은 근접한 팀원에게 효과 적용)",
+        "en": "Increase weapon damage of nearby teammates for a brief time."
+      },
+      {
+        "ko": "잠시 동안 적과 카메라에 완전 은신.",
+        "en": "Become invisible to enemies and cameras for a brief time."
+      },
+      {
+        "ko": "일시적으로 모든 카메라를 비활성화 하고, 획득 아이템을 하이라이트합니다. (가젯은 근접한 팀원에게 효과 적용)",
+        "en": "Temporarily disables all cameras and highlights pickups."
+      },
+      {
+        "ko": "재장전 없이 {NumberOfKills} {NumberOfKills}|plural(one=enemy,other=enemies)명을 처치 하면 탄창이 즉시 장전됩니다.",
+        "en": "Magazine restocks after enough kills with the same mag."
+      },
+      {
+        "ko": "연속 사격 시 탄환당 피해가 증가합니다.",
+        "en": "Temporarily increase damage after quickly firing multiple shots."
+      },
+      {
+        "ko": "수류탄 외 무기로 적을 처치하면 투척 무기 재사용 대기시간이 감소합니다.",
+        "en": "Non-grenade kills reduce throwable cooldown."
+      },
+      {
+        "ko": "방어구가 더 빠르게 회복됩니다.",
+        "en": "Increased armor regeneration."
+      },
+      {
+        "ko": "피해를 받는 중에도 방어구가 재생됩니다.",
+        "en": "Regenerate armor while taking damage.",
+        "note": "탄피 방패 스킬의 설명 문구"
+      },
+      {
+        "ko": "추가 체력을 얻습니다.",
+        "en": "Gain extra health."
       }
     ]
   }
