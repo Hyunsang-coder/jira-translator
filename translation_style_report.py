@@ -137,26 +137,15 @@ def extract_source_field(field: str, value: str, steps_field: str) -> str:
     return _strip_translation_color_blocks(value)
 
 
-def configure_glossary(translator: JiraTicketTranslator, issue_key: str) -> tuple[str, str, str]:
-    project_key = issue_key.split("-", 1)[0].upper()
-    # PUBG/PM 계열은 summary의 [BS] / [BS_...] 태그로 BinarySpot 여부 판단
-    summary_preview = ""
-    if project_key in ("PUBG", "PM"):
-        try:
-            preview = translator.fetch_issue_fields(issue_key, ["summary"])
-            summary_preview = (preview or {}).get("summary", "")
-        except Exception:
-            pass
-    glossary_file, glossary_name = translator._determine_glossary(project_key, summary_preview)
+def configure_glossary(translator: JiraTicketTranslator, project_key: str, summary: str) -> tuple[str, str]:
+    """이미 fetch한 summary를 받아 glossary를 결정하고 로드."""
+    glossary_file, glossary_name = translator._determine_glossary(project_key, summary)
     translator.translation_engine.load_glossary(glossary_file, glossary_name)
-    return project_key, glossary_file, glossary_name
+    return glossary_file, glossary_name
 
 
 def resolve_steps_field(translator: JiraTicketTranslator, project_key: str) -> str:
-    detected = translator.jira_client.detect_steps_field(project_key)
-    if detected:
-        return detected
-    return translator._fallback_steps_field(project_key)
+    return translator._resolve_steps_field(project_key, translator.jira_client)
 
 
 def translate_source_fields(
@@ -447,11 +436,13 @@ def main() -> int:
     )
     translator.openai_model = openai_model
 
-    project_key, _, glossary_name = configure_glossary(translator, issue_key)
+    project_key = issue_key.split("-", 1)[0].upper()
     steps_field = resolve_steps_field(translator, project_key)
     fields_order = ["summary", "description", steps_field]
 
+    # 단 1회 fetch — summary로 glossary 분기, 나머지 필드도 함께 가져옴
     fetched_fields = translator.fetch_issue_fields(issue_key, fields_order)
+    _, glossary_name = configure_glossary(translator, project_key, fetched_fields.get("summary", ""))
     source_fields = {
         field: extract_source_field(field, fetched_fields.get(field, ""), steps_field)
         for field in fields_order

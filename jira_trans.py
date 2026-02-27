@@ -220,12 +220,23 @@ class JiraTicketTranslator:
         }
         return mapping.get(project_key, ("pbb_glossary.json", "PBB(Project Black Budget)"))
 
-    @staticmethod
-    def _fallback_steps_field(project_key: str) -> str:
-        """detect_steps_field 실패 시 기존 하드코딩 기반 fallback."""
-        if project_key in ("PUBG", "PM", "PUBGXBSG", "PAYDAY"):
-            return "customfield_10237"
-        return "customfield_10399"
+    # 알려진 프로젝트의 steps 필드 하드코딩 맵핑
+    _KNOWN_STEPS_FIELDS: dict[str, str] = {
+        "PUBG": "customfield_10237",
+        "PM": "customfield_10237",
+        "PUBGXBSG": "customfield_10237",
+        "PAYDAY": "customfield_10237",
+        "P2": "customfield_10399",
+    }
+
+    @classmethod
+    def _resolve_steps_field(cls, project_key: str, jira_client) -> str:
+        """steps 필드 결정: 알려진 프로젝트는 하드코딩 직반환, 미지 프로젝트만 createmeta 탐지."""
+        if project_key in cls._KNOWN_STEPS_FIELDS:
+            return cls._KNOWN_STEPS_FIELDS[project_key]
+        # 미지 프로젝트: createmeta로 탐지 시도
+        detected = jira_client.detect_steps_field(project_key)
+        return detected or "customfield_10399"
 
     def translate_issue(
         self,
@@ -239,34 +250,28 @@ class JiraTicketTranslator:
         """
         # 1. 티켓 타입 판별 및 설정
         project_key = issue_key.split("-")[0].upper()
-        # summary를 미리 fetch해서 [BS] 태그 기반 glossary 분기에 활용
-        _summary_preview = ""
-        if project_key in ("PUBG", "PM"):
-            try:
-                _preview = self.fetch_issue_fields(issue_key, ["summary"])
-                _summary_preview = (_preview or {}).get("summary", "")
-            except Exception:
-                pass
-        glossary_file, glossary_name = self._determine_glossary(project_key, _summary_preview)
 
-        # Steps 필드 자동 탐지 (createmeta API) → 실패 시 하드코딩 fallback
-        steps_field = self.jira_client.detect_steps_field(project_key)
-        if steps_field is None:
-            steps_field = self._fallback_steps_field(project_key)
-
-        # 용어집 로드 (legacy + structured entry 동시 지원)
-        self.translation_engine.load_glossary(glossary_file, glossary_name)
+        # Steps 필드: 알려진 프로젝트는 하드코딩 직반환, 미지 프로젝트만 createmeta 탐지
+        steps_field = self._resolve_steps_field(project_key, self.jira_client)
 
         if fields_to_translate is None:
             fields_to_translate = ['summary', 'description', steps_field]
 
-        # 2. 이슈 조회
+        # 2. 이슈 조회 (summary 포함해서 단 1회 fetch)
         print(f"📥 Fetching issue {issue_key}...")
-        issue_fields = self.fetch_issue_fields(issue_key, fields_to_translate)
+        fetch_fields = fields_to_translate if "summary" in fields_to_translate else ["summary"] + fields_to_translate
+        issue_fields = self.fetch_issue_fields(issue_key, fetch_fields)
 
         if not issue_fields:
             print(f"⚠️ No fields found for {issue_key}")
             return {"results": {}, "update_payload": {}, "updated": False, "error": "no_fields"}
+
+        # summary로 glossary 결정 (extra API call 없이 이미 fetch한 데이터 재사용)
+        summary_for_routing = issue_fields.get("summary", "")
+        glossary_file, glossary_name = self._determine_glossary(project_key, summary_for_routing)
+
+        # 용어집 로드 (legacy + structured entry 동시 지원)
+        self.translation_engine.load_glossary(glossary_file, glossary_name)
 
         # 3. 각 필드를 단일 배치로 번역 준비
         translation_results: dict[str, dict[str, str]] = {}

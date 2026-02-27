@@ -19,7 +19,8 @@ class TestTicketTypeLogic(unittest.TestCase):
         )
         # Mock external dependencies
         self.translator.jira_client.detect_steps_field = MagicMock(return_value=None)
-        self.translator.fetch_issue_fields = MagicMock(return_value={})
+        # summary 포함 반환: glossary 분기 결정이 fetch 이후로 이동했으므로 필요
+        self.translator.fetch_issue_fields = MagicMock(return_value={"summary": "Test issue"})
         self.translator._call_openai_batch = MagicMock(return_value={})
         self.translator.update_issue_fields = MagicMock()
         self.translator._load_glossary_terms = MagicMock(return_value={"term": "translation"})
