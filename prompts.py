@@ -200,6 +200,9 @@ class PromptBuilder:
             f"Use this {glossary_name_display} glossary for specific terms "
             "(bidirectional mapping):\n"
             + "\n".join(glossary_lines)
+            + "\nNote: Glossary entries may use Title Case or ALL CAPS for identification, "
+            "but apply standard English capitalization rules in your translation. "
+            "Only capitalize terms when they appear as proper nouns, UI labels, or at the start of a sentence."
         )
 
     def build_system_message(

@@ -304,8 +304,8 @@
       },
       {
         "ko": "ARC 디렉터 키",
-        "en": "ARC Dir. Key",
-        "note": "Also: ARC Director's Key"
+        "en": "ARC Director's Key",
+        "note": "Also: ARC Dir. Key"
       },
       {
         "ko": "ARC: PET/CT 키",
@@ -329,13 +329,13 @@
       },
       {
         "ko": "BRED 디렉터 키",
-        "en": "BRED Dir. Key",
-        "note": "Also: BRED Director's Key"
+        "en": "BRED Director's Key",
+        "note": "Also: BRED Dir. Key"
       },
       {
         "ko": "Baekho 근접전 재생",
-        "en": "Melee-Regen-BH",
-        "note": "Also: Baekho Melee-Regen"
+        "en": "Baekho Melee-Regen",
+        "note": "Also: Melee-Regen-BH"
       },
       {
         "ko": "Baekho 속도 재생",
@@ -367,8 +367,8 @@
       },
       {
         "ko": "ComTec 헤드셋",
-        "en": "ComTec H-set",
-        "note": "Also: ComTec Headset"
+        "en": "ComTec Headset",
+        "note": "Also: ComTec H-set"
       },
       {
         "ko": "D-DPM 타입 3",
@@ -376,8 +376,8 @@
       },
       {
         "ko": "DBX-M 6.2x25 구경",
-        "en": "DBX-M 6.2x25 Cal",
-        "note": "Also: DBX-M 6.2x25 Caliber"
+        "en": "DBX-M 6.2x25 Caliber",
+        "note": "Also: DBX-M 6.2x25 Cal"
       },
       {
         "ko": "DBX-M 아음속",
@@ -401,13 +401,13 @@
       },
       {
         "ko": "EMP 교란기",
-        "en": "EMP Jam.",
-        "note": "Also: EMP Jammer"
+        "en": "EMP Jammer",
+        "note": "Also: EMP Jam."
       },
       {
         "ko": "EMP 수류탄",
-        "en": "EMP G",
-        "note": "Also: EMP Grenade"
+        "en": "EMP Grenade",
+        "note": "Also: EMP G"
       },
       {
         "ko": "EMP 수류탄+",
@@ -431,8 +431,8 @@
       },
       {
         "ko": "ESC 프로토콜 업그레이드",
-        "en": "ESC Protocols Upg",
-        "note": "Also: ESC Protocols Upgrade"
+        "en": "ESC Protocols Upgrade",
+        "note": "Also: ESC Protocols Upg"
       },
       {
         "ko": "ESC 프로토콜+ 업그레이드",
@@ -452,8 +452,8 @@
       },
       {
         "ko": "FX2000 피카티니 레일",
-        "en": "FX2000 Pic. Rail",
-        "note": "Also: FX2000 Picatinny Rail"
+        "en": "FX2000 Picatinny Rail",
+        "note": "Also: FX2000 Pic. Rail"
       },
       {
         "ko": "Fast-Tac 셔츠",
@@ -465,18 +465,18 @@
       },
       {
         "ko": "G19 커스텀 방아쇠",
-        "en": "G19 Cust. Trigger",
-        "note": "Also: G19 Custom Trigger"
+        "en": "G19 Custom Trigger",
+        "note": "Also: G19 Cust. Trigger"
       },
       {
         "ko": "G19 커스텀 슬라이드",
-        "en": "G19 Cust. Slide",
-        "note": "Also: G19 Custom Slide"
+        "en": "G19 Custom Slide",
+        "note": "Also: G19 Cust. Slide"
       },
       {
         "ko": "G95 마스크",
-        "en": "G95 Resp.",
-        "note": "Also: G95 Respirator"
+        "en": "G95 Respirator",
+        "note": "Also: G95 Resp."
       },
       {
         "ko": "GGG 결정",
@@ -504,8 +504,8 @@
       },
       {
         "ko": "HALO 티켓",
-        "en": "HALO Ticket",
-        "note": "Also: HALO TICKETS"
+        "en": "HALO TICKETS",
+        "note": "Also: HALO Ticket"
       },
       {
         "ko": "HEL 계획서",
@@ -525,8 +525,8 @@
       },
       {
         "ko": "INFTec 발라클라바",
-        "en": "INTec Balac.",
-        "note": "Also: INTec Balaclava"
+        "en": "INTec Balaclava",
+        "note": "Also: INTec Balac."
       },
       {
         "ko": "IR 센서",
@@ -562,8 +562,8 @@
       },
       {
         "ko": "M24 피카티니 레일",
-        "en": "M24 Pic. Rail",
-        "note": "Also: M24 Picatinny Rail"
+        "en": "M24 Picatinny Rail",
+        "note": "Also: M24 Pic. Rail"
       },
       {
         "ko": "M277-A 6.8 구경",
@@ -583,8 +583,8 @@
       },
       {
         "ko": "M277-A 피카티니 레일",
-        "en": "M277-A Pic. Rail",
-        "note": "Also: M277-A Picatinny Rail"
+        "en": "M277-A Picatinny Rail",
+        "note": "Also: M277-A Pic. Rail"
       },
       {
         "ko": "M433 7.62 구경",
@@ -592,8 +592,8 @@
       },
       {
         "ko": "MICH2000 (업그레이드)",
-        "en": "MICH2000 (Upg)",
-        "note": "Also: MICH2000 (Upgraded)"
+        "en": "MICH2000 (Upgraded)",
+        "note": "Also: MICH2000 (Upg)"
       },
       {
         "ko": "MP5 드럼",
@@ -601,8 +601,8 @@
       },
       {
         "ko": "MP5 피카티니 레일",
-        "en": "MP5 Pic. Rail",
-        "note": "Also: MP5 Picatinny Rail"
+        "en": "MP5 Picatinny Rail",
+        "note": "Also: MP5 Pic. Rail"
       },
       {
         "ko": "MP7A5 슈라우드",
@@ -646,18 +646,18 @@
       },
       {
         "ko": "PSI 디렉터 데이터",
-        "en": "PSI Dir. Data",
-        "note": "Also: PSI Director's Data"
+        "en": "PSI Director's Data",
+        "note": "Also: PSI Dir. Data"
       },
       {
         "ko": "PSI 코어 액세스 키",
-        "en": "PSI Core Key",
-        "note": "Also: PSI Core Access Key"
+        "en": "PSI Core Access Key",
+        "note": "Also: PSI Core Key"
       },
       {
         "ko": "PSI: 신경학 연구실 키",
-        "en": "PSI: Neuro. Key",
-        "note": "Also: PSI: Neurology Key"
+        "en": "PSI: Neurology Key",
+        "note": "Also: PSI: Neuro. Key"
       },
       {
         "ko": "QS7 반자동",
@@ -729,8 +729,8 @@
       },
       {
         "ko": "T-Rex 반응형 방아쇠",
-        "en": "T-Rex Resp. Trigger",
-        "note": "Also: T-Rex Responsive Trigger"
+        "en": "T-Rex Responsive Trigger",
+        "note": "Also: T-Rex Resp. Trigger"
       },
       {
         "ko": "TAC-타일 바닥재",
@@ -738,23 +738,23 @@
       },
       {
         "ko": "V9A1 9x19 구경",
-        "en": "V9A1 9x19 Cal",
-        "note": "Also: V9A1 9x19 Caliber"
+        "en": "V9A1 9x19 Caliber",
+        "note": "Also: V9A1 9x19 Cal"
       },
       {
         "ko": "V9A1 냉각 슬라이드",
-        "en": "V9A1 Deheat.",
-        "note": "Also: V9A1 Deheater Slide"
+        "en": "V9A1 Deheater Slide",
+        "note": "Also: V9A1 Deheat."
       },
       {
         "ko": "V9A1 커스텀 방아쇠",
-        "en": "V9A1 Cust. Trigger",
-        "note": "Also: V9A1 Custom Trigger"
+        "en": "V9A1 Custom Trigger",
+        "note": "Also: V9A1 Cust. Trigger"
       },
       {
         "ko": "V9A1 컨버전 키트",
-        "en": "V9A1 Conv. Kit",
-        "note": "Also: V9A1 Conversion Kit"
+        "en": "V9A1 Conversion Kit",
+        "note": "Also: V9A1 Conv. Kit"
       },
       {
         "ko": "VR 시뮬레이션",
@@ -762,8 +762,8 @@
       },
       {
         "ko": "XCal 지구력 재생",
-        "en": "End.-Regen-XC",
-        "note": "Also: XCal Endurance-Regen"
+        "en": "XCal Endurance-Regen",
+        "note": "Also: End.-Regen-XC"
       },
       {
         "ko": "XP 획득",
@@ -807,13 +807,13 @@
       },
       {
         "ko": "eDNA 보고서",
-        "en": "eDNA Rep.",
-        "note": "Also: eDNA Report"
+        "en": "eDNA Report",
+        "note": "Also: eDNA Rep."
       },
       {
         "ko": "eDNA 샘플",
-        "en": "eDNA Sam.",
-        "note": "Also: eDNA Sample"
+        "en": "eDNA Sample",
+        "note": "Also: eDNA Sam."
       },
       {
         "ko": "eDNA 샘플러",
@@ -821,8 +821,8 @@
       },
       {
         "ko": "eDNA 시퀀서",
-        "en": "eDNA Seq.",
-        "note": "Also: eDNA Sequencer"
+        "en": "eDNA Sequencer",
+        "note": "Also: eDNA Seq."
       },
       {
         "ko": "pH 미터",
@@ -854,8 +854,8 @@
       },
       {
         "ko": "가시 폭발 식물 샘플",
-        "en": "Spiky Puffer Sam.",
-        "note": "Also: Spiky Puffer Sample"
+        "en": "Spiky Puffer Sample",
+        "note": "Also: Spiky Puffer Sam."
       },
       {
         "ko": "가이거 카운터",
@@ -867,8 +867,8 @@
       },
       {
         "ko": "가젯",
-        "en": "Gadget",
-        "note": "Also: Gadgets"
+        "en": "Gadgets",
+        "note": "Also: Gadget"
       },
       {
         "ko": "가족 문제",
@@ -880,8 +880,8 @@
       },
       {
         "ko": "감시 카메라",
-        "en": "Surv. Camera",
-        "note": "Also: Surveillance Camera"
+        "en": "Surveillance Camera",
+        "note": "Also: Surv. Camera"
       },
       {
         "ko": "강철 바닥",
@@ -901,8 +901,8 @@
       },
       {
         "ko": "강화 레진",
-        "en": "Reinf. Resin",
-        "note": "Also: Reinforced Resin"
+        "en": "Reinforced Resin",
+        "note": "Also: Reinf. Resin"
       },
       {
         "ko": "강화 폴리머",
@@ -910,13 +910,13 @@
       },
       {
         "ko": "강화 플라스틱",
-        "en": "Reinf. Plastic",
-        "note": "Also: Reinforced Plastic"
+        "en": "Reinforced Plastic",
+        "note": "Also: Reinf. Plastic"
       },
       {
         "ko": "강화 필라멘트",
-        "en": "Reinf. Filament",
-        "note": "Also: Reinforced Filament, Reinforced Filaments"
+        "en": "Reinforced Filament, Reinforced Filaments",
+        "note": "Also: Reinf. Filament"
       },
       {
         "ko": "개리슨 셔츠",
@@ -940,8 +940,8 @@
       },
       {
         "ko": "개조",
-        "en": "Mod",
-        "note": "Also: Mods, Modify, Modding"
+        "en": "Mods, Modify, Modding",
+        "note": "Also: Mod"
       },
       {
         "ko": "개조하기",
@@ -969,8 +969,8 @@
       },
       {
         "ko": "건설 계획서",
-        "en": "Con. Plans",
-        "note": "Also: Construction Plans"
+        "en": "Construction Plans",
+        "note": "Also: Con. Plans"
       },
       {
         "ko": "건설 메뉴",
@@ -994,8 +994,8 @@
       },
       {
         "ko": "검은색 회로 기판",
-        "en": "Black Circ. Board",
-        "note": "Also: Black Circuit Board"
+        "en": "Black Circuit Board",
+        "note": "Also: Black Circ. Board"
       },
       {
         "ko": "게임 메시지",
@@ -1036,8 +1036,8 @@
       },
       {
         "ko": "경량 프레임 업그레이드",
-        "en": "Light Frame Upg",
-        "note": "Also: Light Frame Upgrade"
+        "en": "Light Frame Upgrade",
+        "note": "Also: Light Frame Upg"
       },
       {
         "ko": "경비원 재킷",
@@ -1089,8 +1089,8 @@
       },
       {
         "ko": "고급 발전기",
-        "en": "Adv. Generator",
-        "note": "Also: Advanced Generator, Advanced Generators"
+        "en": "Advanced Generator, Advanced Generators",
+        "note": "Also: Adv. Generator"
       },
       {
         "ko": "고급 소이수류탄",
@@ -1102,8 +1102,8 @@
       },
       {
         "ko": "고급 수리 키트",
-        "en": "Adv. Rep. Kit",
-        "note": "Also: Advanced Repair Kit"
+        "en": "Advanced Repair Kit",
+        "note": "Also: Adv. Rep. Kit"
       },
       {
         "ko": "고급 암호학",
@@ -1139,8 +1139,8 @@
       },
       {
         "ko": "고스트",
-        "en": "Ghost",
-        "note": "Also: Ghosts"
+        "en": "Ghosts",
+        "note": "Also: Ghost"
       },
       {
         "ko": "고스트 Bangtan TG2",
@@ -1212,13 +1212,13 @@
       },
       {
         "ko": "공업용 회로 기판",
-        "en": "Ind. Circ. Board",
-        "note": "Also: Industrial Circuit Board"
+        "en": "Industrial Circuit Board",
+        "note": "Also: Ind. Circ. Board"
       },
       {
         "ko": "공학 매뉴얼",
-        "en": "Engin. Manual",
-        "note": "Also: Engineering Manual"
+        "en": "Engineering Manual",
+        "note": "Also: Engin. Manual"
       },
       {
         "ko": "과라나",
@@ -1254,8 +1254,8 @@
       },
       {
         "ko": "관측 기록",
-        "en": "Obs. Logs",
-        "note": "Also: Observation Logs"
+        "en": "Observation Logs",
+        "note": "Also: Obs. Logs"
       },
       {
         "ko": "관측소",
@@ -1267,8 +1267,8 @@
       },
       {
         "ko": "교체",
-        "en": "Swap",
-        "note": "Also: Replace"
+        "en": "Replace",
+        "note": "Also: Swap"
       },
       {
         "ko": "교환",
@@ -1276,8 +1276,8 @@
       },
       {
         "ko": "구매",
-        "en": "Buy",
-        "note": "Also: Purchase"
+        "en": "Purchase",
+        "note": "Also: Buy"
       },
       {
         "ko": "구매 항목 없음",
@@ -1301,8 +1301,8 @@
       },
       {
         "ko": "군용 회로 기판",
-        "en": "Mil. Circ. Board",
-        "note": "Also: Military Circuit Board"
+        "en": "Military Circuit Board",
+        "note": "Also: Mil. Circ. Board"
       },
       {
         "ko": "굴",
@@ -1442,8 +1442,8 @@
       },
       {
         "ko": "기록 가져가기",
-        "en": "Take logs",
-        "note": "Also: Take records"
+        "en": "Take records",
+        "note": "Also: Take logs"
       },
       {
         "ko": "기록 다운로드",
@@ -1463,8 +1463,8 @@
       },
       {
         "ko": "기밀 문서",
-        "en": "Confidential Docs",
-        "note": "Also: Confidential Documents"
+        "en": "Confidential Documents",
+        "note": "Also: Confidential Docs"
       },
       {
         "ko": "기밀: 지정 인원 열람 전용",
@@ -1512,8 +1512,8 @@
       },
       {
         "ko": "기지 방문",
-        "en": "VisitBase",
-        "note": "Also: Visit Base"
+        "en": "Visit Base",
+        "note": "Also: VisitBase"
       },
       {
         "ko": "기지 사용자화",
@@ -1529,13 +1529,13 @@
       },
       {
         "ko": "기지로 복귀",
-        "en": "Exit to Base",
-        "note": "Also: Return to Base"
+        "en": "Return to Base",
+        "note": "Also: Exit to Base"
       },
       {
         "ko": "기타",
-        "en": "Misc",
-        "note": "Also: Misc., Miscellaneous"
+        "en": "Misc., Miscellaneous",
+        "note": "Also: Misc"
       },
       {
         "ko": "길게 누르기",
@@ -1631,8 +1631,8 @@
       },
       {
         "ko": "내화제",
-        "en": "Fire-Ret.",
-        "note": "Also: Fire-Retardant"
+        "en": "Fire-Retardant",
+        "note": "Also: Fire-Ret."
       },
       {
         "ko": "냉동고",
@@ -1700,8 +1700,8 @@
       },
       {
         "ko": "능동 위장 (다운그레이드)",
-        "en": "Active Camo (Dwg)",
-        "note": "Also: Active Camouflage (Downgraded)"
+        "en": "Active Camouflage (Downgraded)",
+        "note": "Also: Active Camo (Dwg)"
       },
       {
         "ko": "다다미 바닥",
@@ -1789,8 +1789,8 @@
       },
       {
         "ko": "대형 냉동 보관소",
-        "en": "Large Cryo.",
-        "note": "Also: Large Cryostorage"
+        "en": "Large Cryostorage",
+        "note": "Also: Large Cryo."
       },
       {
         "ko": "대형 상자",
@@ -1814,8 +1814,8 @@
       },
       {
         "ko": "더블 베이스 화약",
-        "en": "DB Gunpowder",
-        "note": "Also: Double-Base Gunpowder"
+        "en": "Double-Base Gunpowder",
+        "note": "Also: DB Gunpowder"
       },
       {
         "ko": "더블 클릭",
@@ -1891,8 +1891,8 @@
       },
       {
         "ko": "도청 기기",
-        "en": "Listen. Device",
-        "note": "Also: Listening Device"
+        "en": "Listening Device",
+        "note": "Also: Listen. Device"
       },
       {
         "ko": "도청 기기 가져가기",
@@ -1904,8 +1904,8 @@
       },
       {
         "ko": "독가스탄",
-        "en": "Toxic G",
-        "note": "Also: Toxic Grenade"
+        "en": "Toxic Grenade",
+        "note": "Also: Toxic G"
       },
       {
         "ko": "독가스탄+",
@@ -1929,8 +1929,8 @@
       },
       {
         "ko": "독성 폭발 식물 샘플",
-        "en": "Toxic Puffer Sam.",
-        "note": "Also: Toxic Puffer Sample"
+        "en": "Toxic Puffer Sample",
+        "note": "Also: Toxic Puffer Sam."
       },
       {
         "ko": "돌격 레일건",
@@ -2066,8 +2066,8 @@
       },
       {
         "ko": "레이드",
-        "en": "Raid",
-        "note": "Also: Raids"
+        "en": "Raids",
+        "note": "Also: Raid"
       },
       {
         "ko": "레이드 결과",
@@ -2151,8 +2151,8 @@
       },
       {
         "ko": "로봇 용접",
-        "en": "Robowelding",
-        "note": "Also: Robotic Welding"
+        "en": "Robotic Welding",
+        "note": "Also: Robowelding"
       },
       {
         "ko": "롱홀 박스",
@@ -2336,8 +2336,8 @@
       },
       {
         "ko": "모두 제거",
-        "en": "Remove all",
-        "note": "Also: Uninstall All"
+        "en": "Uninstall All",
+        "note": "Also: Remove all"
       },
       {
         "ko": "모두 획득",
@@ -2381,8 +2381,8 @@
       },
       {
         "ko": "모션 스캐너",
-        "en": "Motion Scan.",
-        "note": "Also: Motion Scanner"
+        "en": "Motion Scanner",
+        "note": "Also: Motion Scan."
       },
       {
         "ko": "모션 트래커",
@@ -2414,8 +2414,8 @@
       },
       {
         "ko": "무기",
-        "en": "Weapon",
-        "note": "Also: Weapons"
+        "en": "Weapons",
+        "note": "Also: Weapon"
       },
       {
         "ko": "무기 개조",
@@ -2535,8 +2535,8 @@
       },
       {
         "ko": "문착",
-        "en": "Jac",
-        "note": "Also: Jacs"
+        "en": "Jacs",
+        "note": "Also: Jac"
       },
       {
         "ko": "문착 100마리 처치",
@@ -2584,8 +2584,8 @@
       },
       {
         "ko": "물고기 운반가방",
-        "en": "Fish Carrier",
-        "note": "Also: Fish Carriers"
+        "en": "Fish Carriers",
+        "note": "Also: Fish Carrier"
       },
       {
         "ko": "물고기를 이미 회수했습니다",
@@ -2601,8 +2601,8 @@
       },
       {
         "ko": "미끼 수류탄",
-        "en": "Bait G",
-        "note": "Also: Bait Grenade"
+        "en": "Bait Grenade",
+        "note": "Also: Bait G"
       },
       {
         "ko": "미니 트리 조각상",
@@ -2670,13 +2670,13 @@
       },
       {
         "ko": "바이오코팅 (다리)",
-        "en": "Biocoat. (Legs)",
-        "note": "Also: Biocoating (Legs)"
+        "en": "Biocoating (Legs)",
+        "note": "Also: Biocoat. (Legs)"
       },
       {
         "ko": "바이오코팅 (팔)",
-        "en": "Biocoat. (Arms)",
-        "note": "Also: Biocoating (Arms)"
+        "en": "Biocoating (Arms)",
+        "note": "Also: Biocoat. (Arms)"
       },
       {
         "ko": "바이오코팅 I",
@@ -2744,8 +2744,8 @@
       },
       {
         "ko": "받기",
-        "en": "Claim",
-        "note": "Also: Answer"
+        "en": "Answer",
+        "note": "Also: Claim"
       },
       {
         "ko": "받은 초대",
@@ -2761,8 +2761,8 @@
       },
       {
         "ko": "발굴 현장",
-        "en": "Dig Site",
-        "note": "Also: Excavation Site"
+        "en": "Excavation Site",
+        "note": "Also: Dig Site"
       },
       {
         "ko": "발라클라바",
@@ -2806,8 +2806,8 @@
       },
       {
         "ko": "방사영양 샘플",
-        "en": "Rad. Sample",
-        "note": "Also: Radiotrophic Sample, Radiotrophic Samples"
+        "en": "Radiotrophic Sample, Radiotrophic Samples",
+        "note": "Also: Rad. Sample"
       },
       {
         "ko": "방아쇠",
@@ -2815,8 +2815,8 @@
       },
       {
         "ko": "방폭 코팅 (안면 보호구)",
-        "en": "Blast Coat. (FM)",
-        "note": "Also: Blast Coating (Face Mask)"
+        "en": "Blast Coating (Face Mask)",
+        "note": "Also: Blast Coat. (FM)"
       },
       {
         "ko": "배경",
@@ -2828,8 +2828,8 @@
       },
       {
         "ko": "배송 기록",
-        "en": "Ship. Logs",
-        "note": "Also: Shipping Logs"
+        "en": "Shipping Logs",
+        "note": "Also: Ship. Logs"
       },
       {
         "ko": "배송 대기 중",
@@ -2890,8 +2890,8 @@
       },
       {
         "ko": "버그 제어기",
-        "en": "Bug Ctrl.",
-        "note": "Also: Bug Controller"
+        "en": "Bug Controller",
+        "note": "Also: Bug Ctrl."
       },
       {
         "ko": "버그 종양",
@@ -2919,8 +2919,8 @@
       },
       {
         "ko": "벌집",
-        "en": "Beehive",
-        "note": "Also: Honeycomb"
+        "en": "Honeycomb",
+        "note": "Also: Beehive"
       },
       {
         "ko": "벌풀",
@@ -2940,8 +2940,8 @@
       },
       {
         "ko": "벡터 9x19 구경",
-        "en": "Vector 9x19 Cal",
-        "note": "Also: Vector 9x19 Caliber"
+        "en": "Vector 9x19 Caliber",
+        "note": "Also: Vector 9x19 Cal"
       },
       {
         "ko": "벡터 발사 제한기",
@@ -2953,8 +2953,8 @@
       },
       {
         "ko": "벡터 커스텀 방아쇠",
-        "en": "Vector Cust. Trigger",
-        "note": "Also: Vector Custom Trigger"
+        "en": "Vector Custom Trigger",
+        "note": "Also: Vector Cust. Trigger"
       },
       {
         "ko": "벡터 프레임 라이트",
@@ -2982,8 +2982,8 @@
       },
       {
         "ko": "보급 상자",
-        "en": "Supply Box",
-        "note": "Also: Supply Crate"
+        "en": "Supply Crate",
+        "note": "Also: Supply Box"
       },
       {
         "ko": "보급품",
@@ -3003,8 +3003,8 @@
       },
       {
         "ko": "보상",
-        "en": "Reward",
-        "note": "Also: Rewards"
+        "en": "Rewards",
+        "note": "Also: Reward"
       },
       {
         "ko": "보안 VCR",
@@ -3044,8 +3044,8 @@
       },
       {
         "ko": "보조 무기",
-        "en": "Secondary",
-        "note": "Also: Secondary Weapon"
+        "en": "Secondary Weapon",
+        "note": "Also: Secondary"
       },
       {
         "ko": "보조 사격 모드",
@@ -3065,28 +3065,28 @@
       },
       {
         "ko": "복합 플라스틱",
-        "en": "Comp. Plastic",
-        "note": "Also: Composite Plastic"
+        "en": "Composite Plastic",
+        "note": "Also: Comp. Plastic"
       },
       {
         "ko": "복합 필라멘트",
-        "en": "Comp. Filament",
-        "note": "Also: Composite Filament"
+        "en": "Composite Filament",
+        "note": "Also: Comp. Filament"
       },
       {
         "ko": "복호화된 문착 추적기",
-        "en": "Dec. Jac Tracker",
-        "note": "Also: Decrypted Jac Tracker"
+        "en": "Decrypted Jac Tracker",
+        "note": "Also: Dec. Jac Tracker"
       },
       {
         "ko": "복호화된 버그 제어기",
-        "en": "Dec. Bug Ctrl.",
-        "note": "Also: Decrypted Bug Controller"
+        "en": "Decrypted Bug Controller",
+        "note": "Also: Dec. Bug Ctrl."
       },
       {
         "ko": "복호화된 크록 제어기",
-        "en": "Dec. Croc Ctrl.",
-        "note": "Also: Decrypted Croc Controller"
+        "en": "Decrypted Croc Controller",
+        "note": "Also: Dec. Croc Ctrl."
       },
       {
         "ko": "본부",
@@ -3118,8 +3118,8 @@
       },
       {
         "ko": "부착물",
-        "en": "Attachment",
-        "note": "Also: Attachments, Attachments/Mods"
+        "en": "Attachments, Attachments/Mods",
+        "note": "Also: Attachment"
       },
       {
         "ko": "부착물 슬롯",
@@ -3163,8 +3163,8 @@
       },
       {
         "ko": "분해",
-        "en": "Salvage",
-        "note": "Also: Disassemble"
+        "en": "Disassemble",
+        "note": "Also: Salvage"
       },
       {
         "ko": "분해 결과",
@@ -3197,8 +3197,8 @@
       },
       {
         "ko": "브루트",
-        "en": "Brute",
-        "note": "Also: Brutes"
+        "en": "Brutes",
+        "note": "Also: Brute"
       },
       {
         "ko": "브루트 10마리 처치",
@@ -3258,8 +3258,8 @@
       },
       {
         "ko": "비디오 카세트",
-        "en": "Video Cas.",
-        "note": "Also: Video Cassette"
+        "en": "Video Cassette",
+        "note": "Also: Video Cas."
       },
       {
         "ko": "비료",
@@ -3267,8 +3267,8 @@
       },
       {
         "ko": "비밀 문서",
-        "en": "Secret Docs",
-        "note": "Also: Secret Documents"
+        "en": "Secret Documents",
+        "note": "Also: Secret Docs"
       },
       {
         "ko": "비밀 요원",
@@ -3300,8 +3300,8 @@
       },
       {
         "ko": "빈티지 카메라",
-        "en": "Vint. Camera",
-        "note": "Also: Vintage Camera"
+        "en": "Vintage Camera",
+        "note": "Also: Vint. Camera"
       },
       {
         "ko": "빌라",
@@ -3341,8 +3341,8 @@
       },
       {
         "ko": "사가늄-121",
-        "en": "SGN-121",
-        "note": "Also: Saganium-121"
+        "en": "Saganium-121",
+        "note": "Also: SGN-121"
       },
       {
         "ko": "사격 마네킹",
@@ -3354,8 +3354,8 @@
       },
       {
         "ko": "사격 모드 변경",
-        "en": "Change Firemode",
-        "note": "Also: Change Fire Mode"
+        "en": "Change Fire Mode",
+        "note": "Also: Change Firemode"
       },
       {
         "ko": "사격 제어",
@@ -3459,8 +3459,8 @@
       },
       {
         "ko": "산소 공급 필터 (방독면)",
-        "en": "Oxy. Filt. (GM)",
-        "note": "Also: Oxygenating Filter (Gas Mask)"
+        "en": "Oxygenating Filter (Gas Mask)",
+        "note": "Also: Oxy. Filt. (GM)"
       },
       {
         "ko": "삼각대 플러드라이트",
@@ -3480,8 +3480,8 @@
       },
       {
         "ko": "상담 녹음",
-        "en": "Counsel. Rec.",
-        "note": "Also: Counseling Recording"
+        "en": "Counseling Recording",
+        "note": "Also: Counsel. Rec."
       },
       {
         "ko": "상담 녹음 가져가기",
@@ -3541,8 +3541,8 @@
       },
       {
         "ko": "색상",
-        "en": "Colors",
-        "note": "Also: Variant Color"
+        "en": "Variant Color",
+        "note": "Also: Colors"
       },
       {
         "ko": "샘플 가져가기",
@@ -3554,8 +3554,8 @@
       },
       {
         "ko": "샘플 분석",
-        "en": "Analyze sample",
-        "note": "Also: Analyze samples"
+        "en": "Analyze samples",
+        "note": "Also: Analyze sample"
       },
       {
         "ko": "샘플 확인됨",
@@ -3575,8 +3575,8 @@
       },
       {
         "ko": "생물학 연구 파일",
-        "en": "Bio. Res. Files",
-        "note": "Also: Biological Research Files"
+        "en": "Biological Research Files",
+        "note": "Also: Bio. Res. Files"
       },
       {
         "ko": "생존 기간",
@@ -3684,8 +3684,8 @@
       },
       {
         "ko": "설치",
-        "en": "Inst",
-        "note": "Also: Install"
+        "en": "Install",
+        "note": "Also: Inst"
       },
       {
         "ko": "설치 수수료",
@@ -3749,8 +3749,8 @@
       },
       {
         "ko": "소생",
-        "en": "Revive",
-        "note": "Also: Revival"
+        "en": "Revival",
+        "note": "Also: Revive"
       },
       {
         "ko": "소생하는 중",
@@ -3762,8 +3762,8 @@
       },
       {
         "ko": "소이수류탄",
-        "en": "Incend. G",
-        "note": "Also: Incendiary Grenade"
+        "en": "Incendiary Grenade",
+        "note": "Also: Incend. G"
       },
       {
         "ko": "소이수류탄+",
@@ -3803,8 +3803,8 @@
       },
       {
         "ko": "수류탄",
-        "en": "Frag G",
-        "note": "Also: Grenade, Grenades"
+        "en": "Grenade, Grenades",
+        "note": "Also: Frag G"
       },
       {
         "ko": "수류탄 상자",
@@ -3960,8 +3960,8 @@
       },
       {
         "ko": "스텐토르 헤드셋 (업그레이드)",
-        "en": "Stentor H-set (Upg)",
-        "note": "Also: Stentor Headset (Upgraded)"
+        "en": "Stentor Headset (Upgraded)",
+        "note": "Also: Stentor H-set (Upg)"
       },
       {
         "ko": "스토커",
@@ -4069,8 +4069,8 @@
       },
       {
         "ko": "슬레지해머",
-        "en": "Sledgeham.",
-        "note": "Also: Sledgehammer"
+        "en": "Sledgehammer",
+        "note": "Also: Sledgeham."
       },
       {
         "ko": "슬롯",
@@ -4090,13 +4090,13 @@
       },
       {
         "ko": "승객 기록",
-        "en": "Pas. Logs",
-        "note": "Also: Passenger Logs"
+        "en": "Passenger Logs",
+        "note": "Also: Pas. Logs"
       },
       {
         "ko": "시간",
-        "en": "hr",
-        "note": "Also: Time"
+        "en": "Time",
+        "note": "Also: hr"
       },
       {
         "ko": "시간 제한",
@@ -4180,8 +4180,8 @@
       },
       {
         "ko": "시퀀싱 프로토콜",
-        "en": "Seq. Protocols",
-        "note": "Also: Sequencing Protocols"
+        "en": "Sequencing Protocols",
+        "note": "Also: Seq. Protocols"
       },
       {
         "ko": "식물",
@@ -4205,8 +4205,8 @@
       },
       {
         "ko": "식물학",
-        "en": "Botany",
-        "note": "Also: Botanical"
+        "en": "Botanical",
+        "note": "Also: Botany"
       },
       {
         "ko": "식물학 연구 부서",
@@ -4242,13 +4242,13 @@
       },
       {
         "ko": "심박 스캐너",
-        "en": "Heart. Scan.",
-        "note": "Also: Heartbeat Scanner"
+        "en": "Heartbeat Scanner",
+        "note": "Also: Heart. Scan."
       },
       {
         "ko": "심박센서",
-        "en": "Heart. Sensor",
-        "note": "Also: Heartbeat Sensor"
+        "en": "Heartbeat Sensor",
+        "note": "Also: Heart. Sensor"
       },
       {
         "ko": "심장 구조",
@@ -4256,8 +4256,8 @@
       },
       {
         "ko": "싱글 베이스 화약",
-        "en": "SB Gunpowder",
-        "note": "Also: Single-Base Gunpowder"
+        "en": "Single-Base Gunpowder",
+        "note": "Also: SB Gunpowder"
       },
       {
         "ko": "싱글 터레인 패턴",
@@ -4313,8 +4313,8 @@
       },
       {
         "ko": "아이템",
-        "en": "Item",
-        "note": "Also: Item(s)"
+        "en": "Item(s)",
+        "note": "Also: Item"
       },
       {
         "ko": "아이템 구매",
@@ -4446,13 +4446,13 @@
       },
       {
         "ko": "액세서리",
-        "en": "Accessory",
-        "note": "Also: Accessories"
+        "en": "Accessories",
+        "note": "Also: Accessory"
       },
       {
         "ko": "액즙 샘플",
-        "en": "Nectar Sample",
-        "note": "Also: Nectar Samples"
+        "en": "Nectar Samples",
+        "note": "Also: Nectar Sample"
       },
       {
         "ko": "액체 질소",
@@ -4496,13 +4496,13 @@
       },
       {
         "ko": "양자 컴퓨팅",
-        "en": "Quantum Comp.",
-        "note": "Also: Quantum Computing"
+        "en": "Quantum Computing",
+        "note": "Also: Quantum Comp."
       },
       {
         "ko": "양자 프로세서",
-        "en": "Quantum Proc.",
-        "note": "Also: Quantum Processor"
+        "en": "Quantum Processor",
+        "note": "Also: Quantum Proc."
       },
       {
         "ko": "어스톤 천장",
@@ -4530,8 +4530,8 @@
       },
       {
         "ko": "업그레이드 완료",
-        "en": "Upgrade Complete",
-        "note": "Also: Upgrade Completed"
+        "en": "Upgrade Completed",
+        "note": "Also: Upgrade Complete"
       },
       {
         "ko": "업그레이드 필요",
@@ -4627,8 +4627,8 @@
       },
       {
         "ko": "연구 데이터",
-        "en": "Res. Data",
-        "note": "Also: Research Data"
+        "en": "Research Data",
+        "note": "Also: Res. Data"
       },
       {
         "ko": "연구 목록",
@@ -4664,8 +4664,8 @@
       },
       {
         "ko": "연막탄",
-        "en": "Smoke G",
-        "note": "Also: Smoke Grenade"
+        "en": "Smoke Grenade",
+        "note": "Also: Smoke G"
       },
       {
         "ko": "연막탄+",
@@ -4681,8 +4681,8 @@
       },
       {
         "ko": "열 조절",
-        "en": "Thermal Reg.",
-        "note": "Also: Thermal Regulation"
+        "en": "Thermal Regulation",
+        "note": "Also: Thermal Reg."
       },
       {
         "ko": "열기 (더블 클릭)",
@@ -4690,13 +4690,13 @@
       },
       {
         "ko": "열상 위장 (다운그레이드)",
-        "en": "Thermal Camo (Dwg)",
-        "note": "Also: Thermal Camouflage (Downgraded)"
+        "en": "Thermal Camouflage (Downgraded)",
+        "note": "Also: Thermal Camo (Dwg)"
       },
       {
         "ko": "영양 공급",
-        "en": "Nut. Supply",
-        "note": "Also: Nutrient Supply"
+        "en": "Nutrient Supply",
+        "note": "Also: Nut. Supply"
       },
       {
         "ko": "영업 비밀",
@@ -4732,8 +4732,8 @@
       },
       {
         "ko": "오디오 카세트",
-        "en": "Audio Cas.",
-        "note": "Also: Audio Cassette"
+        "en": "Audio Cassette",
+        "note": "Also: Audio Cas."
       },
       {
         "ko": "오른쪽 다리",
@@ -4797,8 +4797,8 @@
       },
       {
         "ko": "온도 제어 텐트",
-        "en": "Clim.-Ctrl Tent",
-        "note": "Also: Climate-Controlled Tent"
+        "en": "Climate-Controlled Tent",
+        "note": "Also: Clim.-Ctrl Tent"
       },
       {
         "ko": "옷장",
@@ -4810,8 +4810,8 @@
       },
       {
         "ko": "옹이 샘플",
-        "en": "Tree Tumor Sam.",
-        "note": "Also: Tree Tumor Sample"
+        "en": "Tree Tumor Sample",
+        "note": "Also: Tree Tumor Sam."
       },
       {
         "ko": "와인",
@@ -4887,8 +4887,8 @@
       },
       {
         "ko": "용량",
-        "en": "Cap",
-        "note": "Also: Capacity"
+        "en": "Capacity",
+        "note": "Also: Cap"
       },
       {
         "ko": "용량 개조",
@@ -4932,8 +4932,8 @@
       },
       {
         "ko": "워든 페이스 실드",
-        "en": "Warden BFS",
-        "note": "Also: Warden Face Shield"
+        "en": "Warden Face Shield",
+        "note": "Also: Warden BFS"
       },
       {
         "ko": "워키토키",
@@ -4953,8 +4953,8 @@
       },
       {
         "ko": "원소 분석기",
-        "en": "Elem. Analyzer",
-        "note": "Also: Elemental Analyzer"
+        "en": "Elemental Analyzer",
+        "note": "Also: Elem. Analyzer"
       },
       {
         "ko": "원심분리기",
@@ -4966,8 +4966,8 @@
       },
       {
         "ko": "웜홀 활성화",
-        "en": "Activate wormhole",
-        "note": "Also: Wormhole Activated"
+        "en": "Wormhole Activated",
+        "note": "Also: Activate wormhole"
       },
       {
         "ko": "웨이트 세트",
@@ -5043,13 +5043,13 @@
       },
       {
         "ko": "유압 브레이커",
-        "en": "Hyd. Breaker",
-        "note": "Also: Hydraulic Breaker"
+        "en": "Hydraulic Breaker",
+        "note": "Also: Hyd. Breaker"
       },
       {
         "ko": "유압 실린더",
-        "en": "Hyd. Cylinder",
-        "note": "Also: Hydraulic Cylinder"
+        "en": "Hydraulic Cylinder",
+        "note": "Also: Hyd. Cylinder"
       },
       {
         "ko": "유전 공학",
@@ -5057,8 +5057,8 @@
       },
       {
         "ko": "유틸리티",
-        "en": "Utility",
-        "note": "Also: Utilities"
+        "en": "Utilities",
+        "note": "Also: Utility"
       },
       {
         "ko": "유틸리티 가이드",
@@ -5130,8 +5130,8 @@
       },
       {
         "ko": "의류 수선대",
-        "en": "Outfitting",
-        "note": "Also: Outfitting Station"
+        "en": "Outfitting Station",
+        "note": "Also: Outfitting"
       },
       {
         "ko": "의상",
@@ -5255,13 +5255,13 @@
       },
       {
         "ko": "인체공학 연구 파일",
-        "en": "Ergo. Res. Files",
-        "note": "Also: Ergonomics Research Files"
+        "en": "Ergonomics Research Files",
+        "note": "Also: Ergo. Res. Files"
       },
       {
         "ko": "일급 비밀 문서",
-        "en": "Top Secret Docs",
-        "note": "Also: Top Secret Documents"
+        "en": "Top Secret Documents",
+        "note": "Also: Top Secret Docs"
       },
       {
         "ko": "일반 기록",
@@ -5325,7 +5325,7 @@
       },
       {
         "ko": "작업대",
-        "en": "WORKBENCH"
+        "en": "Workbench"
       },
       {
         "ko": "작전 기지",
@@ -5365,8 +5365,8 @@
       },
       {
         "ko": "장비",
-        "en": "Gear",
-        "note": "Also: Equip, Equipment"
+        "en": "Equip, Equipment",
+        "note": "Also: Gear"
       },
       {
         "ko": "장비 감사: MP7A5",
@@ -5410,8 +5410,8 @@
       },
       {
         "ko": "장식",
-        "en": "Deco",
-        "note": "Also: Decoration, Decorations"
+        "en": "Decoration, Decorations",
+        "note": "Also: Deco"
       },
       {
         "ko": "장식품",
@@ -5467,8 +5467,8 @@
       },
       {
         "ko": "재생",
-        "en": "Regen",
-        "note": "Also: Press Play, Regeneration"
+        "en": "Press Play, Regeneration",
+        "note": "Also: Regen"
       },
       {
         "ko": "재생 의류 업그레이드",
@@ -5484,7 +5484,7 @@
       },
       {
         "ko": "재장전",
-        "en": "RELOAD"
+        "en": "Reload"
       },
       {
         "ko": "재장전 속도",
@@ -5512,8 +5512,8 @@
       },
       {
         "ko": "재활용 최적화",
-        "en": "Rec. Optim.",
-        "note": "Also: Recycling Optimization"
+        "en": "Recycling Optimization",
+        "note": "Also: Rec. Optim."
       },
       {
         "ko": "잭해머",
@@ -5565,8 +5565,8 @@
       },
       {
         "ko": "적외선 조명기",
-        "en": "IR Illuminator",
-        "note": "Also: Infrared Illuminator"
+        "en": "Infrared Illuminator",
+        "note": "Also: IR Illuminator"
       },
       {
         "ko": "적재 용량 I",
@@ -5582,8 +5582,8 @@
       },
       {
         "ko": "적재량 업그레이드",
-        "en": "Storage Cap Upg",
-        "note": "Also: Storage Capacity Upgrade"
+        "en": "Storage Capacity Upgrade",
+        "note": "Also: Storage Cap Upg"
       },
       {
         "ko": "적재량+ 업그레이드",
@@ -5595,7 +5595,7 @@
       },
       {
         "ko": "전달",
-        "en": "DELIVER"
+        "en": "Deliver"
       },
       {
         "ko": "전력 시스템 개선",
@@ -5611,8 +5611,8 @@
       },
       {
         "ko": "전문가용 수리 키트",
-        "en": "Exp. Rep. Kit",
-        "note": "Also: Expert Repair Kit"
+        "en": "Expert Repair Kit",
+        "note": "Also: Exp. Rep. Kit"
       },
       {
         "ko": "전술",
@@ -5624,8 +5624,8 @@
       },
       {
         "ko": "전술 발라클라바",
-        "en": "Tac. Balac.",
-        "note": "Also: Tactical Balaclava"
+        "en": "Tactical Balaclava",
+        "note": "Also: Tac. Balac."
       },
       {
         "ko": "전술 장치",
@@ -5649,8 +5649,8 @@
       },
       {
         "ko": "전투",
-        "en": "Combat",
-        "note": "Also: FROM COMBAT"
+        "en": "FROM COMBAT",
+        "note": "Also: Combat"
       },
       {
         "ko": "전투 기록",
@@ -5694,13 +5694,13 @@
       },
       {
         "ko": "정밀 저울",
-        "en": "Prec. Scale",
-        "note": "Also: Precision Scale"
+        "en": "Precision Scale",
+        "note": "Also: Prec. Scale"
       },
       {
         "ko": "정밀 합성",
-        "en": "Prec. Synthesis",
-        "note": "Also: Precision Synthesis"
+        "en": "Precision Synthesis",
+        "note": "Also: Prec. Synthesis"
       },
       {
         "ko": "정보",
@@ -5724,7 +5724,7 @@
       },
       {
         "ko": "제어",
-        "en": "CONTROL"
+        "en": "Control"
       },
       {
         "ko": "제어 콘솔",
@@ -5804,8 +5804,8 @@
       },
       {
         "ko": "주 무기",
-        "en": "Primary",
-        "note": "Also: Primary Weapon"
+        "en": "Primary Weapon",
+        "note": "Also: Primary"
       },
       {
         "ko": "주머니+ (프로텍터 몸통 보호구)",
@@ -5897,8 +5897,8 @@
       },
       {
         "ko": "지혈 슈라우드",
-        "en": "Hemo. Shroud",
-        "note": "Also: Hemostatic Shroud"
+        "en": "Hemostatic Shroud",
+        "note": "Also: Hemo. Shroud"
       },
       {
         "ko": "직원 파일",
@@ -6042,8 +6042,8 @@
       },
       {
         "ko": "촉매 공급",
-        "en": "Cat. Supply",
-        "note": "Also: Catalyst Supply"
+        "en": "Catalyst Supply",
+        "note": "Also: Cat. Supply"
       },
       {
         "ko": "촉수",
@@ -6059,8 +6059,8 @@
       },
       {
         "ko": "최대 비행고도 업그레이드",
-        "en": "Service Ceiling Upg",
-        "note": "Also: Service Ceiling Upgrade"
+        "en": "Service Ceiling Upgrade",
+        "note": "Also: Service Ceiling Upg"
       },
       {
         "ko": "최대 비행고도+ 업그레이드",
@@ -6184,8 +6184,8 @@
       },
       {
         "ko": "침낭",
-        "en": "Sleep. Bag",
-        "note": "Also: Sleeping Bag"
+        "en": "Sleeping Bag",
+        "note": "Also: Sleep. Bag"
       },
       {
         "ko": "침입",
@@ -6221,8 +6221,8 @@
       },
       {
         "ko": "캣",
-        "en": "Cat",
-        "note": "Also: Cats"
+        "en": "Cats",
+        "note": "Also: Cat"
       },
       {
         "ko": "캣 150마리 처치",
@@ -6271,8 +6271,8 @@
       },
       {
         "ko": "캣 태그",
-        "en": "Cat Tag",
-        "note": "Also: Cat Tags"
+        "en": "Cat Tags",
+        "note": "Also: Cat Tag"
       },
       {
         "ko": "캣 트로피",
@@ -6292,8 +6292,8 @@
       },
       {
         "ko": "커널 케어 기록",
-        "en": "Kernel Care Rec.",
-        "note": "Also: Kernel Care Records"
+        "en": "Kernel Care Records",
+        "note": "Also: Kernel Care Rec."
       },
       {
         "ko": "커스텀 재장전",
@@ -6313,8 +6313,8 @@
       },
       {
         "ko": "컨트롤",
-        "en": "Control",
-        "note": "Also: Controls"
+        "en": "Controls",
+        "note": "Also: Control"
       },
       {
         "ko": "컴팩트 2",
@@ -6322,8 +6322,8 @@
       },
       {
         "ko": "컴팩트 2 덕빌",
-        "en": "Compact 2 Duck.",
-        "note": "Also: Compact 2 Duckbill"
+        "en": "Compact 2 Duckbill",
+        "note": "Also: Compact 2 Duck."
       },
       {
         "ko": "컴팩트 2 드럼",
@@ -6439,8 +6439,8 @@
       },
       {
         "ko": "콜리플라워 씨앗",
-        "en": "Colifl. Seeds",
-        "note": "Also: Coliflower Seeds"
+        "en": "Coliflower Seeds",
+        "note": "Also: Colifl. Seeds"
       },
       {
         "ko": "쿠리어 백",
@@ -6472,8 +6472,8 @@
       },
       {
         "ko": "크록",
-        "en": "Croc",
-        "note": "Also: Crocs"
+        "en": "Crocs",
+        "note": "Also: Croc"
       },
       {
         "ko": "크록 150마리 처치",
@@ -6501,8 +6501,8 @@
       },
       {
         "ko": "크록 비늘",
-        "en": "Croc Scale",
-        "note": "Also: Croc Armor Scale"
+        "en": "Croc Armor Scale",
+        "note": "Also: Croc Scale"
       },
       {
         "ko": "크록 심장",
@@ -6510,8 +6510,8 @@
       },
       {
         "ko": "크록 제어기",
-        "en": "Croc Ctrl.",
-        "note": "Also: Croc Controller"
+        "en": "Croc Controller",
+        "note": "Also: Croc Ctrl."
       },
       {
         "ko": "크록 종양",
@@ -6543,8 +6543,8 @@
       },
       {
         "ko": "크립토프로세서",
-        "en": "Cryptoproc.",
-        "note": "Also: Cryptoprocessor"
+        "en": "Cryptoprocessor",
+        "note": "Also: Cryptoproc."
       },
       {
         "ko": "클래스 링",
@@ -6612,12 +6612,12 @@
       },
       {
         "ko": "킬",
-        "en": "KILLS"
+        "en": "Kills"
       },
       {
         "ko": "타리온",
-        "en": "TRYN",
-        "note": "Also: Taryon"
+        "en": "Taryon",
+        "note": "Also: TRYN"
       },
       {
         "ko": "타이거 스트라이프",
@@ -6637,8 +6637,8 @@
       },
       {
         "ko": "탄도학 연구 파일",
-        "en": "Bal. Res. Files",
-        "note": "Also: Ballistics Research Files"
+        "en": "Ballistics Research Files",
+        "note": "Also: Bal. Res. Files"
       },
       {
         "ko": "탄환 수",
@@ -6810,8 +6810,8 @@
       },
       {
         "ko": "파동 수류탄",
-        "en": "Wave G",
-        "note": "Also: Wave Grenade"
+        "en": "Wave Grenade",
+        "note": "Also: Wave G"
       },
       {
         "ko": "파쇄기",
@@ -6819,8 +6819,8 @@
       },
       {
         "ko": "파쇄된 문서",
-        "en": "Shred. Docs",
-        "note": "Also: Shredded Documents"
+        "en": "Shredded Documents",
+        "note": "Also: Shred. Docs"
       },
       {
         "ko": "파쇄된 문서 가져가기",
@@ -6832,8 +6832,8 @@
       },
       {
         "ko": "파쇄탄",
-        "en": "RIP",
-        "note": "Also: Radically Invasive Projectiles"
+        "en": "Radically Invasive Projectiles",
+        "note": "Also: RIP"
       },
       {
         "ko": "파이브 세븐 RD1",
@@ -6905,13 +6905,13 @@
       },
       {
         "ko": "페로몬 분비선",
-        "en": "Phero. Gland",
-        "note": "Also: Pheromone Gland"
+        "en": "Pheromone Gland",
+        "note": "Also: Phero. Gland"
       },
       {
         "ko": "페로몬 샘플",
-        "en": "Phero. Sample",
-        "note": "Also: Pheromone Sample"
+        "en": "Pheromone Sample",
+        "note": "Also: Phero. Sample"
       },
       {
         "ko": "페이퍼 랜턴",
@@ -6979,18 +6979,18 @@
       },
       {
         "ko": "프로젝터 슬라이드",
-        "en": "Proj. Slides",
-        "note": "Also: Projector Slides"
+        "en": "Projector Slides",
+        "note": "Also: Proj. Slides"
       },
       {
         "ko": "프로젝트 네버랜드 데이터: 신경학",
-        "en": "Neverland: Neuro.",
-        "note": "Also: Project Neverland Data: Neurology"
+        "en": "Project Neverland Data: Neurology",
+        "note": "Also: Neverland: Neuro."
       },
       {
         "ko": "프로젝트 네버랜드 데이터: 임상 화학",
-        "en": "Neverland: Chem.",
-        "note": "Also: Project Neverland Data: Clinical Chemistry"
+        "en": "Project Neverland Data: Clinical Chemistry",
+        "note": "Also: Neverland: Chem."
       },
       {
         "ko": "프로젝트 브림스톤",
@@ -7022,8 +7022,8 @@
       },
       {
         "ko": "프로텍터 몸통 보호구",
-        "en": "Protector BA",
-        "note": "Also: Protector Body Armor"
+        "en": "Protector Body Armor",
+        "note": "Also: Protector BA"
       },
       {
         "ko": "프로토콜 개선",
@@ -7035,13 +7035,13 @@
       },
       {
         "ko": "프로토타입 바이오코팅 (다리)",
-        "en": "Exp. Biocoat. (Legs)",
-        "note": "Also: Experimental Biocoating (Legs)"
+        "en": "Experimental Biocoating (Legs)",
+        "note": "Also: Exp. Biocoat. (Legs)"
       },
       {
         "ko": "프로토타입 바이오코팅 (팔)",
-        "en": "Exp. Biocoat. (Arms)",
-        "note": "Also: Experimental Biocoating (Arms)"
+        "en": "Experimental Biocoating (Arms)",
+        "note": "Also: Exp. Biocoat. (Arms)"
       },
       {
         "ko": "프로토타입 바이오코팅+ (다리)",
@@ -7105,8 +7105,8 @@
       },
       {
         "ko": "플라즈마 생성기",
-        "en": "Plasma Gen.",
-        "note": "Also: Plasma Generator"
+        "en": "Plasma Generator",
+        "note": "Also: Plasma Gen."
       },
       {
         "ko": "플라즈마 커터",
@@ -7142,8 +7142,8 @@
       },
       {
         "ko": "플레이어",
-        "en": "Player",
-        "note": "Also: Players"
+        "en": "Players",
+        "note": "Also: Player"
       },
       {
         "ko": "플레이어 1",
@@ -7207,8 +7207,8 @@
       },
       {
         "ko": "필요 아이템",
-        "en": "Req. item",
-        "note": "Also: Required Items"
+        "en": "Required Items",
+        "note": "Also: Req. item"
       },
       {
         "ko": "필요 조건",
@@ -7364,8 +7364,8 @@
       },
       {
         "ko": "헬스 벨 액즙",
-        "en": "Hell's Nectar",
-        "note": "Also: Hell's Bells' Nectar"
+        "en": "Hell's Bells' Nectar",
+        "note": "Also: Hell's Nectar"
       },
       {
         "ko": "헬퍼 건너뛰기",
@@ -7425,13 +7425,13 @@
       },
       {
         "ko": "화석화 기계",
-        "en": "Fossil. Proc.",
-        "note": "Also: Fossilized Processor"
+        "en": "Fossilized Processor",
+        "note": "Also: Fossil. Proc."
       },
       {
         "ko": "화염방사기 센트리",
-        "en": "Flame. Sentry",
-        "note": "Also: Flamethrower Sentry"
+        "en": "Flamethrower Sentry",
+        "note": "Also: Flame. Sentry"
       },
       {
         "ko": "화이트보드",
@@ -7443,13 +7443,13 @@
       },
       {
         "ko": "화학 보고서",
-        "en": "Chem. Rep.",
-        "note": "Also: Chemical Report"
+        "en": "Chemical Report",
+        "note": "Also: Chem. Rep."
       },
       {
         "ko": "화학 연구 파일",
-        "en": "Chem. Res. Files",
-        "note": "Also: Chemical Research Files"
+        "en": "Chemical Research Files",
+        "note": "Also: Chem. Res. Files"
       },
       {
         "ko": "화학 용기",
@@ -7461,8 +7461,8 @@
       },
       {
         "ko": "화학품 샘플",
-        "en": "Chem. Sample",
-        "note": "Also: Chemical Sample"
+        "en": "Chemical Sample",
+        "note": "Also: Chem. Sample"
       },
       {
         "ko": "확보됨",
@@ -7548,8 +7548,8 @@
     "Armor/Equipment": [
       {
         "ko": "ATAM 배낭",
-        "en": "ATAM Pack",
-        "note": "Also: ATAM Backpack"
+        "en": "ATAM Backpack",
+        "note": "Also: ATAM Pack"
       },
       {
         "ko": "ATAM 배낭 스킨 Comp2",
@@ -7569,8 +7569,8 @@
       },
       {
         "ko": "BLG 다리 보호대 (업그레이드)",
-        "en": "BLG Leg Pads (Upg)",
-        "note": "Also: BLG Leg Pads (Upgraded)"
+        "en": "BLG Leg Pads (Upgraded)",
+        "note": "Also: BLG Leg Pads (Upg)"
       },
       {
         "ko": "BLG 다리 보호대 스킨 일반",
@@ -7610,8 +7610,8 @@
       },
       {
         "ko": "DM가드 팔 보호대 (업그레이드)",
-        "en": "DMG Arm Pads (Upg)",
-        "note": "Also: DMGuard Arm Pads (Upgraded)"
+        "en": "DMGuard Arm Pads (Upgraded)",
+        "note": "Also: DMG Arm Pads (Upg)"
       },
       {
         "ko": "DM가드 팔 보호대 스킨 일반",
@@ -7619,8 +7619,8 @@
       },
       {
         "ko": "DM가드-XC 팔 보호대",
-        "en": "DMG-XC Arm Pads",
-        "note": "Also: DMGuard-XC Arm Pads"
+        "en": "DMGuard-XC Arm Pads",
+        "note": "Also: DMG-XC Arm Pads"
       },
       {
         "ko": "DM가드-XC 팔 보호대 스킨 일반",
@@ -7648,8 +7648,8 @@
       },
       {
         "ko": "FX2000 칙 패드",
-        "en": "FX2000 Ch. Pad",
-        "note": "Also: FX2000 Cheek Pad"
+        "en": "FX2000 Cheek Pad",
+        "note": "Also: FX2000 Ch. Pad"
       },
       {
         "ko": "LGTec 조끼",
@@ -7669,8 +7669,8 @@
       },
       {
         "ko": "M24 칙 패드",
-        "en": "M24 Ch. Pad",
-        "note": "Also: M24 Cheek Pad"
+        "en": "M24 Cheek Pad",
+        "note": "Also: M24 Ch. Pad"
       },
       {
         "ko": "MASS 팔 보호대",
@@ -7678,8 +7678,8 @@
       },
       {
         "ko": "MASS 팔 보호대 (업그레이드)",
-        "en": "MASS Arm Pads (Upg)",
-        "note": "Also: MASS Arm Pads (Upgraded)"
+        "en": "MASS Arm Pads (Upgraded)",
+        "note": "Also: MASS Arm Pads (Upg)"
       },
       {
         "ko": "MASS 팔 보호대 스킨 일반",
@@ -7767,8 +7767,8 @@
       },
       {
         "ko": "SLR 칙 패드",
-        "en": "SLR Ch. Pad",
-        "note": "Also: SLR Cheek Pad"
+        "en": "SLR Cheek Pad",
+        "note": "Also: SLR Ch. Pad"
       },
       {
         "ko": "SS2.0 조끼",
@@ -7840,8 +7840,8 @@
       },
       {
         "ko": "거너 배낭",
-        "en": "Gunner Pack",
-        "note": "Also: Gunner Backpack"
+        "en": "Gunner Backpack",
+        "note": "Also: Gunner Pack"
       },
       {
         "ko": "거너 배낭 스킨 Comp2",
@@ -7929,8 +7929,8 @@
       },
       {
         "ko": "고스트 LGTec 조끼",
-        "en": "LGTec Vest (G)",
-        "note": "Also: Ghost LGTec Vest"
+        "en": "Ghost LGTec Vest",
+        "note": "Also: LGTec Vest (G)"
       },
       {
         "ko": "고스트 LGTec 조끼 스킨 일반",
@@ -7946,8 +7946,8 @@
       },
       {
         "ko": "고스트 스켈레톤 조끼",
-        "en": "Skel. Vest (G)",
-        "note": "Also: Ghost Skeleton Vest"
+        "en": "Ghost Skeleton Vest",
+        "note": "Also: Skel. Vest (G)"
       },
       {
         "ko": "고스트 스켈레톤 조끼 스킨 일반",
@@ -8031,23 +8031,23 @@
       },
       {
         "ko": "근접전 패드 (다리)",
-        "en": "Melee Pad. (Legs)",
-        "note": "Also: Melee Padding (Legs)"
+        "en": "Melee Padding (Legs)",
+        "note": "Also: Melee Pad. (Legs)"
       },
       {
         "ko": "근접전 패드 (조끼)",
-        "en": "Melee Pad. (Vest)",
-        "note": "Also: Melee Padding (Vest)"
+        "en": "Melee Padding (Vest)",
+        "note": "Also: Melee Pad. (Vest)"
       },
       {
         "ko": "근접전 패드 (팔)",
-        "en": "Melee Pad. (Arms)",
-        "note": "Also: Melee Padding (Arms)"
+        "en": "Melee Padding (Arms)",
+        "note": "Also: Melee Pad. (Arms)"
       },
       {
         "ko": "근접전 패드 (헬멧)",
-        "en": "Melee Pad. (Helmet)",
-        "note": "Also: Melee Padding (Helmet)"
+        "en": "Melee Padding (Helmet)",
+        "note": "Also: Melee Pad. (Helmet)"
       },
       {
         "ko": "근접전 패드+ (다리)",
@@ -8083,23 +8083,23 @@
       },
       {
         "ko": "내구성 패드 (다리)",
-        "en": "Durapad. (Legs)",
-        "note": "Also: Durable Padding (Legs)"
+        "en": "Durable Padding (Legs)",
+        "note": "Also: Durapad. (Legs)"
       },
       {
         "ko": "내구성 패드 (조끼)",
-        "en": "Durapad. (Vest)",
-        "note": "Also: Durable Padding (Vest)"
+        "en": "Durable Padding (Vest)",
+        "note": "Also: Durapad. (Vest)"
       },
       {
         "ko": "내구성 패드 (팔)",
-        "en": "Durapad. (Arms)",
-        "note": "Also: Durable Padding (Arms)"
+        "en": "Durable Padding (Arms)",
+        "note": "Also: Durapad. (Arms)"
       },
       {
         "ko": "내구성 패드 (헬멧)",
-        "en": "Durapad. (Helmet)",
-        "note": "Also: Durable Padding (Helmet)"
+        "en": "Durable Padding (Helmet)",
+        "note": "Also: Durapad. (Helmet)"
       },
       {
         "ko": "내구성 패드+ (다리)",
@@ -8135,8 +8135,8 @@
       },
       {
         "ko": "다리 보호대",
-        "en": "Leg Armor",
-        "note": "Also: Leg Protect."
+        "en": "Leg Protect.",
+        "note": "Also: Leg Armor"
       },
       {
         "ko": "다리 보호대 기동성 디버프",
@@ -8168,8 +8168,8 @@
       },
       {
         "ko": "레인저 배낭",
-        "en": "Ranger Pack",
-        "note": "Also: Ranger Backpack"
+        "en": "Ranger Backpack",
+        "note": "Also: Ranger Pack"
       },
       {
         "ko": "레인저 배낭 스킨 Comp2",
@@ -8181,8 +8181,8 @@
       },
       {
         "ko": "로버 배낭",
-        "en": "Rover Pack",
-        "note": "Also: Rover Backpack"
+        "en": "Rover Backpack",
+        "note": "Also: Rover Pack"
       },
       {
         "ko": "로버 배낭 스킨 Comp2",
@@ -8202,8 +8202,8 @@
       },
       {
         "ko": "메사 배낭",
-        "en": "Mesa Pack",
-        "note": "Also: Mesa Backpack"
+        "en": "Mesa Backpack",
+        "note": "Also: Mesa Pack"
       },
       {
         "ko": "메사 배낭 스킨 Comp2",
@@ -8239,13 +8239,13 @@
       },
       {
         "ko": "바이오코팅 (조끼)",
-        "en": "Biocoat. (Vest)",
-        "note": "Also: Biocoating (Vest)"
+        "en": "Biocoating (Vest)",
+        "note": "Also: Biocoat. (Vest)"
       },
       {
         "ko": "바이오코팅 (헬멧)",
-        "en": "Biocoat. (Helmet)",
-        "note": "Also: Biocoating (Helmet)"
+        "en": "Biocoating (Helmet)",
+        "note": "Also: Biocoat. (Helmet)"
       },
       {
         "ko": "바이오코팅+ (조끼)",
@@ -8301,13 +8301,13 @@
       },
       {
         "ko": "방탄 바이저",
-        "en": "Bal. Visor",
-        "note": "Also: Ballistic Visor"
+        "en": "Ballistic Visor",
+        "note": "Also: Bal. Visor"
       },
       {
         "ko": "방탄 바이저 (업그레이드)",
-        "en": "Bal. Visor (Upg)",
-        "note": "Also: Ballistic Visor (Upgraded)"
+        "en": "Ballistic Visor (Upgraded)",
+        "note": "Also: Bal. Visor (Upg)"
       },
       {
         "ko": "방탄 보호 영역, 현재/최대",
@@ -8315,8 +8315,8 @@
       },
       {
         "ko": "방탄 유리 (방독면)",
-        "en": "Bal. Glass (GM)",
-        "note": "Also: Ballistic Glass (Gas Mask)"
+        "en": "Ballistic Glass (Gas Mask)",
+        "note": "Also: Bal. Glass (GM)"
       },
       {
         "ko": "방탄 의류 업그레이드",
@@ -8324,28 +8324,28 @@
       },
       {
         "ko": "방탄 직물",
-        "en": "Bal. Fabric",
-        "note": "Also: Ballistic Fabric"
+        "en": "Ballistic Fabric",
+        "note": "Also: Bal. Fabric"
       },
       {
         "ko": "방탄 패드 (다리)",
-        "en": "Bal. Pad. (Legs)",
-        "note": "Also: Ballistic Padding (Legs)"
+        "en": "Ballistic Padding (Legs)",
+        "note": "Also: Bal. Pad. (Legs)"
       },
       {
         "ko": "방탄 패드 (조끼)",
-        "en": "Bal. Pad. (Vest)",
-        "note": "Also: Ballistic Padding (Vest)"
+        "en": "Ballistic Padding (Vest)",
+        "note": "Also: Bal. Pad. (Vest)"
       },
       {
         "ko": "방탄 패드 (팔)",
-        "en": "Bal. Pad. (Arms)",
-        "note": "Also: Ballistic Padding (Arms)"
+        "en": "Ballistic Padding (Arms)",
+        "note": "Also: Bal. Pad. (Arms)"
       },
       {
         "ko": "방탄 패드 (헬멧)",
-        "en": "Bal. Pad. (Helmet)",
-        "note": "Also: Ballistic Padding (Helmet)"
+        "en": "Ballistic Padding (Helmet)",
+        "note": "Also: Bal. Pad. (Helmet)"
       },
       {
         "ko": "방탄 패드 I",
@@ -8389,8 +8389,8 @@
       },
       {
         "ko": "방탄 플레이트 (안면 보호구)",
-        "en": "Bal. Plat. (FM)",
-        "note": "Also: Ballistic Plating (Face Mask)"
+        "en": "Ballistic Plating (Face Mask)",
+        "note": "Also: Bal. Plat. (FM)"
       },
       {
         "ko": "방탄 플레이트+ (안면 보호구)",
@@ -8438,8 +8438,8 @@
       },
       {
         "ko": "뱅가드 다리 보호대",
-        "en": "Vang. Leg Pads",
-        "note": "Also: Vanguard Leg Pads"
+        "en": "Vanguard Leg Pads",
+        "note": "Also: Vang. Leg Pads"
       },
       {
         "ko": "뱅가드 다리 보호대 스킨 Comp3",
@@ -8467,8 +8467,8 @@
       },
       {
         "ko": "뱅가드 팔 보호대",
-        "en": "Vang. Arm Pads",
-        "note": "Also: Vanguard Arm Pads"
+        "en": "Vanguard Arm Pads",
+        "note": "Also: Vang. Arm Pads"
       },
       {
         "ko": "뱅가드 팔 보호대 스킨 Comp3",
@@ -8480,8 +8480,8 @@
       },
       {
         "ko": "뱅가드 헬멧",
-        "en": "Vang. Helmet",
-        "note": "Also: Vanguard Helmet"
+        "en": "Vanguard Helmet",
+        "note": "Also: Vang. Helmet"
       },
       {
         "ko": "뱅가드 헬멧 스킨 Comp2",
@@ -8497,8 +8497,8 @@
       },
       {
         "ko": "버그 껍데기",
-        "en": "Bug Plate",
-        "note": "Also: Bug Armor Plate"
+        "en": "Bug Armor Plate",
+        "note": "Also: Bug Plate"
       },
       {
         "ko": "벨벳 수확",
@@ -8530,8 +8530,8 @@
       },
       {
         "ko": "스켈레톤 조끼 (업그레이드)",
-        "en": "Skel. Vest (Upg)",
-        "note": "Also: Skeleton Vest (Upgraded)"
+        "en": "Skeleton Vest (Upgraded)",
+        "note": "Also: Skel. Vest (Upg)"
       },
       {
         "ko": "스켈레톤 조끼 스킨 일반",
@@ -8547,8 +8547,8 @@
       },
       {
         "ko": "스트라이커 헬멧 (업그레이드)",
-        "en": "Stryker Helmet (Upg)",
-        "note": "Also: Stryker Helmet (Upgraded)"
+        "en": "Stryker Helmet (Upgraded)",
+        "note": "Also: Stryker Helmet (Upg)"
       },
       {
         "ko": "스트라이커 헬멧 스킨 일반",
@@ -8560,13 +8560,13 @@
       },
       {
         "ko": "신겐2 다리 보호대",
-        "en": "SG2 Leg Pads",
-        "note": "Also: ShinGen2 Leg Pads"
+        "en": "ShinGen2 Leg Pads",
+        "note": "Also: SG2 Leg Pads"
       },
       {
         "ko": "신겐2 다리 보호대 (업그레이드)",
-        "en": "SG2 Leg Pads (Upg)",
-        "note": "Also: ShinGen2 Leg Pads (Upgraded)"
+        "en": "ShinGen2 Leg Pads (Upgraded)",
+        "note": "Also: SG2 Leg Pads (Upg)"
       },
       {
         "ko": "신겐2 다리 보호대 스킨 일반",
@@ -8574,8 +8574,8 @@
       },
       {
         "ko": "신겐2-BH 다리 보호대",
-        "en": "SG2-BH Leg Pads",
-        "note": "Also: ShinGen2-BH Leg Pads"
+        "en": "ShinGen2-BH Leg Pads",
+        "note": "Also: SG2-BH Leg Pads"
       },
       {
         "ko": "신겐2-BH 다리 보호대 스킨 일반",
@@ -8587,8 +8587,8 @@
       },
       {
         "ko": "아웃라이더 배낭",
-        "en": "Outrider Pack",
-        "note": "Also: Outrider Backpack"
+        "en": "Outrider Backpack",
+        "note": "Also: Outrider Pack"
       },
       {
         "ko": "아웃라이더 배낭 스킨 일반",
@@ -8600,8 +8600,8 @@
       },
       {
         "ko": "어썰트 배낭",
-        "en": "Assault Pack",
-        "note": "Also: Assault Backpack"
+        "en": "Assault Backpack",
+        "note": "Also: Assault Pack"
       },
       {
         "ko": "어썰트 배낭 스킨 Comp2",
@@ -8669,8 +8669,8 @@
       },
       {
         "ko": "익스페디션 배낭",
-        "en": "Exped. Pack",
-        "note": "Also: Expedition Backpack"
+        "en": "Expedition Backpack",
+        "note": "Also: Exped. Pack"
       },
       {
         "ko": "익스페디션 배낭 스킨 Comp2",
@@ -8838,23 +8838,23 @@
       },
       {
         "ko": "제작 근접전 패드 (다리)",
-        "en": "Craft. Melee Pad. (Legs)",
-        "note": "Also: Crafted Melee Padding (Legs)"
+        "en": "Crafted Melee Padding (Legs)",
+        "note": "Also: Craft. Melee Pad. (Legs)"
       },
       {
         "ko": "제작 근접전 패드 (조끼)",
-        "en": "Craft. Melee Pad. (Vest)",
-        "note": "Also: Crafted Melee Padding (Vest)"
+        "en": "Crafted Melee Padding (Vest)",
+        "note": "Also: Craft. Melee Pad. (Vest)"
       },
       {
         "ko": "제작 근접전 패드 (팔)",
-        "en": "Craft. Melee Pad. (Arms)",
-        "note": "Also: Crafted Melee Padding (Arms)"
+        "en": "Crafted Melee Padding (Arms)",
+        "note": "Also: Craft. Melee Pad. (Arms)"
       },
       {
         "ko": "제작 근접전 패드 (헬멧)",
-        "en": "Craft. Melee Pad. (Helmet)",
-        "note": "Also: Crafted Melee Padding (Helmet)"
+        "en": "Crafted Melee Padding (Helmet)",
+        "note": "Also: Craft. Melee Pad. (Helmet)"
       },
       {
         "ko": "제작 근접전 패드+ (다리)",
@@ -8890,23 +8890,23 @@
       },
       {
         "ko": "제작 내구성 패드 (다리)",
-        "en": "Craft. Durapad. (Legs)",
-        "note": "Also: Crafted Durable Padding (Legs)"
+        "en": "Crafted Durable Padding (Legs)",
+        "note": "Also: Craft. Durapad. (Legs)"
       },
       {
         "ko": "제작 내구성 패드 (조끼)",
-        "en": "Craft. Durapad. (Vest)",
-        "note": "Also: Crafted Durable Padding (Vest)"
+        "en": "Crafted Durable Padding (Vest)",
+        "note": "Also: Craft. Durapad. (Vest)"
       },
       {
         "ko": "제작 내구성 패드 (팔)",
-        "en": "Craft. Durapad. (Arms)",
-        "note": "Also: Crafted Durable Padding (Arms)"
+        "en": "Crafted Durable Padding (Arms)",
+        "note": "Also: Craft. Durapad. (Arms)"
       },
       {
         "ko": "제작 내구성 패드 (헬멧)",
-        "en": "Craft. Durapad. (Helmet)",
-        "note": "Also: Crafted Durable Padding (Helmet)"
+        "en": "Crafted Durable Padding (Helmet)",
+        "note": "Also: Craft. Durapad. (Helmet)"
       },
       {
         "ko": "제작 내구성 패드+ (다리)",
@@ -8942,13 +8942,13 @@
       },
       {
         "ko": "제작 바이오코팅 (조끼)",
-        "en": "Craft. Biocoat. (Vest)",
-        "note": "Also: Crafted Biocoating (Vest)"
+        "en": "Crafted Biocoating (Vest)",
+        "note": "Also: Craft. Biocoat. (Vest)"
       },
       {
         "ko": "제작 바이오코팅 (헬멧)",
-        "en": "Craft. Biocoat. (Helmet)",
-        "note": "Also: Crafted Biocoating (Helmet)"
+        "en": "Crafted Biocoating (Helmet)",
+        "note": "Also: Craft. Biocoat. (Helmet)"
       },
       {
         "ko": "제작 바이오코팅+ (조끼)",
@@ -8968,28 +8968,28 @@
       },
       {
         "ko": "제작 방탄 유리 (방독면)",
-        "en": "Craft. Bal. Glass (GM)",
-        "note": "Also: Crafted Ballistic Glass (Gas Mask)"
+        "en": "Crafted Ballistic Glass (Gas Mask)",
+        "note": "Also: Craft. Bal. Glass (GM)"
       },
       {
         "ko": "제작 방탄 패드 (다리)",
-        "en": "Craft. Bal. Pad. (Legs)",
-        "note": "Also: Crafted Ballistic Padding (Legs)"
+        "en": "Crafted Ballistic Padding (Legs)",
+        "note": "Also: Craft. Bal. Pad. (Legs)"
       },
       {
         "ko": "제작 방탄 패드 (조끼)",
-        "en": "Craft. Bal. Pad. (Vest)",
-        "note": "Also: Crafted Ballistic Padding (Vest)"
+        "en": "Crafted Ballistic Padding (Vest)",
+        "note": "Also: Craft. Bal. Pad. (Vest)"
       },
       {
         "ko": "제작 방탄 패드 (팔)",
-        "en": "Craft. Bal. Pad. (Arms)",
-        "note": "Also: Crafted Ballistic Padding (Arms)"
+        "en": "Crafted Ballistic Padding (Arms)",
+        "note": "Also: Craft. Bal. Pad. (Arms)"
       },
       {
         "ko": "제작 방탄 패드 (헬멧)",
-        "en": "Craft. Bal. Pad. (Helmet)",
-        "note": "Also: Crafted Ballistic Padding (Helmet)"
+        "en": "Crafted Ballistic Padding (Helmet)",
+        "note": "Also: Craft. Bal. Pad. (Helmet)"
       },
       {
         "ko": "제작 방탄 패드+ (다리)",
@@ -9025,8 +9025,8 @@
       },
       {
         "ko": "제작 방탄 플레이트 (안면 보호구)",
-        "en": "Craft. Bal. Plat. (FM)",
-        "note": "Also: Crafted Ballistic Plating (Face Mask)"
+        "en": "Crafted Ballistic Plating (Face Mask)",
+        "note": "Also: Craft. Bal. Plat. (FM)"
       },
       {
         "ko": "제작 익조틱 근접전 패드 (다리)",
@@ -9086,23 +9086,23 @@
       },
       {
         "ko": "제작 충격 흡수 패드 (다리)",
-        "en": "Craft. Shock-Pad. (Legs)",
-        "note": "Also: Crafted Shock-Absorbing Padding (Legs)"
+        "en": "Crafted Shock-Absorbing Padding (Legs)",
+        "note": "Also: Craft. Shock-Pad. (Legs)"
       },
       {
         "ko": "제작 충격 흡수 패드 (조끼)",
-        "en": "Craft. Shock-Pad. (Vest)",
-        "note": "Also: Crafted Shock-Absorbing Padding (Vest)"
+        "en": "Crafted Shock-Absorbing Padding (Vest)",
+        "note": "Also: Craft. Shock-Pad. (Vest)"
       },
       {
         "ko": "제작 충격 흡수 패드 (팔)",
-        "en": "Craft. Shock-Pad. (Arms)",
-        "note": "Also: Crafted Shock-Absorbing Padding (Arms)"
+        "en": "Crafted Shock-Absorbing Padding (Arms)",
+        "note": "Also: Craft. Shock-Pad. (Arms)"
       },
       {
         "ko": "제작 충격 흡수 패드 (헬멧)",
-        "en": "Craft. Shock-Pad. (Helmet)",
-        "note": "Also: Crafted Shock-Absorbing Padding (Helmet)"
+        "en": "Crafted Shock-Absorbing Padding (Helmet)",
+        "note": "Also: Craft. Shock-Pad. (Helmet)"
       },
       {
         "ko": "제작 충격 흡수 패드+ (다리)",
@@ -9254,28 +9254,28 @@
       },
       {
         "ko": "충격 저항 마스크",
-        "en": "Imp.-Res. Mask",
-        "note": "Also: Impact-Resistant Mask"
+        "en": "Impact-Resistant Mask",
+        "note": "Also: Imp.-Res. Mask"
       },
       {
         "ko": "충격 흡수 패드 (다리)",
-        "en": "Shock-Pad. (Legs)",
-        "note": "Also: Shock-Absorbing Padding (Legs)"
+        "en": "Shock-Absorbing Padding (Legs)",
+        "note": "Also: Shock-Pad. (Legs)"
       },
       {
         "ko": "충격 흡수 패드 (조끼)",
-        "en": "Shock-Pad. (Vest)",
-        "note": "Also: Shock-Absorbing Padding (Vest)"
+        "en": "Shock-Absorbing Padding (Vest)",
+        "note": "Also: Shock-Pad. (Vest)"
       },
       {
         "ko": "충격 흡수 패드 (팔)",
-        "en": "Shock-Pad. (Arms)",
-        "note": "Also: Shock-Absorbing Padding (Arms)"
+        "en": "Shock-Absorbing Padding (Arms)",
+        "note": "Also: Shock-Pad. (Arms)"
       },
       {
         "ko": "충격 흡수 패드 (헬멧)",
-        "en": "Shock-Pad. (Helmet)",
-        "note": "Also: Shock-Absorbing Padding (Helmet)"
+        "en": "Shock-Absorbing Padding (Helmet)",
+        "note": "Also: Shock-Pad. (Helmet)"
       },
       {
         "ko": "충격 흡수 패드+ (다리)",
@@ -9295,8 +9295,8 @@
       },
       {
         "ko": "컴팩트 2 칙 패드",
-        "en": "Compact 2 Ch. Pad",
-        "note": "Also: Compact 2 Cheek Pad"
+        "en": "Compact 2 Cheek Pad",
+        "note": "Also: Compact 2 Ch. Pad"
       },
       {
         "ko": "케라틴 패드",
@@ -9412,8 +9412,8 @@
       },
       {
         "ko": "팔 보호대",
-        "en": "Arm Armor",
-        "note": "Also: Arm Protect."
+        "en": "Arm Protect.",
+        "note": "Also: Arm Armor"
       },
       {
         "ko": "팔 보호대 기동성 디버프",
@@ -9449,8 +9449,8 @@
       },
       {
         "ko": "페이스 실드 (업그레이드)",
-        "en": "Face Shield (Upg)",
-        "note": "Also: Face Shield (Upgraded)"
+        "en": "Face Shield (Upgraded)",
+        "note": "Also: Face Shield (Upg)"
       },
       {
         "ko": "포르텍스 헬멧 스킨 일반",
@@ -9486,8 +9486,8 @@
       },
       {
         "ko": "프레임 장갑 업그레이드",
-        "en": "Armored Frame Upg",
-        "note": "Also: Armored Frame Upgrade"
+        "en": "Armored Frame Upgrade",
+        "note": "Also: Armored Frame Upg"
       },
       {
         "ko": "프로토타입 고급 근접전 패드 (다리)",
@@ -9547,23 +9547,23 @@
       },
       {
         "ko": "프로토타입 근접전 패드 (다리)",
-        "en": "Exp. Melee Pad. (Legs)",
-        "note": "Also: Experimental Melee Padding (Legs)"
+        "en": "Experimental Melee Padding (Legs)",
+        "note": "Also: Exp. Melee Pad. (Legs)"
       },
       {
         "ko": "프로토타입 근접전 패드 (조끼)",
-        "en": "Exp. Melee Pad. (Vest)",
-        "note": "Also: Experimental Melee Padding (Vest)"
+        "en": "Experimental Melee Padding (Vest)",
+        "note": "Also: Exp. Melee Pad. (Vest)"
       },
       {
         "ko": "프로토타입 근접전 패드 (팔)",
-        "en": "Exp. Melee Pad. (Arms)",
-        "note": "Also: Experimental Melee Padding (Arms)"
+        "en": "Experimental Melee Padding (Arms)",
+        "note": "Also: Exp. Melee Pad. (Arms)"
       },
       {
         "ko": "프로토타입 근접전 패드 (헬멧)",
-        "en": "Exp. Melee Pad. (Helmet)",
-        "note": "Also: Experimental Melee Padding (Helmet)"
+        "en": "Experimental Melee Padding (Helmet)",
+        "note": "Also: Exp. Melee Pad. (Helmet)"
       },
       {
         "ko": "프로토타입 근접전 패드+ (다리)",
@@ -9599,23 +9599,23 @@
       },
       {
         "ko": "프로토타입 내구성 패드 (다리)",
-        "en": "Exp. Durapad. (Legs)",
-        "note": "Also: Experimental Durable Padding (Legs)"
+        "en": "Experimental Durable Padding (Legs)",
+        "note": "Also: Exp. Durapad. (Legs)"
       },
       {
         "ko": "프로토타입 내구성 패드 (조끼)",
-        "en": "Exp. Durapad. (Vest)",
-        "note": "Also: Experimental Durable Padding (Vest)"
+        "en": "Experimental Durable Padding (Vest)",
+        "note": "Also: Exp. Durapad. (Vest)"
       },
       {
         "ko": "프로토타입 내구성 패드 (팔)",
-        "en": "Exp. Durapad. (Arms)",
-        "note": "Also: Experimental Durable Padding (Arms)"
+        "en": "Experimental Durable Padding (Arms)",
+        "note": "Also: Exp. Durapad. (Arms)"
       },
       {
         "ko": "프로토타입 내구성 패드 (헬멧)",
-        "en": "Exp. Durapad. (Helmet)",
-        "note": "Also: Experimental Durable Padding (Helmet)"
+        "en": "Experimental Durable Padding (Helmet)",
+        "note": "Also: Exp. Durapad. (Helmet)"
       },
       {
         "ko": "프로토타입 내구성 패드+ (다리)",
@@ -9651,13 +9651,13 @@
       },
       {
         "ko": "프로토타입 바이오코팅 (조끼)",
-        "en": "Exp. Biocoat. (Vest)",
-        "note": "Also: Experimental Biocoating (Vest)"
+        "en": "Experimental Biocoating (Vest)",
+        "note": "Also: Exp. Biocoat. (Vest)"
       },
       {
         "ko": "프로토타입 바이오코팅 (헬멧)",
-        "en": "Exp. Biocoat. (Helmet)",
-        "note": "Also: Experimental Biocoating (Helmet)"
+        "en": "Experimental Biocoating (Helmet)",
+        "note": "Also: Exp. Biocoat. (Helmet)"
       },
       {
         "ko": "프로토타입 바이오코팅+ (조끼)",
@@ -9677,23 +9677,23 @@
       },
       {
         "ko": "프로토타입 방탄 패드 (다리)",
-        "en": "Exp. Bal. Pad. (Legs)",
-        "note": "Also: Experimental Ballistic Padding (Legs)"
+        "en": "Experimental Ballistic Padding (Legs)",
+        "note": "Also: Exp. Bal. Pad. (Legs)"
       },
       {
         "ko": "프로토타입 방탄 패드 (조끼)",
-        "en": "Exp. Bal. Pad. (Vest)",
-        "note": "Also: Experimental Ballistic Padding (Vest)"
+        "en": "Experimental Ballistic Padding (Vest)",
+        "note": "Also: Exp. Bal. Pad. (Vest)"
       },
       {
         "ko": "프로토타입 방탄 패드 (팔)",
-        "en": "Exp. Bal. Pad. (Arms)",
-        "note": "Also: Experimental Ballistic Padding (Arms)"
+        "en": "Experimental Ballistic Padding (Arms)",
+        "note": "Also: Exp. Bal. Pad. (Arms)"
       },
       {
         "ko": "프로토타입 방탄 패드 (헬멧)",
-        "en": "Exp. Bal. Pad. (Helmet)",
-        "note": "Also: Experimental Ballistic Padding (Helmet)"
+        "en": "Experimental Ballistic Padding (Helmet)",
+        "note": "Also: Exp. Bal. Pad. (Helmet)"
       },
       {
         "ko": "프로토타입 방탄 패드+ (다리)",
@@ -9761,23 +9761,23 @@
       },
       {
         "ko": "프로토타입 충격 흡수 패드 (다리)",
-        "en": "Exp. Shock-Pad. (Legs)",
-        "note": "Also: Experimental Shock-Absorbing Padding (Legs)"
+        "en": "Experimental Shock-Absorbing Padding (Legs)",
+        "note": "Also: Exp. Shock-Pad. (Legs)"
       },
       {
         "ko": "프로토타입 충격 흡수 패드 (조끼)",
-        "en": "Exp. Shock-Pad. (Vest)",
-        "note": "Also: Experimental Shock-Absorbing Padding (Vest)"
+        "en": "Experimental Shock-Absorbing Padding (Vest)",
+        "note": "Also: Exp. Shock-Pad. (Vest)"
       },
       {
         "ko": "프로토타입 충격 흡수 패드 (팔)",
-        "en": "Exp. Shock-Pad. (Arms)",
-        "note": "Also: Experimental Shock-Absorbing Padding (Arms)"
+        "en": "Experimental Shock-Absorbing Padding (Arms)",
+        "note": "Also: Exp. Shock-Pad. (Arms)"
       },
       {
         "ko": "프로토타입 충격 흡수 패드 (헬멧)",
-        "en": "Exp. Shock-Pad. (Helmet)",
-        "note": "Also: Experimental Shock-Absorbing Padding (Helmet)"
+        "en": "Experimental Shock-Absorbing Padding (Helmet)",
+        "note": "Also: Exp. Shock-Pad. (Helmet)"
       },
       {
         "ko": "프로토타입 충격 흡수 패드+ (다리)",
@@ -9871,8 +9871,8 @@
       },
       {
         "ko": "고급 생물 자극제",
-        "en": "Adv. Biostim.",
-        "note": "Also: Advanced Biostimulant"
+        "en": "Advanced Biostimulant",
+        "note": "Also: Adv. Biostim."
       },
       {
         "ko": "고급 속도 자극제",
@@ -9912,18 +9912,18 @@
       },
       {
         "ko": "대형 범용 회복제",
-        "en": "L Uni-Heal",
-        "note": "Also: Large Universal Heal"
+        "en": "Large Universal Heal",
+        "note": "Also: L Uni-Heal"
       },
       {
         "ko": "대형 쾌속 회복제",
-        "en": "L Q-Heal",
-        "note": "Also: Large Quick Heal"
+        "en": "Large Quick Heal",
+        "note": "Also: L Q-Heal"
       },
       {
         "ko": "대형 회복제",
-        "en": "L Heal",
-        "note": "Also: Large Heal"
+        "en": "Large Heal",
+        "note": "Also: L Heal"
       },
       {
         "ko": "독성 치료",
@@ -9935,8 +9935,8 @@
       },
       {
         "ko": "민첩 자극제",
-        "en": "Dexter Stim",
-        "note": "Also: Dexterity Stim"
+        "en": "Dexterity Stim",
+        "note": "Also: Dexter Stim"
       },
       {
         "ko": "민첩 자극제+",
@@ -9952,8 +9952,8 @@
       },
       {
         "ko": "부상 치료제",
-        "en": "Injury Treat.",
-        "note": "Also: Injury Treatment"
+        "en": "Injury Treatment",
+        "note": "Also: Injury Treat."
       },
       {
         "ko": "부상 치료제+",
@@ -9961,28 +9961,28 @@
       },
       {
         "ko": "생물 자극제",
-        "en": "Biostim.",
-        "note": "Also: Biostimulant"
+        "en": "Biostimulant",
+        "note": "Also: Biostim."
       },
       {
         "ko": "소아 진료 기록",
-        "en": "Child. Med. Hist.",
-        "note": "Also: Children's Medical History"
+        "en": "Children's Medical History",
+        "note": "Also: Child. Med. Hist."
       },
       {
         "ko": "소형 범용 회복제",
-        "en": "S Uni-Heal",
-        "note": "Also: Small Universal Heal"
+        "en": "Small Universal Heal",
+        "note": "Also: S Uni-Heal"
       },
       {
         "ko": "소형 쾌속 회복제",
-        "en": "S Q-Heal",
-        "note": "Also: Small Quick Heal"
+        "en": "Small Quick Heal",
+        "note": "Also: S Q-Heal"
       },
       {
         "ko": "소형 회복제",
-        "en": "S Heal",
-        "note": "Also: Small Heal"
+        "en": "Small Heal",
+        "note": "Also: S Heal"
       },
       {
         "ko": "속도 자극제",
@@ -9998,8 +9998,8 @@
       },
       {
         "ko": "스마트 회복",
-        "en": "Smart Heal",
-        "note": "Also: Smart Healing"
+        "en": "Smart Healing",
+        "note": "Also: Smart Heal"
       },
       {
         "ko": "스쿼드원 체력 위험",
@@ -10071,8 +10071,8 @@
       },
       {
         "ko": "자극제",
-        "en": "Stim",
-        "note": "Also: Stimulants"
+        "en": "Stimulants",
+        "note": "Also: Stim"
       },
       {
         "ko": "제어기 해독",
@@ -10084,13 +10084,13 @@
       },
       {
         "ko": "중형 회복제",
-        "en": "M Heal",
-        "note": "Also: Medium Heal"
+        "en": "Medium Heal",
+        "note": "Also: M Heal"
       },
       {
         "ko": "지구력 자극제",
-        "en": "End. Stim",
-        "note": "Also: Endurance Stim"
+        "en": "Endurance Stim",
+        "note": "Also: End. Stim"
       },
       {
         "ko": "지구력 자극제+",
@@ -10098,8 +10098,8 @@
       },
       {
         "ko": "지향사격 자극제",
-        "en": "Hip. Stim",
-        "note": "Also: Hipfire Stim"
+        "en": "Hipfire Stim",
+        "note": "Also: Hip. Stim"
       },
       {
         "ko": "지향사격 자극제+",
@@ -10107,8 +10107,8 @@
       },
       {
         "ko": "체력",
-        "en": "Health",
-        "note": "Also: Fitness"
+        "en": "Fitness",
+        "note": "Also: Health"
       },
       {
         "ko": "체력 경험치 획득",
@@ -10156,8 +10156,8 @@
       },
       {
         "ko": "치료 녹음",
-        "en": "Therapy Rec.",
-        "note": "Also: Therapy Recording"
+        "en": "Therapy Recording",
+        "note": "Also: Therapy Rec."
       },
       {
         "ko": "치료 녹음 가져가기",
@@ -10173,8 +10173,8 @@
       },
       {
         "ko": "포터 자극제",
-        "en": "Port. Stim",
-        "note": "Also: Porter Stim"
+        "en": "Porter Stim",
+        "note": "Also: Port. Stim"
       },
       {
         "ko": "포터 자극제+",
@@ -10182,33 +10182,33 @@
       },
       {
         "ko": "프로토타입 민첩 자극제",
-        "en": "Exp. Dexter Stim",
-        "note": "Also: Experimental Dexterity Stim"
+        "en": "Experimental Dexterity Stim",
+        "note": "Also: Exp. Dexter Stim"
       },
       {
         "ko": "프로토타입 속도 자극제",
-        "en": "Exp. Speedy Stim",
-        "note": "Also: Experimental Speedy Stim"
+        "en": "Experimental Speedy Stim",
+        "note": "Also: Exp. Speedy Stim"
       },
       {
         "ko": "프로토타입 안정제",
-        "en": "Exp. Steady Stim",
-        "note": "Also: Experimental Steady Stim"
+        "en": "Experimental Steady Stim",
+        "note": "Also: Exp. Steady Stim"
       },
       {
         "ko": "프로토타입 지구력 자극제",
-        "en": "Exp. End. Stim",
-        "note": "Also: Experimental Endurance Stim"
+        "en": "Experimental Endurance Stim",
+        "note": "Also: Exp. End. Stim"
       },
       {
         "ko": "프로토타입 지향사격 자극제",
-        "en": "Exp. Hip. Stim",
-        "note": "Also: Experimental Hipfire Stim"
+        "en": "Experimental Hipfire Stim",
+        "note": "Also: Exp. Hip. Stim"
       },
       {
         "ko": "프로토타입 포터 자극제",
-        "en": "Exp. Port. Stim",
-        "note": "Also: Experimental Porter Stim"
+        "en": "Experimental Porter Stim",
+        "note": "Also: Exp. Port. Stim"
       },
       {
         "ko": "해독 슈라우드",
@@ -10236,8 +10236,8 @@
       },
       {
         "ko": "회복",
-        "en": "Healing",
-        "note": "Also: Recovery"
+        "en": "Recovery",
+        "note": "Also: Healing"
       },
       {
         "ko": "회복 경험치 획득",
@@ -10259,8 +10259,8 @@
       },
       {
         "ko": "3D 프린팅 매뉴얼",
-        "en": "3D Print. Manual",
-        "note": "Also: 3D Printing Manual"
+        "en": "3D Printing Manual",
+        "note": "Also: 3D Print. Manual"
       },
       {
         "ko": "LAPS 확보",
@@ -10280,8 +10280,8 @@
       },
       {
         "ko": "강화 금속",
-        "en": "Reinf. Metal",
-        "note": "Also: Reinforced Metal"
+        "en": "Reinforced Metal",
+        "note": "Also: Reinf. Metal"
       },
       {
         "ko": "강화 합금",
@@ -10293,13 +10293,13 @@
       },
       {
         "ko": "고급 무기 설계도",
-        "en": "Adv. Weapon BPs",
-        "note": "Also: Advanced Weapon Blueprints"
+        "en": "Advanced Weapon Blueprints",
+        "note": "Also: Adv. Weapon BPs"
       },
       {
         "ko": "고급 장비 설계도",
-        "en": "Adv. Gear BPs",
-        "note": "Also: Advanced Gear Blueprints"
+        "en": "Advanced Gear Blueprints",
+        "note": "Also: Adv. Gear BPs"
       },
       {
         "ko": "금속",
@@ -10343,13 +10343,13 @@
       },
       {
         "ko": "내화성 직물 (발라클라바)",
-        "en": "Fire-Ret. Fabric (Balac.)",
-        "note": "Also: Fire-Retardant Fabric (Balaclava)"
+        "en": "Fire-Retardant Fabric (Balaclava)",
+        "note": "Also: Fire-Ret. Fabric (Balac.)"
       },
       {
         "ko": "다중 인쇄 대기열",
-        "en": "Multi-Print Q.",
-        "note": "Also: Multi-Print Queuing"
+        "en": "Multi-Print Queuing",
+        "note": "Also: Multi-Print Q."
       },
       {
         "ko": "대형 금속 선반",
@@ -10365,8 +10365,8 @@
       },
       {
         "ko": "무기 설계도",
-        "en": "Weapon BPs",
-        "note": "Also: Weapon Blueprints"
+        "en": "Weapon Blueprints",
+        "note": "Also: Weapon BPs"
       },
       {
         "ko": "물질 연구 파일",
@@ -10378,8 +10378,8 @@
       },
       {
         "ko": "복합 금속",
-        "en": "Comp. Metal",
-        "note": "Also: Composite Metal"
+        "en": "Composite Metal",
+        "note": "Also: Comp. Metal"
       },
       {
         "ko": "복합체 프린팅",
@@ -10423,18 +10423,18 @@
       },
       {
         "ko": "인쇄 대기열",
-        "en": "Print Q.",
-        "note": "Also: Print Queuing"
+        "en": "Print Queuing",
+        "note": "Also: Print Q."
       },
       {
         "ko": "인쇄 회로 기판",
-        "en": "Print. Circ. Board",
-        "note": "Also: Printed Circuit Board"
+        "en": "Printed Circuit Board",
+        "note": "Also: Print. Circ. Board"
       },
       {
         "ko": "장비 설계도",
-        "en": "Gear BPs",
-        "note": "Also: Gear Blueprints"
+        "en": "Gear Blueprints",
+        "note": "Also: Gear BPs"
       },
       {
         "ko": "장착 속도(질주 중)",
@@ -10494,8 +10494,8 @@
       },
       {
         "ko": "제작",
-        "en": "Craft",
-        "note": "Also: Crafting"
+        "en": "Crafting",
+        "note": "Also: Craft"
       },
       {
         "ko": "제작 가능 아이템",
@@ -10519,13 +10519,13 @@
       },
       {
         "ko": "제작 바이오코팅 (다리)",
-        "en": "Craft. Biocoat. (Legs)",
-        "note": "Also: Crafted Biocoating (Legs)"
+        "en": "Crafted Biocoating (Legs)",
+        "note": "Also: Craft. Biocoat. (Legs)"
       },
       {
         "ko": "제작 바이오코팅 (팔)",
-        "en": "Craft. Biocoat. (Arms)",
-        "note": "Also: Crafted Biocoating (Arms)"
+        "en": "Crafted Biocoating (Arms)",
+        "note": "Also: Craft. Biocoat. (Arms)"
       },
       {
         "ko": "제작 바이오코팅+ (다리)",
@@ -10565,13 +10565,13 @@
       },
       {
         "ko": "중형 직물",
-        "en": "HD Fabric",
-        "note": "Also: Heavy-Duty Fabric"
+        "en": "Heavy-Duty Fabric",
+        "note": "Also: HD Fabric"
       },
       {
         "ko": "지혈 직물 (발라클라바)",
-        "en": "Hemo. Fabric (Balac.)",
-        "note": "Also: Hemostatic Fabric (Balaclava)"
+        "en": "Hemostatic Fabric (Balaclava)",
+        "note": "Also: Hemo. Fabric (Balac.)"
       },
       {
         "ko": "지혈 직물+ (발라클라바)",
@@ -10639,7 +10639,7 @@
       },
       {
         "ko": "탈출하세요",
-        "en": "EXTRACT"
+        "en": "Extract"
       },
       {
         "ko": "테크프린트 프레임",
@@ -10655,8 +10655,8 @@
       },
       {
         "ko": "해독 직물 (발라클라바)",
-        "en": "Detox. Fabric (Balac.)",
-        "note": "Also: Detoxifying Fabric (Balaclava)"
+        "en": "Detoxifying Fabric (Balaclava)",
+        "note": "Also: Detox. Fabric (Balac.)"
       },
       {
         "ko": "화학",
@@ -10668,8 +10668,8 @@
       },
       {
         "ko": "화학 실험대 설치",
-        "en": "Install Chemical Station",
-        "note": "Also: Install a Chemical Station"
+        "en": "Install a Chemical Station",
+        "note": "Also: Install Chemical Station"
       },
       {
         "ko": "화학품 보관소",
@@ -10699,8 +10699,8 @@
       },
       {
         "ko": "래슬러",
-        "en": "Rassler",
-        "note": "Also: Rasslers"
+        "en": "Rasslers",
+        "note": "Also: Rassler"
       },
       {
         "ko": "래슬러 150마리 처치",
@@ -10764,8 +10764,8 @@
       },
       {
         "ko": "사이키",
-        "en": "Psyche",
-        "note": "Also: Psyches"
+        "en": "Psyches",
+        "note": "Also: Psyche"
       },
       {
         "ko": "사이키 뇌",
@@ -10781,8 +10781,8 @@
       },
       {
         "ko": "심리 평가 키트",
-        "en": "Psyche Eval Kit",
-        "note": "Also: Psyche Eval Kits, Psychological Evaluation Kit"
+        "en": "Psyche Eval Kits, Psychological Evaluation Kit",
+        "note": "Also: Psyche Eval Kit"
       },
       {
         "ko": "적 무기",
@@ -10840,8 +10840,8 @@
       },
       {
         "ko": "경험치",
-        "en": "XP",
-        "note": "Also: Experience"
+        "en": "Experience",
+        "note": "Also: XP"
       },
       {
         "ko": "경험치 획득량",
@@ -10869,8 +10869,8 @@
       },
       {
         "ko": "레벨",
-        "en": "Lvl",
-        "note": "Also: Level"
+        "en": "Level",
+        "note": "Also: Lvl"
       },
       {
         "ko": "레벨 변화",
@@ -10886,13 +10886,13 @@
       },
       {
         "ko": "레코드 플레이어 토큰",
-        "en": "Rec. Player Token",
-        "note": "Also: Record Player Token"
+        "en": "Record Player Token",
+        "note": "Also: Rec. Player Token"
       },
       {
         "ko": "로드아웃 대여",
-        "en": "Rent Loadout",
-        "note": "Also: Loadout Rental"
+        "en": "Loadout Rental",
+        "note": "Also: Rent Loadout"
       },
       {
         "ko": "로드아웃 베이",
@@ -11027,10 +11027,6 @@
         "en": "Facility Level Bonus"
       },
       {
-        "ko": "시신에서",
-        "en": "LOOT"
-      },
-      {
         "ko": "시체 약탈",
         "en": "Looting Bodies"
       },
@@ -11052,7 +11048,7 @@
       },
       {
         "ko": "언랭크",
-        "en": "UNRANKED"
+        "en": "Unranked"
       },
       {
         "ko": "얻은 경험치",
@@ -11080,8 +11076,8 @@
       },
       {
         "ko": "왼쪽 그림 토큰",
-        "en": "Left Paint. Token",
-        "note": "Also: Left Painting Token"
+        "en": "Left Painting Token",
+        "note": "Also: Left Paint. Token"
       },
       {
         "ko": "우호도 보너스",
@@ -11093,8 +11089,8 @@
       },
       {
         "ko": "자판기 토큰",
-        "en": "Vending Token",
-        "note": "Also: Vending Machine Token"
+        "en": "Vending Machine Token",
+        "note": "Also: Vending Token"
       },
       {
         "ko": "잠겨진 컨트랙트",
@@ -11102,13 +11098,13 @@
       },
       {
         "ko": "장식품 토큰",
-        "en": "Deco Token",
-        "note": "Also: Decoration Token"
+        "en": "Decoration Token",
+        "note": "Also: Deco Token"
       },
       {
         "ko": "전리품",
-        "en": "Loot",
-        "note": "Also: LOOTING, FROM LOOTING"
+        "en": "LOOTING, FROM LOOTING",
+        "note": "Also: Loot"
       },
       {
         "ko": "전리품 상황",
@@ -11128,8 +11124,8 @@
       },
       {
         "ko": "중앙 그림 토큰",
-        "en": "Central Paint. Token",
-        "note": "Also: Central Painting Token"
+        "en": "Central Painting Token",
+        "note": "Also: Central Paint. Token"
       },
       {
         "ko": "진입 시 무게",
@@ -11193,8 +11189,8 @@
       },
       {
         "ko": "컨트랙트 완료",
-        "en": "Contract Complete",
-        "note": "Also: Contract Completion"
+        "en": "Contract Completion",
+        "note": "Also: Contract Complete"
       },
       {
         "ko": "컨트랙트 제출 아이템",
@@ -11210,8 +11206,8 @@
       },
       {
         "ko": "탈출",
-        "en": "Ext.",
-        "note": "Also: Exfil, Extracted, Extraction, Extractions"
+        "en": "Exfil, Extracted, Extraction, Extractions",
+        "note": "Also: Ext."
       },
       {
         "ko": "탈출 준비",
@@ -11251,8 +11247,8 @@
       },
       {
         "ko": "필요 레벨",
-        "en": "Req. lvl.",
-        "note": "Also: Required Level"
+        "en": "Required Level",
+        "note": "Also: Req. lvl."
       },
       {
         "ko": "해골 디스플레이 토큰",
@@ -11420,8 +11416,8 @@
       },
       {
         "ko": "XCal 디히터",
-        "en": "XCal Deheat.",
-        "note": "Also: XCal Deheater"
+        "en": "XCal Deheater",
+        "note": "Also: XCal Deheat."
       },
       {
         "ko": "XCal 상점",
@@ -11557,8 +11553,8 @@
       },
       {
         "ko": "공학 작업대 설치",
-        "en": "Install Engineering Station",
-        "note": "Also: Install an Engineering Station"
+        "en": "Install an Engineering Station",
+        "note": "Also: Install Engineering Station"
       },
       {
         "ko": "관제소",
@@ -11594,8 +11590,8 @@
       },
       {
         "ko": "동물 연구소",
-        "en": "Fauna Lab",
-        "note": "Also: Fauna Research Station"
+        "en": "Fauna Research Station",
+        "note": "Also: Fauna Lab"
       },
       {
         "ko": "레이드 보고서",
@@ -11711,8 +11707,8 @@
       },
       {
         "ko": "식물 재배대 설치",
-        "en": "Install Planting Station",
-        "note": "Also: Install a Planting Station"
+        "en": "Install a Planting Station",
+        "note": "Also: Install Planting Station"
       },
       {
         "ko": "실험복",
@@ -11728,8 +11724,8 @@
       },
       {
         "ko": "연구 가능",
-        "en": "Research Available",
-        "note": "Also: New research available"
+        "en": "New research available",
+        "note": "Also: Research Available"
       },
       {
         "ko": "연구 스테이션",
@@ -11757,8 +11753,8 @@
       },
       {
         "ko": "의류 수선대 설치",
-        "en": "Install Outfitting Station",
-        "note": "Also: Install an Outfitting Station"
+        "en": "Install an Outfitting Station",
+        "note": "Also: Install Outfitting Station"
       },
       {
         "ko": "이용 가능 주제",
@@ -11794,8 +11790,8 @@
       },
       {
         "ko": "이용 불가",
-        "en": "Unavailable",
-        "note": "Also: Not Available"
+        "en": "Not Available",
+        "note": "Also: Unavailable"
       },
       {
         "ko": "이용 불가 아이템",
@@ -11827,8 +11823,8 @@
       },
       {
         "ko": "창고",
-        "en": "Stash",
-        "note": "Also: Sheds, Warehouse"
+        "en": "Sheds, Warehouse",
+        "note": "Also: Stash"
       },
       {
         "ko": "창고로 이동",
@@ -11958,13 +11954,13 @@
       },
       {
         "ko": "독성 저항",
-        "en": "Toxin Resistance",
-        "note": "Also: Poison Resistance"
+        "en": "Poison Resistance",
+        "note": "Also: Toxin Resistance"
       },
       {
         "ko": "독성 필터 (방독면)",
-        "en": "Poison Filt. (GM)",
-        "note": "Also: Poison Filter (Gas Mask)"
+        "en": "Poison Filter (Gas Mask)",
+        "note": "Also: Poison Filt. (GM)"
       },
       {
         "ko": "민첩성 버프",
@@ -11972,8 +11968,8 @@
       },
       {
         "ko": "버프",
-        "en": "Buff",
-        "note": "Also: Buffs"
+        "en": "Buffs",
+        "note": "Also: Buff"
       },
       {
         "ko": "버프 개요",
@@ -12033,8 +12029,8 @@
       },
       {
         "ko": "섬광탄",
-        "en": "Stun G",
-        "note": "Also: Stun Grenade"
+        "en": "Stun Grenade",
+        "note": "Also: Stun G"
       },
       {
         "ko": "섬광탄+",
@@ -12090,38 +12086,38 @@
       },
       {
         "ko": "지속 독성 저항제",
-        "en": "Sust. Poison Resist.",
-        "note": "Also: Sustained Poison Resistance"
+        "en": "Sustained Poison Resistance",
+        "note": "Also: Sust. Poison Resist."
       },
       {
         "ko": "지속 부상 저항제",
-        "en": "Sust. Inj. Resist.",
-        "note": "Also: Sustained Injury Resistance"
+        "en": "Sustained Injury Resistance",
+        "note": "Also: Sust. Inj. Resist."
       },
       {
         "ko": "지속 아노말리 저항제",
-        "en": "Sust. Anom. Resist.",
-        "note": "Also: Sustained Anomaly Resistance"
+        "en": "Sustained Anomaly Resistance",
+        "note": "Also: Sust. Anom. Resist."
       },
       {
         "ko": "지속 출혈 저항제",
-        "en": "Sust. Bleed. Resist.",
-        "note": "Also: Sustained Bleeding Resistance"
+        "en": "Sustained Bleeding Resistance",
+        "note": "Also: Sust. Bleed. Resist."
       },
       {
         "ko": "지속 충격 저항제",
-        "en": "Sust. Stun Resist.",
-        "note": "Also: Sustained Stun Resistance"
+        "en": "Sustained Stun Resistance",
+        "note": "Also: Sust. Stun Resist."
       },
       {
         "ko": "지속 피해 저항제",
-        "en": "Sust. Dmg. Resist.",
-        "note": "Also: Sustained Damage Resistance"
+        "en": "Sustained Damage Resistance",
+        "note": "Also: Sust. Dmg. Resist."
       },
       {
         "ko": "지혈제",
-        "en": "Bleed. Treat.",
-        "note": "Also: Bleeding Treatment"
+        "en": "Bleeding Treatment",
+        "note": "Also: Bleed. Treat."
       },
       {
         "ko": "지혈제+",
@@ -12141,8 +12137,8 @@
       },
       {
         "ko": "출혈버섯",
-        "en": "Bleed. Fungus",
-        "note": "Also: Bleeding Fungus"
+        "en": "Bleeding Fungus",
+        "note": "Also: Bleed. Fungus"
       },
       {
         "ko": "침대 버프",
@@ -12154,33 +12150,33 @@
       },
       {
         "ko": "쾌속 독성 저항제",
-        "en": "Rap. Poison Resist.",
-        "note": "Also: Rapid Poison Resistance"
+        "en": "Rapid Poison Resistance",
+        "note": "Also: Rap. Poison Resist."
       },
       {
         "ko": "쾌속 부상 저항제",
-        "en": "Rap. Inj. Resist.",
-        "note": "Also: Rapid Injury Resistance"
+        "en": "Rapid Injury Resistance",
+        "note": "Also: Rap. Inj. Resist."
       },
       {
         "ko": "쾌속 아노말리 저항제",
-        "en": "Rap. Anom. Resist.",
-        "note": "Also: Rapid Anomaly Resistance"
+        "en": "Rapid Anomaly Resistance",
+        "note": "Also: Rap. Anom. Resist."
       },
       {
         "ko": "쾌속 출혈 저항제",
-        "en": "Rap. Bleed. Resist.",
-        "note": "Also: Rapid Bleeding Resistance"
+        "en": "Rapid Bleeding Resistance",
+        "note": "Also: Rap. Bleed. Resist."
       },
       {
         "ko": "쾌속 충격 저항제",
-        "en": "Rap. Stun Resist.",
-        "note": "Also: Rapid Stun Resistance"
+        "en": "Rapid Stun Resistance",
+        "note": "Also: Rap. Stun Resist."
       },
       {
         "ko": "쾌속 피해 저항제",
-        "en": "Rap. Dmg. Resist.",
-        "note": "Also: Rapid Damage Resistance"
+        "en": "Rapid Damage Resistance",
+        "note": "Also: Rap. Dmg. Resist."
       },
       {
         "ko": "탄환 관통 저항",
@@ -12196,28 +12192,28 @@
       },
       {
         "ko": "프로토타입 독성 저항제",
-        "en": "Exp. Poison Resist.",
-        "note": "Also: Experimental Poison Resistance"
+        "en": "Experimental Poison Resistance",
+        "note": "Also: Exp. Poison Resist."
       },
       {
         "ko": "프로토타입 부상 저항제",
-        "en": "Exp. Inj. Resist.",
-        "note": "Also: Experimental Injury Resistance"
+        "en": "Experimental Injury Resistance",
+        "note": "Also: Exp. Inj. Resist."
       },
       {
         "ko": "프로토타입 출혈 저항제",
-        "en": "Exp. Bleed. Resist.",
-        "note": "Also: Experimental Bleeding Resistance"
+        "en": "Experimental Bleeding Resistance",
+        "note": "Also: Exp. Bleed. Resist."
       },
       {
         "ko": "프로토타입 피해 저항제",
-        "en": "Exp. Dmg. Resist.",
-        "note": "Also: Experimental Damage Resistance"
+        "en": "Experimental Damage Resistance",
+        "note": "Also: Exp. Dmg. Resist."
       },
       {
         "ko": "프로토타입 혼합 저항제",
-        "en": "Exp. Mixed Res.",
-        "note": "Also: Experimental Mixed Resistance"
+        "en": "Experimental Mixed Resistance",
+        "note": "Also: Exp. Mixed Res."
       },
       {
         "ko": "혼합 저항 GS",
@@ -12248,8 +12244,8 @@
       },
       {
         "ko": "나가기",
-        "en": "Exit",
-        "note": "Also: Leave"
+        "en": "Leave",
+        "note": "Also: Exit"
       },
       {
         "ko": "대기열",
@@ -12261,13 +12257,13 @@
       },
       {
         "ko": "수락",
-        "en": "ACCEPT",
-        "note": "Also: Submit, Accepted"
+        "en": "Submit, Accepted",
+        "note": "Also: Accept"
       },
       {
         "ko": "준비",
-        "en": "Ready",
-        "note": "Also: Standby"
+        "en": "Standby",
+        "note": "Also: Ready"
       },
       {
         "ko": "초기화",
@@ -12276,35 +12272,35 @@
       },
       {
         "ko": "초대",
-        "en": "Invite",
-        "note": "Also: Invites, Invited"
+        "en": "Invites, Invited",
+        "note": "Also: Invite"
       }
     ],
     "Weapon/Attachment": [
       {
         "ko": "2.5배율 EMV 조준기",
-        "en": "2.5x EMV Sight",
-        "note": "Also: 2.5x Electromagnetic Sight"
+        "en": "2.5x Electromagnetic Sight",
+        "note": "Also: 2.5x EMV Sight"
       },
       {
         "ko": "2.5배율 디지털 조준기",
-        "en": "2.5x Digisight",
-        "note": "Also: 2.5x Digital Sight"
+        "en": "2.5x Digital Sight",
+        "note": "Also: 2.5x Digisight"
       },
       {
         "ko": "2.5배율 모션 트래킹 조준기",
-        "en": "2.5x MTV Sight",
-        "note": "Also: 2.5x Motion Tracking Sight"
+        "en": "2.5x Motion Tracking Sight",
+        "note": "Also: 2.5x MTV Sight"
       },
       {
         "ko": "2.5배율 야간투시 조준기",
-        "en": "2.5x NV Sight",
-        "note": "Also: 2.5x Night Vision Sight"
+        "en": "2.5x Night Vision Sight",
+        "note": "Also: 2.5x NV Sight"
       },
       {
         "ko": "2.5배율 열화상 조준기",
-        "en": "2.5x TI Sight",
-        "note": "Also: 2.5x Thermal Imaging Sight"
+        "en": "2.5x Thermal Imaging Sight",
+        "note": "Also: 2.5x TI Sight"
       },
       {
         "ko": "2발 내부 장전이 가능한 작은 구경.",
@@ -12336,8 +12332,8 @@
       },
       {
         "ko": "AKN-12 3점사",
-        "en": "AKN-12 3-Rnd Burst",
-        "note": "Also: AKN-12 3-Round Burst Fire"
+        "en": "AKN-12 3-Round Burst Fire",
+        "note": "Also: AKN-12 3-Rnd Burst"
       },
       {
         "ko": "AKN-12 5.45 탄창",
@@ -12373,13 +12369,13 @@
       },
       {
         "ko": "AKN-12 노 버스트",
-        "en": "AKN-12 No-Burst",
-        "note": "Also: AKN-12 No-Burst Fire"
+        "en": "AKN-12 No-Burst Fire",
+        "note": "Also: AKN-12 No-Burst"
       },
       {
         "ko": "AKN-12 단축 총열",
-        "en": "AKN-12 S Barrel",
-        "note": "Also: AKN-12 Short Barrel"
+        "en": "AKN-12 Short Barrel",
+        "note": "Also: AKN-12 S Barrel"
       },
       {
         "ko": "AKN-12 소염기",
@@ -12387,43 +12383,43 @@
       },
       {
         "ko": "AKN-12 소음기",
-        "en": "AKN-12 Sup.",
-        "note": "Also: AKN-12 Suppressor"
+        "en": "AKN-12 Suppressor",
+        "note": "Also: AKN-12 Sup."
       },
       {
         "ko": "AKN-12 스켈레톤 개머리판",
-        "en": "AKN-12 Skel. Stock",
-        "note": "Also: AKN-12 Skeleton Stock"
+        "en": "AKN-12 Skeleton Stock",
+        "note": "Also: AKN-12 Skel. Stock"
       },
       {
         "ko": "AKN-12 연장 총열",
-        "en": "AKN-12 L Barrel",
-        "note": "Also: AKN-12 Long Barrel"
+        "en": "AKN-12 Long Barrel",
+        "note": "Also: AKN-12 L Barrel"
       },
       {
         "ko": "AKN-12 조절식 개머리판",
-        "en": "AKN-12 Adj. Stock",
-        "note": "Also: AKN-12 Adjustable Stock"
+        "en": "AKN-12 Adjustable Stock",
+        "note": "Also: AKN-12 Adj. Stock"
       },
       {
         "ko": "AKN-12 커스텀 권총 손잡이",
-        "en": "AKN-12 Cust. Grip",
-        "note": "Also: AKN-12 Custom Pistol Grip"
+        "en": "AKN-12 Custom Pistol Grip",
+        "note": "Also: AKN-12 Cust. Grip"
       },
       {
         "ko": "AKN-12 쿼드 레일 총열덮개",
-        "en": "AKN-12 Quad HG",
-        "note": "Also: AKN-12 Quad Rail Handguard"
+        "en": "AKN-12 Quad Rail Handguard",
+        "note": "Also: AKN-12 Quad HG"
       },
       {
         "ko": "AKN-12 퀵 어태치 총구",
-        "en": "AKN-12 QA Muzzle",
-        "note": "Also: AKN-12 Quick-Attach Muzzle"
+        "en": "AKN-12 Quick-Attach Muzzle",
+        "note": "Also: AKN-12 QA Muzzle"
       },
       {
         "ko": "AKN-12 프리 플로트 총열덮개",
-        "en": "AKN-12 Free-Fl. HG",
-        "note": "Also: AKN-12 Free-Float Handguard"
+        "en": "AKN-12 Free-Float Handguard",
+        "note": "Also: AKN-12 Free-Fl. HG"
       },
       {
         "ko": "AKN-32-GS 5.45x39 구경",
@@ -12435,8 +12431,8 @@
       },
       {
         "ko": "AKN-32-GS 보정기",
-        "en": "AKN-32-GS Comp.",
-        "note": "Also: AKN-32-GS Compensator"
+        "en": "AKN-32-GS Compensator",
+        "note": "Also: AKN-32-GS Comp."
       },
       {
         "ko": "AKN-32-GS 중량형 개머리판",
@@ -12444,13 +12440,13 @@
       },
       {
         "ko": "Baekho 열화상 스코프",
-        "en": "Baekho TI Scope",
-        "note": "Also: Baekho Thermal Imaging Scope"
+        "en": "Baekho Thermal Imaging Scope",
+        "note": "Also: Baekho TI Scope"
       },
       {
         "ko": "Baekho 열화상 조준기",
-        "en": "Baekho TI Sight",
-        "note": "Also: Baekho Thermal Imaging Sight"
+        "en": "Baekho Thermal Imaging Sight",
+        "note": "Also: Baekho TI Sight"
       },
       {
         "ko": "DBX-M 5.7 탄창",
@@ -12478,23 +12474,23 @@
       },
       {
         "ko": "DBX-M 보정기",
-        "en": "DBX-M Comp.",
-        "note": "Also: DBX-M Compensator"
+        "en": "DBX-M Compensator",
+        "note": "Also: DBX-M Comp."
       },
       {
         "ko": "DBX-M 스태빌라이징 총열덮개",
-        "en": "DBX-M Stabil. HG",
-        "note": "Also: DBX-M Stabilizing Handguard"
+        "en": "DBX-M Stabilizing Handguard",
+        "note": "Also: DBX-M Stabil. HG"
       },
       {
         "ko": "DBX-M 연장 총열",
-        "en": "DBX-M L Barrel",
-        "note": "Also: DBX-M Long Barrel"
+        "en": "DBX-M Long Barrel",
+        "note": "Also: DBX-M L Barrel"
       },
       {
         "ko": "DBX-M 일체형 소음기",
-        "en": "DBX-M Int. Sup.",
-        "note": "Also: DBX-M Integrated Suppressor"
+        "en": "DBX-M Integrated Suppressor",
+        "note": "Also: DBX-M Int. Sup."
       },
       {
         "ko": "DBX-M 중량형 총열",
@@ -12502,23 +12498,23 @@
       },
       {
         "ko": "DBX-M 중량형 총열덮개",
-        "en": "DBX-M Heavy HG",
-        "note": "Also: DBX-M Heavy Handguard"
+        "en": "DBX-M Heavy Handguard",
+        "note": "Also: DBX-M Heavy HG"
       },
       {
         "ko": "DBX-M 커스텀 권총 손잡이",
-        "en": "DBX-M Cust. Grip",
-        "note": "Also: DBX-M Custom Pistol Grip"
+        "en": "DBX-M Custom Pistol Grip",
+        "note": "Also: DBX-M Cust. Grip"
       },
       {
         "ko": "DBX-M 커스텀 맥웰",
-        "en": "DBX-M Cust. Magwell",
-        "note": "Also: DBX-M Custom Magwell"
+        "en": "DBX-M Custom Magwell",
+        "note": "Also: DBX-M Cust. Magwell"
       },
       {
         "ko": "DBX-M 퀵 어태치 총구",
-        "en": "DBX-M QA Muzzle",
-        "note": "Also: DBX-M Quick-Attach Muzzle"
+        "en": "DBX-M Quick-Attach Muzzle",
+        "note": "Also: DBX-M QA Muzzle"
       },
       {
         "ko": "DBX-M 후크 개머리판",
@@ -12542,18 +12538,18 @@
       },
       {
         "ko": "FX2000 레일 총열덮개",
-        "en": "FX2000 Railed HG",
-        "note": "Also: FX2000 Railed Handguard"
+        "en": "FX2000 Railed Handguard",
+        "note": "Also: FX2000 Railed HG"
       },
       {
         "ko": "FX2000 보정기",
-        "en": "FX2000 Comp.",
-        "note": "Also: FX2000 Compensator"
+        "en": "FX2000 Compensator",
+        "note": "Also: FX2000 Comp."
       },
       {
         "ko": "FX2000 소음기",
-        "en": "FX2000 Sup.",
-        "note": "Also: FX2000 Suppressor"
+        "en": "FX2000 Suppressor",
+        "note": "Also: FX2000 Sup."
       },
       {
         "ko": "FX2000 연사",
@@ -12565,8 +12561,8 @@
       },
       {
         "ko": "FX2000 조절식 개머리판",
-        "en": "FX2000 Adj. Stock",
-        "note": "Also: FX2000 Adjustable Stock"
+        "en": "FX2000 Adjustable Stock",
+        "note": "Also: FX2000 Adj. Stock"
       },
       {
         "ko": "FX2000 중량 총열",
@@ -12578,13 +12574,13 @@
       },
       {
         "ko": "FX2000 커스텀 권총 손잡이",
-        "en": "FX2000 Cust. Grip",
-        "note": "Also: FX2000 Custom Pistol Grip"
+        "en": "FX2000 Custom Pistol Grip",
+        "note": "Also: FX2000 Cust. Grip"
       },
       {
         "ko": "FX2000 퀵 어태치 총구",
-        "en": "FX2000 QA Muzzle",
-        "note": "Also: FX2000 Quick-Attach Muzzle"
+        "en": "FX2000 Quick-Attach Muzzle",
+        "note": "Also: FX2000 QA Muzzle"
       },
       {
         "ko": "G19 9x19 대용량 탄창",
@@ -12592,8 +12588,8 @@
       },
       {
         "ko": "G19 9x19 탄창",
-        "en": "G19 9x19 Mag",
-        "note": "Also: G19 9x19 Magazine"
+        "en": "G19 9x19 Magazine",
+        "note": "Also: G19 9x19 Mag"
       },
       {
         "ko": "G19 권총",
@@ -12609,13 +12605,13 @@
       },
       {
         "ko": "G19 보정기",
-        "en": "G19 Comp.",
-        "note": "Also: G19 Compensator"
+        "en": "G19 Compensator",
+        "note": "Also: G19 Comp."
       },
       {
         "ko": "G19 소음기",
-        "en": "G19 Sup.",
-        "note": "Also: G19 Suppressor"
+        "en": "G19 Suppressor",
+        "note": "Also: G19 Sup."
       },
       {
         "ko": "G19 연사",
@@ -12627,8 +12623,8 @@
       },
       {
         "ko": "G19 접이식 개머리판",
-        "en": "G19 Fold. Stock",
-        "note": "Also: G19 Folding Stock"
+        "en": "G19 Folding Stock",
+        "note": "Also: G19 Fold. Stock"
       },
       {
         "ko": "G19 텍스처 권총 손잡이",
@@ -12640,8 +12636,8 @@
       },
       {
         "ko": "Gnosys EMV 조준기",
-        "en": "Gnosys EMV Sight",
-        "note": "Also: Gnosys Electromagnetic Sight"
+        "en": "Gnosys Electromagnetic Sight",
+        "note": "Also: Gnosys EMV Sight"
       },
       {
         "ko": "M24 8.6 탄창",
@@ -12657,8 +12653,8 @@
       },
       {
         "ko": "M24 단축 총열",
-        "en": "M24 S Barrel",
-        "note": "Also: M24 Short Barrel"
+        "en": "M24 Short Barrel",
+        "note": "Also: M24 S Barrel"
       },
       {
         "ko": "M24 대용량 탄창",
@@ -12714,8 +12710,8 @@
       },
       {
         "ko": "M277-A 보정기",
-        "en": "M277-A Comp.",
-        "note": "Also: M277-A Compensator"
+        "en": "M277-A Compensator",
+        "note": "Also: M277-A Comp."
       },
       {
         "ko": "M277-A 스태빌라이징 권총 손잡이",
@@ -12727,8 +12723,8 @@
       },
       {
         "ko": "M277-A 일체형 총열덮개",
-        "en": "M277-A Int. HG",
-        "note": "Also: M277-A Integrated Handguard"
+        "en": "M277-A Integrated Handguard",
+        "note": "Also: M277-A Int. HG"
       },
       {
         "ko": "M277-A 중량형 개머리판",
@@ -12736,13 +12732,13 @@
       },
       {
         "ko": "M277-A 중량형 총열덮개",
-        "en": "M277-A Heavy HG",
-        "note": "Also: M277-A Heavy Handguard"
+        "en": "M277-A Heavy Handguard",
+        "note": "Also: M277-A Heavy HG"
       },
       {
         "ko": "M277-A 중형 소음기",
-        "en": "M277-A Heavy Sup.",
-        "note": "Also: M277-A Heavy Suppressor"
+        "en": "M277-A Heavy Suppressor",
+        "note": "Also: M277-A Heavy Sup."
       },
       {
         "ko": "M433 5.56 탄창",
@@ -12774,13 +12770,13 @@
       },
       {
         "ko": "M433 경량형 총열덮개",
-        "en": "M433 Hol. HG",
-        "note": "Also: M433 Hollowed Handguard"
+        "en": "M433 Hollowed Handguard",
+        "note": "Also: M433 Hol. HG"
       },
       {
         "ko": "M433 단축 총열",
-        "en": "M433 S Barrel",
-        "note": "Also: M433 Short Barrel"
+        "en": "M433 Short Barrel",
+        "note": "Also: M433 S Barrel"
       },
       {
         "ko": "M433 대용량 탄창",
@@ -12788,13 +12784,13 @@
       },
       {
         "ko": "M433 소음기",
-        "en": "M433 Sup.",
-        "note": "Also: M433 Suppressor"
+        "en": "M433 Suppressor",
+        "note": "Also: M433 Sup."
       },
       {
         "ko": "M433 연장 총열",
-        "en": "M433 L Barrel",
-        "note": "Also: M433 Long Barrel"
+        "en": "M433 Long Barrel",
+        "note": "Also: M433 L Barrel"
       },
       {
         "ko": "M433 중량형 개머리판",
@@ -12834,8 +12830,8 @@
       },
       {
         "ko": "M870 단축 총열",
-        "en": "M870 S Barrel",
-        "note": "Also: M870 Short Barrel"
+        "en": "M870 Short Barrel",
+        "note": "Also: M870 S Barrel"
       },
       {
         "ko": "M870 대용량 탄창",
@@ -12847,23 +12843,23 @@
       },
       {
         "ko": "M870 레일 총열덮개",
-        "en": "M870 Railed HG",
-        "note": "Also: M870 Railed Handguard"
+        "en": "M870 Railed Handguard",
+        "note": "Also: M870 Railed HG"
       },
       {
         "ko": "M870 소음기",
-        "en": "M870 Sup.",
-        "note": "Also: M870 Suppressor"
+        "en": "M870 Suppressor",
+        "note": "Also: M870 Sup."
       },
       {
         "ko": "M870 연장 총열",
-        "en": "M870 L Barrel",
-        "note": "Also: M870 Long Barrel"
+        "en": "M870 Long Barrel",
+        "note": "Also: M870 L Barrel"
       },
       {
         "ko": "M870 저반동 개머리판",
-        "en": "QS7 Rec. Red. Stock",
-        "note": "Also: M870 Rec. Red. Stock, M870 Recoil Reducing Stock"
+        "en": "M870 Rec. Red. Stock, M870 Recoil Reducing Stock",
+        "note": "Also: QS7 Rec. Red. Stock"
       },
       {
         "ko": "M870 총구제동기",
@@ -12875,18 +12871,18 @@
       },
       {
         "ko": "MP5 9x19 탄창",
-        "en": "MP5 9x19 Mag",
-        "note": "Also: MP5 9x19 Magazine"
+        "en": "MP5 9x19 Magazine",
+        "note": "Also: MP5 9x19 Mag"
       },
       {
         "ko": "MP5 단축형 탄창",
-        "en": "MP5 Short Mag",
-        "note": "Also: MP5 Short Magazine"
+        "en": "MP5 Short Magazine",
+        "note": "Also: MP5 Short Mag"
       },
       {
         "ko": "MP5 돌격소총형 개머리판",
-        "en": "MP5 AR Stock",
-        "note": "Also: MP5 AR-Style Stock"
+        "en": "MP5 AR-Style Stock",
+        "note": "Also: MP5 AR Stock"
       },
       {
         "ko": "MP5 레일 총열덮개",
@@ -12898,28 +12894,28 @@
       },
       {
         "ko": "MP5 소음기",
-        "en": "MP5 Sup.",
-        "note": "Also: MP5 Suppressor"
+        "en": "MP5 Suppressor",
+        "note": "Also: MP5 Sup."
       },
       {
         "ko": "MP5 일체형 손잡이",
-        "en": "MP5 Int. Grip",
-        "note": "Also: MP5 Integrated Grip"
+        "en": "MP5 Integrated Grip",
+        "note": "Also: MP5 Int. Grip"
       },
       {
         "ko": "MP5 접이식 개머리판",
-        "en": "MP5 Fold. Stock",
-        "note": "Also: MP5 Folding Stock"
+        "en": "MP5 Folding Stock",
+        "note": "Also: MP5 Fold. Stock"
       },
       {
         "ko": "MP5 퀵 어태치 총구",
-        "en": "MP5 QA Muzzle",
-        "note": "Also: MP5 Quick-Attach Muzzle"
+        "en": "MP5 Quick-Attach Muzzle",
+        "note": "Also: MP5 QA Muzzle"
       },
       {
         "ko": "MP5 텍스처 권총 손잡이",
-        "en": "MP5 Text. Grip",
-        "note": "Also: MP5 Textured Pistol Grip"
+        "en": "MP5 Textured Pistol Grip",
+        "note": "Also: MP5 Text. Grip"
       },
       {
         "ko": "MP7A5 4.6 탄창",
@@ -12939,8 +12935,8 @@
       },
       {
         "ko": "MP7A5 ADS 권총 손잡이",
-        "en": "MP7A5 ADS Grip",
-        "note": "Also: MP7A5 ADS Pistol Grip"
+        "en": "MP7A5 ADS Pistol Grip",
+        "note": "Also: MP7A5 ADS Grip"
       },
       {
         "ko": "MP7A5 단축형 개머리판",
@@ -12956,8 +12952,8 @@
       },
       {
         "ko": "MP7A5 돌격소총형 개머리판",
-        "en": "MP7A5 AR Stock",
-        "note": "Also: MP7A5 AR-Style Stock"
+        "en": "MP7A5 AR-Style Stock",
+        "note": "Also: MP7A5 AR Stock"
       },
       {
         "ko": "MP7A5 반동 감소 손잡이",
@@ -12965,18 +12961,18 @@
       },
       {
         "ko": "MP7A5 소음기",
-        "en": "MP7A5 Sup.",
-        "note": "Also: MP7A5 Suppressor"
+        "en": "MP7A5 Suppressor",
+        "note": "Also: MP7A5 Sup."
       },
       {
         "ko": "MP7A5 연장형 총열덮개",
-        "en": "MP7A5 Ext. HG",
-        "note": "Also: MP7A5 Extended Handguard"
+        "en": "MP7A5 Extended Handguard",
+        "note": "Also: MP7A5 Ext. HG"
       },
       {
         "ko": "MP7A5 일체형 손잡이",
-        "en": "MP7A5 Int. Grip",
-        "note": "Also: MP7A5 Integrated Grip"
+        "en": "MP7A5 Integrated Grip",
+        "note": "Also: MP7A5 Int. Grip"
       },
       {
         "ko": "MP7A5 저반동 권총 손잡이",
@@ -12996,8 +12992,8 @@
       },
       {
         "ko": "MPX9 3점사",
-        "en": "MPX9 3-Rnd Burst",
-        "note": "Also: MPX9 3-Round Burst Fire"
+        "en": "MPX9 3-Round Burst Fire",
+        "note": "Also: MPX9 3-Rnd Burst"
       },
       {
         "ko": "MPX9 9x19 대용량 탄창",
@@ -13005,8 +13001,8 @@
       },
       {
         "ko": "MPX9 9x19 탄창",
-        "en": "MPX9 9x19 Mag",
-        "note": "Also: MPX9 9x19 Magazine"
+        "en": "MPX9 9x19 Magazine",
+        "note": "Also: MPX9 9x19 Mag"
       },
       {
         "ko": "MPX9 PCC 총열",
@@ -13014,18 +13010,18 @@
       },
       {
         "ko": "MPX9 PCC 총열덮개",
-        "en": "MPX9 PCC HG",
-        "note": "Also: MPX9 PCC Handguard"
+        "en": "MPX9 PCC Handguard",
+        "note": "Also: MPX9 PCC HG"
       },
       {
         "ko": "MPX9 경량형 총열덮개",
-        "en": "MPX9 Hol. HG",
-        "note": "Also: MPX9 Hollowed Handguard"
+        "en": "MPX9 Hollowed Handguard",
+        "note": "Also: MPX9 Hol. HG"
       },
       {
         "ko": "MPX9 권총 스태빌라이징 브레이스",
-        "en": "MPX9 Stabil. Brace",
-        "note": "Also: MPX9 Pistol Stabilizing Brace"
+        "en": "MPX9 Pistol Stabilizing Brace",
+        "note": "Also: MPX9 Stabil. Brace"
       },
       {
         "ko": "MPX9 대용량 탄창",
@@ -13037,33 +13033,33 @@
       },
       {
         "ko": "MPX9 소음기",
-        "en": "MPX9 Sup.",
-        "note": "Also: MPX9 Suppressor"
+        "en": "MPX9 Suppressor",
+        "note": "Also: MPX9 Sup."
       },
       {
         "ko": "MPX9 스켈레톤 개머리판",
-        "en": "MPX9 Skel. Stock",
-        "note": "Also: MPX9 Skeleton Stock"
+        "en": "MPX9 Skeleton Stock",
+        "note": "Also: MPX9 Skel. Stock"
       },
       {
         "ko": "MPX9 스피드로더 탄창",
-        "en": "MPX9 Speed. Mag",
-        "note": "Also: MPX9 Speedloader Magazine"
+        "en": "MPX9 Speedloader Magazine",
+        "note": "Also: MPX9 Speed. Mag"
       },
       {
         "ko": "MPX9 저각 손잡이",
-        "en": "MPX9 Red. Ang. Grip",
-        "note": "Also: MPX9 Reduced Angle Grip"
+        "en": "MPX9 Reduced Angle Grip",
+        "note": "Also: MPX9 Red. Ang. Grip"
       },
       {
         "ko": "MPX9 저반동 손잡이",
-        "en": "MPX9 Rec. Red. Grip",
-        "note": "Also: MPX9 Recoil Reducing Grip"
+        "en": "MPX9 Recoil Reducing Grip",
+        "note": "Also: MPX9 Rec. Red. Grip"
       },
       {
         "ko": "MPX9 퀵 어태치 총구",
-        "en": "MPX9 QA Muzzle",
-        "note": "Also: MPX9 Quick-Attach Muzzle"
+        "en": "MPX9 Quick-Attach Muzzle",
+        "note": "Also: MPX9 QA Muzzle"
       },
       {
         "ko": "MPX9 헥스 권총 손잡이",
@@ -13079,13 +13075,13 @@
       },
       {
         "ko": "QS7 4게이지 대용량 탄창",
-        "en": "QS7 Ext. Mag",
-        "note": "Also: QS7 4ga Extended Magazine"
+        "en": "QS7 4ga Extended Magazine",
+        "note": "Also: QS7 Ext. Mag"
       },
       {
         "ko": "QS7 4게이지 탄창",
-        "en": "QS7 4ga Mag",
-        "note": "Also: QS7 4ga Magazine"
+        "en": "QS7 4ga Magazine",
+        "note": "Also: QS7 4ga Mag"
       },
       {
         "ko": "QS7 경량형 개머리판",
@@ -13093,8 +13089,8 @@
       },
       {
         "ko": "QS7 단축 총열",
-        "en": "QS7 S Barrel",
-        "note": "Also: QS7 Short Barrel"
+        "en": "QS7 Short Barrel",
+        "note": "Also: QS7 S Barrel"
       },
       {
         "ko": "QS7 단축형 총열덮개",
@@ -13106,23 +13102,23 @@
       },
       {
         "ko": "QS7 모듈형 총열덮개",
-        "en": "QS7 Mod. HG",
-        "note": "Also: QS7 Modular Handguard"
+        "en": "QS7 Modular Handguard",
+        "note": "Also: QS7 Mod. HG"
       },
       {
         "ko": "QS7 소음기",
-        "en": "QS7 Sup.",
-        "note": "Also: QS7 Suppressor"
+        "en": "QS7 Suppressor",
+        "note": "Also: QS7 Sup."
       },
       {
         "ko": "QS7 연장 총열",
-        "en": "QS7 L Barrel",
-        "note": "Also: QS7 Long Barrel"
+        "en": "QS7 Long Barrel",
+        "note": "Also: QS7 L Barrel"
       },
       {
         "ko": "QS7 재장전 탄창",
-        "en": "QS7 Reload Mag",
-        "note": "Also: QS7 4ga Reload Magazine"
+        "en": "QS7 4ga Reload Magazine",
+        "note": "Also: QS7 Reload Mag"
       },
       {
         "ko": "QS7 저반동 개머리판",
@@ -13190,8 +13186,8 @@
       },
       {
         "ko": "RDB 단축 총열",
-        "en": "RDB S Barrel",
-        "note": "Also: RDB Short Barrel"
+        "en": "RDB Short Barrel",
+        "note": "Also: RDB S Barrel"
       },
       {
         "ko": "RDB 대용량 탄창",
@@ -13199,8 +13195,8 @@
       },
       {
         "ko": "RDB 모듈형 총열덮개",
-        "en": "RDB Mod. HG",
-        "note": "Also: RDB Modular Handguard"
+        "en": "RDB Modular Handguard",
+        "note": "Also: RDB Mod. HG"
       },
       {
         "ko": "RDB 빅 스틱 탄창",
@@ -13208,18 +13204,18 @@
       },
       {
         "ko": "RDB 소음기",
-        "en": "RDB Sup.",
-        "note": "Also: RDB Suppressor"
+        "en": "RDB Suppressor",
+        "note": "Also: RDB Sup."
       },
       {
         "ko": "RDB 연장 총열",
-        "en": "RDB L Barrel",
-        "note": "Also: RDB Long Barrel"
+        "en": "RDB Long Barrel",
+        "note": "Also: RDB L Barrel"
       },
       {
         "ko": "RDB 점사",
-        "en": "RDB Burst",
-        "note": "Also: RDB Burst-Fire"
+        "en": "RDB Burst-Fire",
+        "note": "Also: RDB Burst"
       },
       {
         "ko": "RDB 중량형 개머리판",
@@ -13227,8 +13223,8 @@
       },
       {
         "ko": "RDB 커스텀 총열덮개",
-        "en": "RDB Cust. HG",
-        "note": "Also: RDB Custom Handguard"
+        "en": "RDB Custom Handguard",
+        "note": "Also: RDB Cust. HG"
       },
       {
         "ko": "RDB 커틀라스 권총 손잡이",
@@ -13268,13 +13264,13 @@
       },
       {
         "ko": "RDB-XC 경량형 총열덮개",
-        "en": "RDB-XC Light HG",
-        "note": "Also: RDB-XC Light Handguard"
+        "en": "RDB-XC Light Handguard",
+        "note": "Also: RDB-XC Light HG"
       },
       {
         "ko": "RDB-XC 보정기",
-        "en": "RDB-XC Comp.",
-        "note": "Also: RDB-XC Compensator"
+        "en": "RDB-XC Compensator",
+        "note": "Also: RDB-XC Comp."
       },
       {
         "ko": "RDB-XC 스켈레톤 권총 손잡이",
@@ -13346,13 +13342,13 @@
       },
       {
         "ko": "SLR 소음기",
-        "en": "SLR Sup.",
-        "note": "Also: SLR Suppressor"
+        "en": "SLR Suppressor",
+        "note": "Also: SLR Sup."
       },
       {
         "ko": "SLR 연장 총열",
-        "en": "SLR L Barrel",
-        "note": "Also: SLR Long Barrel"
+        "en": "SLR Long Barrel",
+        "note": "Also: SLR L Barrel"
       },
       {
         "ko": "SLR 총구제동기",
@@ -13360,13 +13356,13 @@
       },
       {
         "ko": "SLR 커스텀 권총 손잡이",
-        "en": "SLR Cust. Grip",
-        "note": "Also: SLR Custom Pistol Grip"
+        "en": "SLR Custom Pistol Grip",
+        "note": "Also: SLR Cust. Grip"
       },
       {
         "ko": "SLR 쿼드 레일 총열덮개",
-        "en": "SLR Quad HG",
-        "note": "Also: SLR Quad Rail Handguard"
+        "en": "SLR Quad Rail Handguard",
+        "note": "Also: SLR Quad HG"
       },
       {
         "ko": "T-Rex 14.9x76 구경",
@@ -13390,13 +13386,13 @@
       },
       {
         "ko": "T-Rex 내부 탄창",
-        "en": "T-Rex Int. Mag",
-        "note": "Also: T-Rex Internal Magazine"
+        "en": "T-Rex Internal Magazine",
+        "note": "Also: T-Rex Int. Mag"
       },
       {
         "ko": "T-Rex 단축 총열",
-        "en": "T-Rex S Barrel",
-        "note": "Also: T-Rex Short Barrel"
+        "en": "T-Rex Short Barrel",
+        "note": "Also: T-Rex S Barrel"
       },
       {
         "ko": "T-Rex 소염기",
@@ -13404,28 +13400,28 @@
       },
       {
         "ko": "T-Rex 소음기",
-        "en": "T-Rex Sup.",
-        "note": "Also: T-Rex Suppressor"
+        "en": "T-Rex Suppressor",
+        "note": "Also: T-Rex Sup."
       },
       {
         "ko": "T-Rex 스태빌라이징 총열",
-        "en": "T-Rex Stabil. Barrel",
-        "note": "Also: T-Rex Stabilizing Barrel"
+        "en": "T-Rex Stabilizing Barrel",
+        "note": "Also: T-Rex Stabil. Barrel"
       },
       {
         "ko": "T-Rex 연장 총열",
-        "en": "T-Rex L Barrel",
-        "note": "Also: T-Rex Long Barrel"
+        "en": "T-Rex Long Barrel",
+        "note": "Also: T-Rex L Barrel"
       },
       {
         "ko": "T-Rex 연장형 총열덮개",
-        "en": "T-Rex Ext. Rail HG",
-        "note": "Also: T-Rex Extended Rail Handguard"
+        "en": "T-Rex Extended Rail Handguard",
+        "note": "Also: T-Rex Ext. Rail HG"
       },
       {
         "ko": "T-Rex 인체공학형 개머리판",
-        "en": "T-Rex Erg. Stock",
-        "note": "Also: T-Rex Ergonomic Stock"
+        "en": "T-Rex Ergonomic Stock",
+        "note": "Also: T-Rex Erg. Stock"
       },
       {
         "ko": "T-Rex 인체공학형 권총 손잡이",
@@ -13437,8 +13433,8 @@
       },
       {
         "ko": "T-Rex 인체공학형 총열덮개",
-        "en": "T-Rex Erg. HG",
-        "note": "Also: T-Rex Ergonomic Handguard"
+        "en": "T-Rex Ergonomic Handguard",
+        "note": "Also: T-Rex Erg. HG"
       },
       {
         "ko": "T-Rex 조준기 레일",
@@ -13450,8 +13446,8 @@
       },
       {
         "ko": "T-Rex 커스텀 권총 손잡이",
-        "en": "T-Rex Cust. Grip",
-        "note": "Also: T-Rex Custom Pistol Grip"
+        "en": "T-Rex Custom Pistol Grip",
+        "note": "Also: T-Rex Cust. Grip"
       },
       {
         "ko": "T-Rex 텔레스코픽 개머리판",
@@ -13463,33 +13459,33 @@
       },
       {
         "ko": "UMP45 .45 ACP 탄창",
-        "en": "UMP45 .45 ACP Mag",
-        "note": "Also: UMP45 .45 ACP Magazine"
+        "en": "UMP45 .45 ACP Magazine",
+        "note": "Also: UMP45 .45 ACP Mag"
       },
       {
         "ko": "UMP45 경량형 총열덮개",
-        "en": "UMP45 Hol. HG",
-        "note": "Also: UMP45 Hollowed Handguard"
+        "en": "UMP45 Hollowed Handguard",
+        "note": "Also: UMP45 Hol. HG"
       },
       {
         "ko": "UMP45 돌격소총형 개머리판",
-        "en": "UMP45 AR Stock",
-        "note": "Also: UMP45 AR-Style Stock"
+        "en": "UMP45 AR-Style Stock",
+        "note": "Also: UMP45 AR Stock"
       },
       {
         "ko": "UMP45 소음기",
-        "en": "UMP45 Sup.",
-        "note": "Also: UMP45 Suppressor"
+        "en": "UMP45 Suppressor",
+        "note": "Also: UMP45 Sup."
       },
       {
         "ko": "UMP45 접이식 개머리판",
-        "en": "UMP45 Fold. Stock",
-        "note": "Also: UMP45 Folding Stock"
+        "en": "UMP45 Folding Stock",
+        "note": "Also: UMP45 Fold. Stock"
       },
       {
         "ko": "V9A1 .45 ACP 탄창",
-        "en": "V9A1 .45 ACP Mag",
-        "note": "Also: V9A1 .45 ACP Magazine"
+        "en": "V9A1 .45 ACP Magazine",
+        "note": "Also: V9A1 .45 ACP Mag"
       },
       {
         "ko": "V9A1 9x19 대용량 탄창",
@@ -13497,8 +13493,8 @@
       },
       {
         "ko": "V9A1 9x19 탄창",
-        "en": "V9A1 9x19 Mag",
-        "note": "Also: V9A1 9x19 Magazine"
+        "en": "V9A1 9x19 Magazine",
+        "note": "Also: V9A1 9x19 Mag"
       },
       {
         "ko": "V9A1 대용량 탄창",
@@ -13506,8 +13502,8 @@
       },
       {
         "ko": "V9A1 소음기",
-        "en": "V9A1 Sup.",
-        "note": "Also: V9A1 Suppressor"
+        "en": "V9A1 Suppressor",
+        "note": "Also: V9A1 Sup."
       },
       {
         "ko": "V9A1 중량형 총열",
@@ -13523,8 +13519,8 @@
       },
       {
         "ko": "V9A1 커스텀 맥웰",
-        "en": "V9A1 Cust. Magwell",
-        "note": "Also: V9A1 Custom Magwell"
+        "en": "V9A1 Custom Magwell",
+        "note": "Also: V9A1 Cust. Magwell"
       },
       {
         "ko": "V9A1 커스텀 손잡이",
@@ -13536,58 +13532,58 @@
       },
       {
         "ko": "강화 AKN-12 조절식 개머리판",
-        "en": "Reinf. AKN-12 Adj. Stock",
-        "note": "Also: Reinforced AKN-12 Adjustable Stock"
+        "en": "Reinforced AKN-12 Adjustable Stock",
+        "note": "Also: Reinf. AKN-12 Adj. Stock"
       },
       {
         "ko": "강화 FX2000 조절식 개머리판",
-        "en": "Reinf. FX2000 Adj. Stock",
-        "note": "Also: Reinforced FX2000 Adjustable Stock"
+        "en": "Reinforced FX2000 Adjustable Stock",
+        "note": "Also: Reinf. FX2000 Adj. Stock"
       },
       {
         "ko": "강화 FX2000 총구제동기",
-        "en": "Reinf. FX2000 Muzzle Brake",
-        "note": "Also: Reinforced FX2000 Muzzle Brake"
+        "en": "Reinforced FX2000 Muzzle Brake",
+        "note": "Also: Reinf. FX2000 Muzzle Brake"
       },
       {
         "ko": "강화 G19 총구제동기",
-        "en": "Reinf. G19 Muzzle Brake",
-        "note": "Also: Reinforced G19 Muzzle Brake"
+        "en": "Reinforced G19 Muzzle Brake",
+        "note": "Also: Reinf. G19 Muzzle Brake"
       },
       {
         "ko": "강화 M24 총구제동기",
-        "en": "Reinf. M24 Muzzle Brake",
-        "note": "Also: Reinforced M24 Muzzle Brake"
+        "en": "Reinforced M24 Muzzle Brake",
+        "note": "Also: Reinf. M24 Muzzle Brake"
       },
       {
         "ko": "강화 M870 총구제동기",
-        "en": "Reinf. M870 Muzzle Brake",
-        "note": "Also: Reinforced M870 Muzzle Brake"
+        "en": "Reinforced M870 Muzzle Brake",
+        "note": "Also: Reinf. M870 Muzzle Brake"
       },
       {
         "ko": "강화 MP5 총구제동기",
-        "en": "Reinf. MP5 Muzzle Brake",
-        "note": "Also: Reinforced MP5 Muzzle Brake"
+        "en": "Reinforced MP5 Muzzle Brake",
+        "note": "Also: Reinf. MP5 Muzzle Brake"
       },
       {
         "ko": "강화 MP7A5 보정기",
-        "en": "Reinf. MP7A5 Comp.",
-        "note": "Also: Reinforced MP7A5 Compensator"
+        "en": "Reinforced MP7A5 Compensator",
+        "note": "Also: Reinf. MP7A5 Comp."
       },
       {
         "ko": "강화 MPX9 보정기",
-        "en": "Reinf. MPX9 Comp.",
-        "note": "Also: Reinforced MPX9 Compensator"
+        "en": "Reinforced MPX9 Compensator",
+        "note": "Also: Reinf. MPX9 Comp."
       },
       {
         "ko": "강화 QS7 경량형 개머리판",
-        "en": "Reinf. QS7 Light Stock",
-        "note": "Also: Reinforced QS7 Light Stock"
+        "en": "Reinforced QS7 Light Stock",
+        "note": "Also: Reinf. QS7 Light Stock"
       },
       {
         "ko": "강화 RDB 보정기",
-        "en": "Reinf. RDB Comp.",
-        "note": "Also: Reinforced RDB Compensator"
+        "en": "Reinforced RDB Compensator",
+        "note": "Also: Reinf. RDB Comp."
       },
       {
         "ko": "강화 S90 경량형 개머리판",
@@ -13595,33 +13591,33 @@
       },
       {
         "ko": "강화 T-Rex 텔레스코픽 개머리판",
-        "en": "Reinf. T-Rex Telestock",
-        "note": "Also: Reinforced T-Rex Telescoping Stock"
+        "en": "Reinforced T-Rex Telescoping Stock",
+        "note": "Also: Reinf. T-Rex Telestock"
       },
       {
         "ko": "강화 UMP45 보정기",
-        "en": "Reinf. UMP45 Comp.",
-        "note": "Also: Reinforced UMP45 Compensator"
+        "en": "Reinforced UMP45 Compensator",
+        "note": "Also: Reinf. UMP45 Comp."
       },
       {
         "ko": "강화 V9A1 보정기",
-        "en": "Reinf. V9A1 Comp.",
-        "note": "Also: Reinforced V9A1 Compensator"
+        "en": "Reinforced V9A1 Compensator",
+        "note": "Also: Reinf. V9A1 Comp."
       },
       {
         "ko": "강화 리커 손잡이",
-        "en": "Reinf. Rikker Grip",
-        "note": "Also: Reinforced Rikker Grip"
+        "en": "Reinforced Rikker Grip",
+        "note": "Also: Reinf. Rikker Grip"
       },
       {
         "ko": "강화 벡터 경량형 개머리판",
-        "en": "Reinf. Vector Light Stock",
-        "note": "Also: Reinforced Vector Light Stock"
+        "en": "Reinforced Vector Light Stock",
+        "note": "Also: Reinf. Vector Light Stock"
       },
       {
         "ko": "강화 수직 손잡이",
-        "en": "Reinf. Vert. Grip",
-        "note": "Also: Reinforced Vertical Grip"
+        "en": "Reinforced Vertical Grip",
+        "note": "Also: Reinf. Vert. Grip"
       },
       {
         "ko": "강화 수직 손잡이 스킨 일반",
@@ -13633,8 +13629,8 @@
       },
       {
         "ko": "강화 스켈레톤 손잡이",
-        "en": "Reinf. Skel. Grip",
-        "note": "Also: Reinforced Skeleton Grip"
+        "en": "Reinforced Skeleton Grip",
+        "note": "Also: Reinf. Skel. Grip"
       },
       {
         "ko": "강화 스켈레톤 손잡이 스킨 일반",
@@ -13642,13 +13638,13 @@
       },
       {
         "ko": "강화 스피어 3 접이식 개머리판",
-        "en": "Reinf. Spear 3 Fold. Stock",
-        "note": "Also: Reinforced Spear 3 Folding Stock"
+        "en": "Reinforced Spear 3 Folding Stock",
+        "note": "Also: Reinf. Spear 3 Fold. Stock"
       },
       {
         "ko": "강화 앵글 손잡이",
-        "en": "Reinf. Angled Grip",
-        "note": "Also: Reinforced Angled Grip"
+        "en": "Reinforced Angled Grip",
+        "note": "Also: Reinf. Angled Grip"
       },
       {
         "ko": "강화 앵글 손잡이 스킨 일반",
@@ -13656,8 +13652,8 @@
       },
       {
         "ko": "강화 인체공학 손잡이",
-        "en": "Reinf. Erg. Grip",
-        "note": "Also: Reinforced Ergonomic Grip"
+        "en": "Reinforced Ergonomic Grip",
+        "note": "Also: Reinf. Erg. Grip"
       },
       {
         "ko": "강화 인체공학 손잡이 스킨 일반",
@@ -13665,13 +13661,13 @@
       },
       {
         "ko": "강화 총구 디히터",
-        "en": "Reinf. Muzzle Deheat.",
-        "note": "Also: Reinforced Muzzle Deheater"
+        "en": "Reinforced Muzzle Deheater",
+        "note": "Also: Reinf. Muzzle Deheat."
       },
       {
         "ko": "강화 커브 손잡이",
-        "en": "Reinf. Curved Grip",
-        "note": "Also: Reinforced Curved Foregrip"
+        "en": "Reinforced Curved Foregrip",
+        "note": "Also: Reinf. Curved Grip"
       },
       {
         "ko": "강화 커브 손잡이 스킨 일반",
@@ -13865,8 +13861,8 @@
       },
       {
         "ko": "레일건 20mm 탄창",
-        "en": "Railgun 20mm Mag",
-        "note": "Also: Railgun 20mm Magazine"
+        "en": "Railgun 20mm Magazine",
+        "note": "Also: Railgun 20mm Mag"
       },
       {
         "ko": "마그네슘",
@@ -13934,8 +13930,8 @@
       },
       {
         "ko": "벡터 9x19 탄창",
-        "en": "Vector 9x19 Mag",
-        "note": "Also: Vector 9x19 Magazine"
+        "en": "Vector 9x19 Magazine",
+        "note": "Also: Vector 9x19 Mag"
       },
       {
         "ko": "벡터 9x19mm 대용량 탄창",
@@ -13951,13 +13947,13 @@
       },
       {
         "ko": "벡터 돌격소총형 개머리판",
-        "en": "Vector AR Stock",
-        "note": "Also: Vector AR-Style Stock"
+        "en": "Vector AR-Style Stock",
+        "note": "Also: Vector AR Stock"
       },
       {
         "ko": "벡터 모듈형 총열덮개",
-        "en": "Vector Mod. HG",
-        "note": "Also: Vector Modular Handguard"
+        "en": "Vector Modular Handguard",
+        "note": "Also: Vector Mod. HG"
       },
       {
         "ko": "벡터 소염기",
@@ -13965,13 +13961,13 @@
       },
       {
         "ko": "벡터 소음기",
-        "en": "Vector Sup.",
-        "note": "Also: Vector Suppressor"
+        "en": "Vector Suppressor",
+        "note": "Also: Vector Sup."
       },
       {
         "ko": "벡터 일체형 총열덮개",
-        "en": "Vector Int. HG",
-        "note": "Also: Vector Integrated Handguard"
+        "en": "Vector Integrated Handguard",
+        "note": "Also: Vector Int. HG"
       },
       {
         "ko": "벡터 총구제동기",
@@ -13983,13 +13979,13 @@
       },
       {
         "ko": "벡터 퀵 어태치 총구",
-        "en": "Vector QA Muzzle",
-        "note": "Also: Vector Quick-Attach Muzzle"
+        "en": "Vector Quick-Attach Muzzle",
+        "note": "Also: Vector QA Muzzle"
       },
       {
         "ko": "벡터 텍스처 권총 손잡이",
-        "en": "Vector Text. Grip",
-        "note": "Also: Vector Textured Pistol Grip"
+        "en": "Vector Textured Pistol Grip",
+        "note": "Also: Vector Text. Grip"
       },
       {
         "ko": "보정기 I",
@@ -14005,13 +14001,13 @@
       },
       {
         "ko": "복합 DBX-M 총구 슈라우드",
-        "en": "Comp. DBX-M Shroud",
-        "note": "Also: Composite DBX-M Muzzle Shroud"
+        "en": "Composite DBX-M Muzzle Shroud",
+        "note": "Also: Comp. DBX-M Shroud"
       },
       {
         "ko": "복합 리커 손잡이",
-        "en": "Comp. Rikker Grip",
-        "note": "Also: Composite Rikker Grip"
+        "en": "Composite Rikker Grip",
+        "note": "Also: Comp. Rikker Grip"
       },
       {
         "ko": "복합 미플린 QA 권총 소음기",
@@ -14039,8 +14035,8 @@
       },
       {
         "ko": "복합 수직 손잡이",
-        "en": "Comp. Vert. Grip",
-        "note": "Also: Composite Vertical Grip"
+        "en": "Composite Vertical Grip",
+        "note": "Also: Comp. Vert. Grip"
       },
       {
         "ko": "복합 수직 손잡이 스킨 일반",
@@ -14048,8 +14044,8 @@
       },
       {
         "ko": "복합 스켈레톤 손잡이",
-        "en": "Comp. Skel. Grip",
-        "note": "Also: Composite Skeleton Grip"
+        "en": "Composite Skeleton Grip",
+        "note": "Also: Comp. Skel. Grip"
       },
       {
         "ko": "복합 스켈레톤 손잡이 스킨 일반",
@@ -14057,8 +14053,8 @@
       },
       {
         "ko": "복합 앵글 손잡이",
-        "en": "Comp. Angled Grip",
-        "note": "Also: Composite Angled Grip"
+        "en": "Composite Angled Grip",
+        "note": "Also: Comp. Angled Grip"
       },
       {
         "ko": "복합 앵글 손잡이 스킨 일반",
@@ -14078,8 +14074,8 @@
       },
       {
         "ko": "복합 인체공학 손잡이",
-        "en": "Comp. Erg. Grip",
-        "note": "Also: Composite Ergonomic Grip"
+        "en": "Composite Ergonomic Grip",
+        "note": "Also: Comp. Erg. Grip"
       },
       {
         "ko": "복합 인체공학 손잡이 스킨 일반",
@@ -14087,8 +14083,8 @@
       },
       {
         "ko": "복합 커브 손잡이",
-        "en": "Comp. Curved Grip",
-        "note": "Also: Composite Curved Foregrip"
+        "en": "Composite Curved Foregrip",
+        "note": "Also: Comp. Curved Grip"
       },
       {
         "ko": "복합 커브 손잡이 스킨 일반",
@@ -14220,8 +14216,8 @@
       },
       {
         "ko": "수직 손잡이",
-        "en": "Vert. Grip",
-        "note": "Also: Vertical Grip"
+        "en": "Vertical Grip",
+        "note": "Also: Vert. Grip"
       },
       {
         "ko": "수평 반동",
@@ -14269,8 +14265,8 @@
       },
       {
         "ko": "스켈레톤 손잡이",
-        "en": "Skel. Grip",
-        "note": "Also: Skeleton Grip"
+        "en": "Skeleton Grip",
+        "note": "Also: Skel. Grip"
       },
       {
         "ko": "스코프 모드 감도",
@@ -14310,8 +14306,8 @@
       },
       {
         "ko": "스피어 3 ADS 권총 손잡이",
-        "en": "Spear 3 ADS Grip",
-        "note": "Also: Spear 3 ADS Pistol Grip"
+        "en": "Spear 3 ADS Pistol Grip",
+        "note": "Also: Spear 3 ADS Grip"
       },
       {
         "ko": "스피어 3 경량형 개머리판",
@@ -14327,8 +14323,8 @@
       },
       {
         "ko": "스피어 3 단축 총열",
-        "en": "Spear 3 S Barrel",
-        "note": "Also: Spear 3 Short Barrel"
+        "en": "Spear 3 Short Barrel",
+        "note": "Also: Spear 3 S Barrel"
       },
       {
         "ko": "스피어 3 대용량 탄창",
@@ -14336,23 +14332,23 @@
       },
       {
         "ko": "스피어 3 모듈형 총열덮개",
-        "en": "Spear 3 Mod. HG",
-        "note": "Also: Spear 3 Modular Handguard"
+        "en": "Spear 3 Modular Handguard",
+        "note": "Also: Spear 3 Mod. HG"
       },
       {
         "ko": "스피어 3 보정기",
-        "en": "Spear 3 Comp.",
-        "note": "Also: Spear 3 Compensator"
+        "en": "Spear 3 Compensator",
+        "note": "Also: Spear 3 Comp."
       },
       {
         "ko": "스피어 3 소음기",
-        "en": "Spear 3 Sup.",
-        "note": "Also: Spear 3 Suppressor"
+        "en": "Spear 3 Suppressor",
+        "note": "Also: Spear 3 Sup."
       },
       {
         "ko": "스피어 3 접이식 개머리판",
-        "en": "Spear 3 Fold. Stock",
-        "note": "Also: Spear 3 Folding Stock"
+        "en": "Spear 3 Folding Stock",
+        "note": "Also: Spear 3 Fold. Stock"
       },
       {
         "ko": "스피어 3 총구제동기",
@@ -14360,8 +14356,8 @@
       },
       {
         "ko": "스피어 3 커스텀 충전 손잡이",
-        "en": "Spear 3 Cust. Handle",
-        "note": "Also: Spear 3 Custom Charging Handle"
+        "en": "Spear 3 Custom Charging Handle",
+        "note": "Also: Spear 3 Cust. Handle"
       },
       {
         "ko": "스피어 3-XC 7.62 탄창",
@@ -14377,8 +14373,8 @@
       },
       {
         "ko": "스피어 3-XC 경량형 총열덮개",
-        "en": "Spear 3-XC Hol. HG",
-        "note": "Also: Spear 3-XC Hollowed Handguard"
+        "en": "Spear 3-XC Hollowed Handguard",
+        "note": "Also: Spear 3-XC Hol. HG"
       },
       {
         "ko": "스피어 3-XC 대용량 탄창",
@@ -14390,28 +14386,28 @@
       },
       {
         "ko": "스피어 3-XC 래틀러 총열덮개",
-        "en": "Spear 3-XC Rattler HG",
-        "note": "Also: Spear 3-XC Rattler Handguard"
+        "en": "Spear 3-XC Rattler Handguard",
+        "note": "Also: Spear 3-XC Rattler HG"
       },
       {
         "ko": "스피어 3-XC 소음기",
-        "en": "Spear 3-XC Sup.",
-        "note": "Also: Spear 3-XC Suppressor"
+        "en": "Spear 3-XC Suppressor",
+        "note": "Also: Spear 3-XC Sup."
       },
       {
         "ko": "스피어 3-XC 연장 총열",
-        "en": "Spear 3-XC L Barrel",
-        "note": "Also: Spear 3-XC Long Barrel"
+        "en": "Spear 3-XC Long Barrel",
+        "note": "Also: Spear 3-XC L Barrel"
       },
       {
         "ko": "스피어 3-XC 일체형 총열덮개",
-        "en": "Spear 3-XC Int. HG",
-        "note": "Also: Spear 3-XC Integrated Handguard"
+        "en": "Spear 3-XC Integrated Handguard",
+        "note": "Also: Spear 3-XC Int. HG"
       },
       {
         "ko": "스피어 3-XC 텔레스코픽 개머리판",
-        "en": "Spear 3-XC Telestock",
-        "note": "Also: Spear 3-XC Telescopic Stock"
+        "en": "Spear 3-XC Telescopic Stock",
+        "note": "Also: Spear 3-XC Telestock"
       },
       {
         "ko": "실험적인 고성능 구경.",
@@ -14427,8 +14423,8 @@
       },
       {
         "ko": "야간투시 조준기",
-        "en": "Night Sight",
-        "note": "Also: Night Vision Sight"
+        "en": "Night Vision Sight",
+        "note": "Also: Night Sight"
       },
       {
         "ko": "여분 탄환",
@@ -14573,8 +14569,8 @@
       },
       {
         "ko": "초록색 레이저 조준기",
-        "en": "Green Sight",
-        "note": "Also: Green Laser Sight"
+        "en": "Green Laser Sight",
+        "note": "Also: Green Sight"
       },
       {
         "ko": "초탄 수직 반동",
@@ -14662,10 +14658,6 @@
         "en": "Gun Wall"
       },
       {
-        "ko": "총기를",
-        "en": "FIND"
-      },
-      {
         "ko": "총열",
         "en": "Barrel",
         "note": "총기 부품."
@@ -14728,13 +14720,13 @@
       },
       {
         "ko": "컴팩트 2 경량형 개머리판",
-        "en": "Compact 2 Hol. Stock",
-        "note": "Also: Compact 2 Hollowed Stock"
+        "en": "Compact 2 Hollowed Stock",
+        "note": "Also: Compact 2 Hol. Stock"
       },
       {
         "ko": "컴팩트 2 경량형 총열덮개",
-        "en": "Compact 2 Hol. HG",
-        "note": "Also: Compact 2 Hollowed Handguard"
+        "en": "Compact 2 Hollowed Handguard",
+        "note": "Also: Compact 2 Hol. HG"
       },
       {
         "ko": "컴팩트 2 대용량 탄창",
@@ -14742,13 +14734,13 @@
       },
       {
         "ko": "컴팩트 2 소음기",
-        "en": "Compact 2 Sup.",
-        "note": "Also: Compact 2 Suppressor"
+        "en": "Compact 2 Suppressor",
+        "note": "Also: Compact 2 Sup."
       },
       {
         "ko": "컴팩트 2 점사",
-        "en": "Compact 2 Burst",
-        "note": "Also: Compact 2 Burst-Fire"
+        "en": "Compact 2 Burst-Fire",
+        "note": "Also: Compact 2 Burst"
       },
       {
         "ko": "컴팩트 2 탄창",
@@ -14788,8 +14780,8 @@
       },
       {
         "ko": "탄창",
-        "en": "Magazine",
-        "note": "Also: Magazines"
+        "en": "Magazines",
+        "note": "Also: Magazine"
       },
       {
         "ko": "탄창 넣기",
@@ -14865,8 +14857,8 @@
       },
       {
         "ko": "폐쇄형 디지털 조준기",
-        "en": "Enclosed Digisight",
-        "note": "Also: Enclosed Digital Sight"
+        "en": "Enclosed Digital Sight",
+        "note": "Also: Enclosed Digisight"
       },
       {
         "ko": "프로토 M870 총구제동기",
@@ -14898,23 +14890,23 @@
       },
       {
         "ko": "프로토타입 DBX-M 총구 슈라우드",
-        "en": "Proto. DBX-M Shroud",
-        "note": "Also: Prototype DBX-M Muzzle Shroud"
+        "en": "Prototype DBX-M Muzzle Shroud",
+        "note": "Also: Proto. DBX-M Shroud"
       },
       {
         "ko": "프로토타입 FX2000 총구제동기",
-        "en": "Proto. FX2000 Muzzle Brake",
-        "note": "Also: Prototype FX2000 Muzzle Brake"
+        "en": "Prototype FX2000 Muzzle Brake",
+        "note": "Also: Proto. FX2000 Muzzle Brake"
       },
       {
         "ko": "프로토타입 G19 총구제동기",
-        "en": "Proto. G19 Muzzle Brake",
-        "note": "Also: Prototype G19 Muzzle Brake"
+        "en": "Prototype G19 Muzzle Brake",
+        "note": "Also: Proto. G19 Muzzle Brake"
       },
       {
         "ko": "프로토타입 M24 총구제동기",
-        "en": "Proto. M24 Muzzle Brake",
-        "note": "Also: Prototype M24 Muzzle Brake"
+        "en": "Prototype M24 Muzzle Brake",
+        "note": "Also: Proto. M24 Muzzle Brake"
       },
       {
         "ko": "프로토타입 M870 총구제동기",
@@ -14922,38 +14914,38 @@
       },
       {
         "ko": "프로토타입 MP5 총구제동기",
-        "en": "Proto. MP5 Muzzle Brake",
-        "note": "Also: Prototype MP5 Muzzle Brake"
+        "en": "Prototype MP5 Muzzle Brake",
+        "note": "Also: Proto. MP5 Muzzle Brake"
       },
       {
         "ko": "프로토타입 MP7A5 보정기",
-        "en": "Proto. MP7A5 Comp.",
-        "note": "Also: Prototype MP7A5 Compensator"
+        "en": "Prototype MP7A5 Compensator",
+        "note": "Also: Proto. MP7A5 Comp."
       },
       {
         "ko": "프로토타입 MPX9 보정기",
-        "en": "Proto. MPX9 Comp.",
-        "note": "Also: Prototype MPX9 Compensator"
+        "en": "Prototype MPX9 Compensator",
+        "note": "Also: Proto. MPX9 Comp."
       },
       {
         "ko": "프로토타입 QS7 경량형 개머리판",
-        "en": "Proto. QS7 Light Stock",
-        "note": "Also: Prototype QS7 Light Stock"
+        "en": "Prototype QS7 Light Stock",
+        "note": "Also: Proto. QS7 Light Stock"
       },
       {
         "ko": "프로토타입 RDB 보정기",
-        "en": "Proto. RDB Comp.",
-        "note": "Also: Prototype RDB Compensator"
+        "en": "Prototype RDB Compensator",
+        "note": "Also: Proto. RDB Comp."
       },
       {
         "ko": "프로토타입 UMP45 보정기",
-        "en": "Proto. UMP45 Comp.",
-        "note": "Also: Prototype UMP45 Compensator"
+        "en": "Prototype UMP45 Compensator",
+        "note": "Also: Proto. UMP45 Comp."
       },
       {
         "ko": "프로토타입 V9A1 보정기",
-        "en": "Proto. V9A1 Comp.",
-        "note": "Also: Prototype V9A1 Compensator"
+        "en": "Prototype V9A1 Compensator",
+        "note": "Also: Proto. V9A1 Comp."
       },
       {
         "ko": "프로토타입 리커 손잡이",
@@ -14969,13 +14961,13 @@
       },
       {
         "ko": "프로토타입 벡터 경량형 개머리판",
-        "en": "Proto. Vector Light Stock",
-        "note": "Also: Prototype Vector Light Stock"
+        "en": "Prototype Vector Light Stock",
+        "note": "Also: Proto. Vector Light Stock"
       },
       {
         "ko": "프로토타입 수직 손잡이",
-        "en": "Proto. Vert. Grip",
-        "note": "Also: Prototype Vertical Grip"
+        "en": "Prototype Vertical Grip",
+        "note": "Also: Proto. Vert. Grip"
       },
       {
         "ko": "프로토타입 수직 손잡이 스킨 일반",
@@ -14987,8 +14979,8 @@
       },
       {
         "ko": "프로토타입 스켈레톤 손잡이",
-        "en": "Proto. Skel. Grip",
-        "note": "Also: Prototype Skeleton Grip"
+        "en": "Prototype Skeleton Grip",
+        "note": "Also: Proto. Skel. Grip"
       },
       {
         "ko": "프로토타입 스켈레톤 손잡이 스킨 일반",
@@ -14996,13 +14988,13 @@
       },
       {
         "ko": "프로토타입 스피어 3 접이식 개머리판",
-        "en": "Proto. Spear 3 Fold. Stock",
-        "note": "Also: Prototype Spear 3 Folding Stock"
+        "en": "Prototype Spear 3 Folding Stock",
+        "note": "Also: Proto. Spear 3 Fold. Stock"
       },
       {
         "ko": "프로토타입 앵글 손잡이",
-        "en": "Proto. Angled Grip",
-        "note": "Also: Prototype Angled Grip"
+        "en": "Prototype Angled Grip",
+        "note": "Also: Proto. Angled Grip"
       },
       {
         "ko": "프로토타입 앵글 손잡이 스킨 일반",
@@ -15026,13 +15018,13 @@
       },
       {
         "ko": "프로토타입 총구 디히터",
-        "en": "Proto. Muzzle Deheat.",
-        "note": "Also: Prototype Muzzle Deheater"
+        "en": "Prototype Muzzle Deheater",
+        "note": "Also: Proto. Muzzle Deheat."
       },
       {
         "ko": "프로토타입 커브 손잡이",
-        "en": "Proto. Curved Grip",
-        "note": "Also: Prototype Curved Foregrip"
+        "en": "Prototype Curved Foregrip",
+        "note": "Also: Proto. Curved Grip"
       },
       {
         "ko": "프로토타입 커브 손잡이 스킨 일반",
@@ -15064,8 +15056,8 @@
       },
       {
         "ko": "홀로그램 조준기",
-        "en": "Holosight",
-        "note": "Also: Holographic Sight"
+        "en": "Holographic Sight",
+        "note": "Also: Holosight"
       },
       {
         "ko": "홀로그램 조준선을 갖춘 후드 조준경.",
